@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bodyMedium,
     letterSpacing: 1.3,
     textTransform: 'uppercase',
-    color: colors.sandWarm,
+    color: colors.orange,
   },
   title: {
     fontFamily: fonts.display,

@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     height: 220,
     borderRadius: 110,
     borderWidth: 2,
-    borderColor: colors.sandWarm,
+    borderColor: colors.orange,
   },
   cue: {
     fontFamily: fonts.body,

@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     letterSpacing: 1,
     textTransform: 'uppercase',
-    color: colors.sandWarm,
+    color: colors.orange,
     marginBottom: spacing.sm,
   },
   title: {

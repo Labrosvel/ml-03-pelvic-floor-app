@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     letterSpacing: 1.2,
     textTransform: 'uppercase',
-    color: colors.sandWarm,
+    color: colors.orange,
     marginBottom: spacing.sm,
   },
   heroTitle: {
