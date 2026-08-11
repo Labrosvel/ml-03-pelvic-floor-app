@@ -1,0 +1,17 @@
+{
+  "name": "ml-03-pelvic-floor-app",
+  "user": "ubuntu",
+  "install": "bash scripts/setup.sh",
+  "terminals": [
+    {
+      "name": "web",
+      "command": "bash scripts/run.sh"
+    }
+  ],
+  "ports": [
+    {
+      "name": "web",
+      "port": 8000
+    }
+  ]
+}
