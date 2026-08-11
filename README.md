@@ -15,27 +15,61 @@ Designed so a physiotherapist (or their patients) can preview the UI in **Expo G
 - Short education articles
 - Clinic name + patient name personalisation
 
-## Quick start
+## First-time setup (on your own computer)
+
+Do this on **your laptop/PC** (not only in a cloud chat). Keep the terminal window open while testing.
+
+### 1. Get the app code
+
+```bash
+git clone https://github.com/Labrosvel/ml-03-pelvic-floor-app.git
+cd ml-03-pelvic-floor-app
+git checkout cursor/pelvic-floor-app-mvp-cef3
+```
+
+> Important: the app is on branch `cursor/pelvic-floor-app-mvp-cef3`. If you stay on `main`, you will not have the Expo project.
+
+### 2. Install dependencies
 
 ```bash
 npm install
-npx expo start --tunnel
 ```
 
-`--tunnel` matters when you are in the UK and your mother is in Greece: Expo Go connects over the internet instead of local Wi‑Fi.
+Success looks like: it finishes without a red error, and you have a `node_modules` folder. Warnings are usually OK.
 
-Scan the QR code with:
-
-- **iOS**: Camera app → opens Expo Go
-- **Android**: Expo Go → Scan QR code
-
-Your mother can install [Expo Go](https://expo.dev/go) and open the preview without App Store / Play Store review.
-
-### Web preview (optional)
+### 3a. Easiest: open in a browser on your computer
 
 ```bash
 npx expo start --web
 ```
+
+Wait until the terminal shows Metro started. Your browser should open (or visit `http://localhost:8081`).  
+This is the best first check that everything works.
+
+### 3b. Phone preview with Expo Go (for you or your mother)
+
+1. Install **Expo Go** on the phone: https://expo.dev/go  
+2. On your computer run:
+
+```bash
+npx expo start --tunnel
+```
+
+3. Wait 30–90 seconds. You should see a **QR code** in the terminal (and often a Dev Tools page).  
+4. Keep that terminal running.  
+5. Scan the QR:
+   - **iPhone**: Camera app → open in Expo Go  
+   - **Android**: open Expo Go → Scan QR code  
+
+`--tunnel` is required when you and your mother are on different Wi‑Fi / countries.
+
+### If you see no QR code
+
+- Make sure you are in the project folder and on the branch above  
+- Make sure `npm install` finished  
+- Wait longer — tunnel startup can be slow  
+- Press `c` in the Expo terminal to show the QR again (when the menu appears)  
+- Try web first (`npx expo start --web`) to confirm the app runs  
 
 ## Project structure
 
