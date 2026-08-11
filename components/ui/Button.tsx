@@ -5,7 +5,7 @@ import { colors, fonts, radii, spacing } from '@/constants/theme';
 type Props = {
   label: string;
   onPress: () => void;
-  variant?: 'primary' | 'secondary' | 'ghost';
+  variant?: 'primary' | 'accent' | 'secondary' | 'ghost';
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
 };
@@ -25,6 +25,7 @@ export function Button({
       style={({ pressed }) => [
         styles.base,
         variant === 'primary' && styles.primary,
+        variant === 'accent' && styles.accent,
         variant === 'secondary' && styles.secondary,
         variant === 'ghost' && styles.ghost,
         (pressed || disabled) && styles.pressed,
@@ -55,6 +56,9 @@ const styles = StyleSheet.create({
   },
   primary: {
     backgroundColor: colors.teal,
+  },
+  accent: {
+    backgroundColor: colors.orange,
   },
   secondary: {
     backgroundColor: colors.tealSoft,

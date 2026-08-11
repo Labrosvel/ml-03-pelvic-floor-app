@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.display,
     fontSize: 32,
     lineHeight: 38,
-    color: colors.ink,
+    color: colors.tealDeep,
   },
   subtitle: {
     fontFamily: fonts.body,

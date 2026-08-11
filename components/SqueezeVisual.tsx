@@ -84,13 +84,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     letterSpacing: 1.4,
     textTransform: 'uppercase',
-    color: colors.tealDeep,
+    color: colors.orange,
   },
   seconds: {
     fontFamily: fonts.displayBold,
     fontSize: 72,
     lineHeight: 80,
-    color: colors.ink,
+    color: colors.tealDeep,
   },
   unit: {
     fontFamily: fonts.body,
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     width: 220,
     height: 220,
     borderRadius: 110,
-    borderWidth: 2,
+    borderWidth: 4,
     borderColor: colors.orange,
   },
   cue: {
