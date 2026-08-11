@@ -43,6 +43,7 @@ export default function HomeScreen() {
       />
 
       <Panel style={styles.heroPanel}>
+        <View style={styles.brandBar} />
         <Text style={styles.heroKicker}>Today</Text>
         <Text style={styles.heroTitle}>
           {sessionsToday}/{plan.sessionsPerDay} sessions complete
@@ -52,12 +53,13 @@ export default function HomeScreen() {
         </Text>
         <Button
           label="Start session"
+          variant="accent"
           onPress={() => router.push('/exercise')}
           style={styles.cta}
         />
         <Button
           label="Adjust plan"
-          variant="ghost"
+          variant="secondary"
           onPress={() => router.push('/plan')}
         />
       </Panel>
@@ -79,13 +81,21 @@ const styles = StyleSheet.create({
   heroPanel: {
     backgroundColor: colors.surface,
     marginBottom: spacing.lg,
+    overflow: 'hidden',
+  },
+  brandBar: {
+    height: 6,
+    borderRadius: 999,
+    backgroundColor: colors.teal,
+    marginBottom: spacing.md,
+    alignSelf: 'stretch',
   },
   heroKicker: {
     fontFamily: fonts.bodyMedium,
     fontSize: 12,
     letterSpacing: 1.2,
     textTransform: 'uppercase',
-    color: colors.sandWarm,
+    color: colors.orange,
     marginBottom: spacing.sm,
   },
   heroTitle: {

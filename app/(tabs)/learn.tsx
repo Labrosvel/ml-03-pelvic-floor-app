@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     letterSpacing: 0.8,
     textTransform: 'uppercase',
-    color: colors.sandWarm,
+    color: colors.orange,
     marginBottom: spacing.xs,
   },
   title: {

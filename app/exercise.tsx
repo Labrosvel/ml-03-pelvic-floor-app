@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bodyMedium,
     letterSpacing: 1.2,
     textTransform: 'uppercase',
-    color: colors.sandWarm,
+    color: colors.orange,
   },
   finishTitle: {
     fontFamily: fonts.display,

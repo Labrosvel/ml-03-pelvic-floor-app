@@ -45,6 +45,7 @@ export default function OnboardingScreen() {
 
       <Button
         label="Continue"
+        variant="accent"
         onPress={async () => {
           await updateSettings({
             clinicName: clinicName.trim() || brand.defaultClinicName,
@@ -69,12 +70,12 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bodyMedium,
     letterSpacing: 1.3,
     textTransform: 'uppercase',
-    color: colors.sandWarm,
+    color: colors.orange,
   },
   title: {
     fontFamily: fonts.display,
     fontSize: 40,
-    color: colors.ink,
+    color: colors.tealDeep,
   },
   body: {
     fontFamily: fonts.body,

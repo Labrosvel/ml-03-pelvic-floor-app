@@ -28,13 +28,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     letterSpacing: 1.2,
     textTransform: 'uppercase',
-    color: colors.sandWarm,
+    color: colors.orange,
   },
   title: {
     fontFamily: fonts.display,
     fontSize: 32,
     lineHeight: 38,
-    color: colors.ink,
+    color: colors.tealDeep,
   },
   subtitle: {
     fontFamily: fonts.body,
