@@ -15,9 +15,38 @@ Designed so a physiotherapist (or their patients) can preview the UI in **Expo G
 - Short education articles
 - Clinic name + patient name personalisation
 
+## Using this Cloud Agent (Cursor web)
+
+This project often runs inside a **Cursor Cloud Agent** (a remote machine), not on your laptop.
+
+That means:
+
+1. The Expo server is on the **remote VM** (usually port **8081**).
+2. Your browser’s `localhost` only works if Cursor **port-forwards** that remote port to your machine.
+3. Open **`http://localhost:8081`** (not 8082).
+
+### Open the web UI from Cursor
+
+1. Keep Expo running in the agent (`npx expo start --web --port 8081`).
+2. In the Cursor Agents UI, click the **plug / ports** icon (top-right of the editor panel).
+3. Confirm port **8081** is forwarded (enable Auto-Forward Ports if needed).
+4. Open `http://localhost:8081` in your browser, or use “Open in browser” from that ports menu.
+
+If you open `8082` or any port that is not forwarded, you will see “This site can’t be reached” — that is expected.
+
+### Phone preview from a Cloud Agent
+
+The QR code’s `exp://172.x.x.x` address is **internal** to the VM. Your phone cannot reach it unless you start with tunnel:
+
+```bash
+npx expo start --tunnel --web --port 8081
+```
+
+Then scan the QR with Expo Go.
+
 ## First-time setup (on your own computer)
 
-Do this on **your laptop/PC** (not only in a cloud chat). Keep the terminal window open while testing.
+Do this on **your laptop/PC** if you prefer not to use the Cloud Agent. Keep the terminal window open while testing.
 
 ### 1. Get the app code
 
