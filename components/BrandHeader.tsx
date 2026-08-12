@@ -2,19 +2,13 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 
 import { brand, colors, fonts, spacing } from '@/constants/theme';
 
-type Props = {
-  /** Align the clinic lockup to the end (default) or stretch as a full brand row. */
-  align?: 'end' | 'start';
-};
-
 /**
- * Parent-clinic lockup: Physiospecialists mark + name.
- * Placed top-right on content screens so page titles keep the product hierarchy.
+ * Parent-clinic lockup: Physiospecialists mark + name, top-right on every screen.
  */
-export function BrandHeader({ align = 'end' }: Props) {
+export function BrandHeader() {
   return (
     <View
-      style={[styles.wrap, align === 'start' ? styles.alignStart : styles.alignEnd]}
+      style={styles.wrap}
       accessibilityRole="header"
       accessibilityLabel={brand.clinicName}
     >
@@ -38,15 +32,10 @@ const styles = StyleSheet.create({
   wrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.sm,
-    marginBottom: spacing.md,
-  },
-  alignEnd: {
     alignSelf: 'flex-end',
     maxWidth: '100%',
-  },
-  alignStart: {
-    alignSelf: 'stretch',
+    gap: spacing.sm,
+    marginBottom: spacing.md,
   },
   markWell: {
     width: 36,
