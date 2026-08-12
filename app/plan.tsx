@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { Button } from '@/components/ui/Button';
@@ -8,29 +8,57 @@ import { DEFAULT_PLAN, ExercisePlan } from '@/constants/plans';
 import { colors, fonts, spacing } from '@/constants/theme';
 import { useAppState } from '@/context/AppState';
 
-function numberOr(value: string, fallback: number): number {
-  const parsed = Number(value);
-  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+type NumberFields = {
+  sessionsPerDay: string;
+  slowSqueeze: string;
+  slowRest: string;
+  slowReps: string;
+  quickSqueeze: string;
+  quickRest: string;
+  quickReps: string;
+};
+
+function planToFields(plan: ExercisePlan): NumberFields {
+  const slow = plan.blocks.find((block) => block.id === 'slow') ?? plan.blocks[0];
+  const quick = plan.blocks.find((block) => block.id === 'quick') ?? plan.blocks[1];
+
+  return {
+    sessionsPerDay: String(plan.sessionsPerDay),
+    slowSqueeze: String(slow?.squeezeSeconds ?? 8),
+    slowRest: String(slow?.restSeconds ?? 8),
+    slowReps: String(slow?.repetitions ?? 8),
+    quickSqueeze: String(quick?.squeezeSeconds ?? 1),
+    quickRest: String(quick?.restSeconds ?? 1),
+    quickReps: String(quick?.repetitions ?? 10),
+  };
+}
+
+function parsePositiveInt(value: string, label: string): number | null {
+  const trimmed = value.trim();
+  if (!trimmed) {
+    Alert.alert('Missing value', `Please enter a number for ${label}.`);
+    return null;
+  }
+  const parsed = Number(trimmed);
+  if (!Number.isFinite(parsed) || !Number.isInteger(parsed) || parsed <= 0) {
+    Alert.alert('Invalid value', `${label} must be a whole number greater than 0.`);
+    return null;
+  }
+  return parsed;
 }
 
 export default function PlanScreen() {
   const { plan, updatePlan } = useAppState();
-  const [draft, setDraft] = useState<ExercisePlan>(plan);
+  const [name, setName] = useState(plan.name);
+  const [fields, setFields] = useState<NumberFields>(() => planToFields(plan));
 
-  const slow = draft.blocks.find((block) => block.id === 'slow') ?? draft.blocks[0];
-  const quick = draft.blocks.find((block) => block.id === 'quick') ?? draft.blocks[1];
-
-  const updateBlock = (
-    blockId: string,
-    patch: Partial<(typeof draft.blocks)[number]>,
-  ) => {
-    setDraft((current) => ({
-      ...current,
-      blocks: current.blocks.map((block) =>
-        block.id === blockId ? { ...block, ...patch } : block,
-      ),
-    }));
+  const setField = (key: keyof NumberFields, value: string) => {
+    // Allow digits only while typing; empty string is allowed so values can be cleared/amended.
+    if (value !== '' && !/^\d+$/.test(value)) return;
+    setFields((current) => ({ ...current, [key]: value }));
   };
+
+  const starterFields = useMemo(() => planToFields(DEFAULT_PLAN), []);
 
   return (
     <Screen>
@@ -40,84 +68,101 @@ export default function PlanScreen() {
 
       <Panel style={styles.block}>
         <Text style={styles.label}>Plan name</Text>
-        <TextInput
-          style={styles.input}
-          value={draft.name}
-          onChangeText={(name) => setDraft((current) => ({ ...current, name }))}
-        />
+        <TextInput style={styles.input} value={name} onChangeText={setName} />
 
-        <Text style={styles.label}>Sessions per day</Text>
-        <TextInput
-          style={styles.input}
-          keyboardType="number-pad"
-          value={String(draft.sessionsPerDay)}
-          onChangeText={(value) =>
-            setDraft((current) => ({
-              ...current,
-              sessionsPerDay: numberOr(value, current.sessionsPerDay),
-            }))
-          }
+        <Field
+          label="Sessions per day"
+          value={fields.sessionsPerDay}
+          onChange={(value) => setField('sessionsPerDay', value)}
         />
       </Panel>
 
-      {slow ? (
-        <Panel style={styles.block}>
-          <Text style={styles.sectionTitle}>Slow squeezes</Text>
-          <Field
-            label="Squeeze (sec)"
-            value={String(slow.squeezeSeconds)}
-            onChange={(value) =>
-              updateBlock(slow.id, { squeezeSeconds: numberOr(value, slow.squeezeSeconds) })
-            }
-          />
-          <Field
-            label="Rest (sec)"
-            value={String(slow.restSeconds)}
-            onChange={(value) =>
-              updateBlock(slow.id, { restSeconds: numberOr(value, slow.restSeconds) })
-            }
-          />
-          <Field
-            label="Repetitions"
-            value={String(slow.repetitions)}
-            onChange={(value) =>
-              updateBlock(slow.id, { repetitions: numberOr(value, slow.repetitions) })
-            }
-          />
-        </Panel>
-      ) : null}
+      <Panel style={styles.block}>
+        <Text style={styles.sectionTitle}>Slow squeezes</Text>
+        <Field
+          label="Squeeze (sec)"
+          value={fields.slowSqueeze}
+          onChange={(value) => setField('slowSqueeze', value)}
+        />
+        <Field
+          label="Rest (sec)"
+          value={fields.slowRest}
+          onChange={(value) => setField('slowRest', value)}
+        />
+        <Field
+          label="Repetitions"
+          value={fields.slowReps}
+          onChange={(value) => setField('slowReps', value)}
+        />
+      </Panel>
 
-      {quick ? (
-        <Panel style={styles.block}>
-          <Text style={styles.sectionTitle}>Quick squeezes</Text>
-          <Field
-            label="Squeeze (sec)"
-            value={String(quick.squeezeSeconds)}
-            onChange={(value) =>
-              updateBlock(quick.id, { squeezeSeconds: numberOr(value, quick.squeezeSeconds) })
-            }
-          />
-          <Field
-            label="Rest (sec)"
-            value={String(quick.restSeconds)}
-            onChange={(value) =>
-              updateBlock(quick.id, { restSeconds: numberOr(value, quick.restSeconds) })
-            }
-          />
-          <Field
-            label="Repetitions"
-            value={String(quick.repetitions)}
-            onChange={(value) =>
-              updateBlock(quick.id, { repetitions: numberOr(value, quick.repetitions) })
-            }
-          />
-        </Panel>
-      ) : null}
+      <Panel style={styles.block}>
+        <Text style={styles.sectionTitle}>Quick squeezes</Text>
+        <Field
+          label="Squeeze (sec)"
+          value={fields.quickSqueeze}
+          onChange={(value) => setField('quickSqueeze', value)}
+        />
+        <Field
+          label="Rest (sec)"
+          value={fields.quickRest}
+          onChange={(value) => setField('quickRest', value)}
+        />
+        <Field
+          label="Repetitions"
+          value={fields.quickReps}
+          onChange={(value) => setField('quickReps', value)}
+        />
+      </Panel>
 
       <Button
         label="Save plan"
         onPress={async () => {
-          await updatePlan(draft);
+          const sessionsPerDay = parsePositiveInt(fields.sessionsPerDay, 'Sessions per day');
+          const slowSqueeze = parsePositiveInt(fields.slowSqueeze, 'Slow squeeze (sec)');
+          const slowRest = parsePositiveInt(fields.slowRest, 'Slow rest (sec)');
+          const slowReps = parsePositiveInt(fields.slowReps, 'Slow repetitions');
+          const quickSqueeze = parsePositiveInt(fields.quickSqueeze, 'Quick squeeze (sec)');
+          const quickRest = parsePositiveInt(fields.quickRest, 'Quick rest (sec)');
+          const quickReps = parsePositiveInt(fields.quickReps, 'Quick repetitions');
+
+          if (
+            sessionsPerDay == null ||
+            slowSqueeze == null ||
+            slowRest == null ||
+            slowReps == null ||
+            quickSqueeze == null ||
+            quickRest == null ||
+            quickReps == null
+          ) {
+            return;
+          }
+
+          const nextPlan: ExercisePlan = {
+            ...plan,
+            name: name.trim() || plan.name,
+            sessionsPerDay,
+            blocks: [
+              {
+                id: 'slow',
+                label: 'Slow squeezes',
+                kind: 'slow',
+                squeezeSeconds: slowSqueeze,
+                restSeconds: slowRest,
+                repetitions: slowReps,
+              },
+              {
+                id: 'quick',
+                label: 'Quick squeezes',
+                kind: 'quick',
+                squeezeSeconds: quickSqueeze,
+                restSeconds: quickRest,
+                repetitions: quickReps,
+              },
+            ],
+          };
+
+          await updatePlan(nextPlan);
           Alert.alert('Saved', 'Exercise plan updated on this device.');
         }}
       />
@@ -125,7 +170,10 @@ export default function PlanScreen() {
         label="Restore starter plan"
         variant="secondary"
         style={styles.spaced}
-        onPress={() => setDraft(DEFAULT_PLAN)}
+        onPress={() => {
+          setName(DEFAULT_PLAN.name);
+          setFields(starterFields);
+        }}
       />
     </Screen>
   );
@@ -148,6 +196,8 @@ function Field({
         keyboardType="number-pad"
         value={value}
         onChangeText={onChange}
+        placeholder="0"
+        placeholderTextColor={colors.inkSoft}
       />
     </View>
   );
