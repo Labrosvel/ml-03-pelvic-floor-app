@@ -36,7 +36,7 @@ export default function SettingsScreen() {
 
   return (
     <Screen>
-      <BrandHeader align="start" />
+      <BrandHeader />
       <SectionHeader
         title={t('settings.title')}
         subtitle={t('settings.subtitle')}
