@@ -99,6 +99,18 @@ export default function SettingsScreen() {
             trackColor={{ true: colors.teal, false: colors.border }}
           />
         </View>
+
+        <View style={styles.row}>
+          <View style={styles.rowText}>
+            <Text style={styles.rowTitle}>{t('settings.sound')}</Text>
+            <Text style={styles.rowBody}>{t('settings.soundHint')}</Text>
+          </View>
+          <Switch
+            value={settings.soundEnabled}
+            onValueChange={(soundEnabled) => void updateSettings({ soundEnabled })}
+            trackColor={{ true: colors.teal, false: colors.border }}
+          />
+        </View>
       </Panel>
 
       <Button label={t('settings.editPlan')} onPress={() => router.push('/plan')} />

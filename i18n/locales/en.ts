@@ -77,6 +77,8 @@ const en = {
     yourNamePlaceholder: 'Patient first name',
     reminders: 'Reminders',
     haptics: 'Haptics',
+    sound: 'Sound cues',
+    soundHint: 'Soft tones for prepare, squeeze, rest, and session complete',
     language: 'Language',
     languageSystem: 'Device default',
     languageEn: 'English',
