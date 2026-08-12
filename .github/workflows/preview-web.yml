@@ -39,6 +39,9 @@ jobs:
           BASE_PATH: /ml-03-pelvic-floor-app/pr-preview/pr-${{ github.event.number }}
         run: npx expo export -p web
 
+      - name: Ensure dist exists
+        run: mkdir -p dist
+
       - name: Deploy or clean PR preview
         uses: rossjrw/pr-preview-action@v1
         with:
