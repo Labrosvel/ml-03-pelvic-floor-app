@@ -3,7 +3,6 @@ const en = {
     appName: 'PelviGuide',
     clinicName: 'Physiospecialists',
     tagline: 'Pelvic floor practice, guided gently',
-    productLine: '{{appName}} · home pelvic floor practice',
     defaultClinicName: 'Physiospecialists',
   },
   common: {

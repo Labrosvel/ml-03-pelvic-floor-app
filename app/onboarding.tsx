@@ -17,8 +17,8 @@ export default function OnboardingScreen() {
 
   return (
     <Screen scroll={false} contentStyle={styles.content}>
-      <BrandHeader />
       <View style={styles.copy}>
+        <BrandHeader />
         <Text style={styles.eyebrow}>{t('onboarding.eyebrow')}</Text>
         <Text style={styles.title}>{brand.appName}</Text>
         <Text style={styles.body}>{t('onboarding.body')}</Text>

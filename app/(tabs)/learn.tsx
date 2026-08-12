@@ -13,7 +13,7 @@ export default function LearnScreen() {
 
   return (
     <Screen>
-      <BrandHeader compact />
+      <BrandHeader />
       <SectionHeader
         eyebrow={t('learn.eyebrow')}
         title={t('learn.title')}

@@ -31,7 +31,7 @@ export default function ProgressScreen() {
 
   return (
     <Screen>
-      <BrandHeader compact />
+      <BrandHeader />
       <SectionHeader
         eyebrow={t('progress.eyebrow')}
         title={t('progress.title')}

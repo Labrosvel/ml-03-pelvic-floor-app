@@ -3,7 +3,6 @@ const el = {
     appName: 'PelviGuide',
     clinicName: 'Physiospecialists',
     tagline: 'Εξάσκηση πυελικού εδάφους, με ήπια καθοδήγηση',
-    productLine: '{{appName}} · εξάσκηση πυελικού εδάφους στο σπίτι',
     defaultClinicName: 'Physiospecialists',
   },
   common: {
