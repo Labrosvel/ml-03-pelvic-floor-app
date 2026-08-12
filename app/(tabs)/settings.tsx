@@ -2,12 +2,13 @@ import { router } from 'expo-router';
 import { Alert, Pressable, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
+import { BrandHeader } from '@/components/BrandHeader';
 import { Button } from '@/components/ui/Button';
 import { Panel } from '@/components/ui/Panel';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { SOUND_PACKS, type SoundPackId } from '@/constants/sounds';
-import { brand, colors, fonts, spacing } from '@/constants/theme';
+import { colors, fonts, spacing } from '@/constants/theme';
 import { WEB_BUILD_ID } from '@/constants/buildInfo';
 import { useAppState } from '@/context/AppState';
 import { AppLanguage } from '@/i18n/types';
@@ -35,8 +36,8 @@ export default function SettingsScreen() {
 
   return (
     <Screen>
+      <BrandHeader compact />
       <SectionHeader
-        eyebrow={brand.appName}
         title={t('settings.title')}
         subtitle={t('settings.subtitle')}
       />

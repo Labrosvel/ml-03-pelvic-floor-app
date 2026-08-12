@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
+import { BrandHeader } from '@/components/BrandHeader';
 import { Button } from '@/components/ui/Button';
 import { Screen } from '@/components/ui/Screen';
 import { brand, colors, fonts, spacing } from '@/constants/theme';
@@ -11,11 +12,12 @@ import { useAppState } from '@/context/AppState';
 export default function OnboardingScreen() {
   const { t } = useTranslation();
   const { settings, updateSettings } = useAppState();
-  const [clinicName, setClinicName] = useState(settings.clinicName);
+  const [clinicName, setClinicName] = useState(settings.clinicName || brand.clinicName);
   const [displayName, setDisplayName] = useState(settings.displayName);
 
   return (
     <Screen scroll={false} contentStyle={styles.content}>
+      <BrandHeader />
       <View style={styles.copy}>
         <Text style={styles.eyebrow}>{t('onboarding.eyebrow')}</Text>
         <Text style={styles.title}>{brand.appName}</Text>

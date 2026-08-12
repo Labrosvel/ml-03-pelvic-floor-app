@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
+import { BrandHeader } from '@/components/BrandHeader';
 import { Button } from '@/components/ui/Button';
 import { Panel } from '@/components/ui/Panel';
 import { Screen } from '@/components/ui/Screen';
@@ -28,7 +29,7 @@ export default function HomeScreen() {
       <Screen scroll={false}>
         <View style={styles.loading}>
           <Text style={styles.loadingText}>
-            {t('home.loading', { appName: brand.appName })}
+            {t('home.loading', { appName: brand.clinicName })}
           </Text>
         </View>
       </Screen>
@@ -37,9 +38,9 @@ export default function HomeScreen() {
 
   return (
     <Screen>
+      <BrandHeader />
       <SectionHeader
-        eyebrow={settings.clinicName || t('brand.defaultClinicName')}
-        title={brand.appName}
+        title={t('home.today')}
         subtitle={
           settings.displayName
             ? t('home.welcomeBack', { name: settings.displayName })
@@ -49,7 +50,7 @@ export default function HomeScreen() {
 
       <Panel style={styles.heroPanel}>
         <View style={styles.brandBar} />
-        <Text style={styles.heroKicker}>{t('home.today')}</Text>
+        <Text style={styles.heroKicker}>{t('home.sessionFocus')}</Text>
         <Text style={styles.heroTitle}>
           {t('home.sessionsComplete', {
             done: sessionsToday,
