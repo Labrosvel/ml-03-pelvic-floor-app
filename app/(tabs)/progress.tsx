@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
+import { BrandHeader } from '@/components/BrandHeader';
 import { Panel } from '@/components/ui/Panel';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
@@ -30,6 +31,7 @@ export default function ProgressScreen() {
 
   return (
     <Screen>
+      <BrandHeader />
       <SectionHeader
         eyebrow={t('progress.eyebrow')}
         title={t('progress.title')}

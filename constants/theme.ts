@@ -42,6 +42,8 @@ export const fonts = {
 
 export const brand = {
   appName: 'PelviGuide',
+  clinicName: 'Physiospecialists',
+  clinicUrl: 'https://physiospecialists.gr/',
   tagline: 'Pelvic floor practice, guided gently',
-  defaultClinicName: 'Clinic practice',
+  defaultClinicName: 'Physiospecialists',
 };

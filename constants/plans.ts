@@ -125,7 +125,7 @@ export function displayBlockLabel(block: ExerciseBlock, t: TFunction): string {
 }
 
 export const DEFAULT_SETTINGS: AppSettings = {
-  clinicName: 'Clinic practice',
+  clinicName: 'Physiospecialists',
   displayName: '',
   hapticsEnabled: true,
   soundEnabled: true,

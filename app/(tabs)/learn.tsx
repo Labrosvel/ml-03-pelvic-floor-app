@@ -2,6 +2,7 @@ import { router } from 'expo-router';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
+import { BrandHeader } from '@/components/BrandHeader';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { ARTICLE_METAS } from '@/constants/education';
@@ -12,6 +13,7 @@ export default function LearnScreen() {
 
   return (
     <Screen>
+      <BrandHeader />
       <SectionHeader
         eyebrow={t('learn.eyebrow')}
         title={t('learn.title')}

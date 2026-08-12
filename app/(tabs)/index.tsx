@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
+import { BrandHeader } from '@/components/BrandHeader';
 import { Button } from '@/components/ui/Button';
 import { Panel } from '@/components/ui/Panel';
 import { Screen } from '@/components/ui/Screen';
@@ -37,6 +38,7 @@ export default function HomeScreen() {
 
   return (
     <Screen>
+      <BrandHeader />
       <SectionHeader
         eyebrow={settings.clinicName || t('brand.defaultClinicName')}
         title={brand.appName}

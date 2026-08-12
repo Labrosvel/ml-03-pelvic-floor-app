@@ -1,8 +1,9 @@
 const el = {
   brand: {
     appName: 'PelviGuide',
+    clinicName: 'Physiospecialists',
     tagline: 'Εξάσκηση πυελικού εδάφους, με ήπια καθοδήγηση',
-    defaultClinicName: 'Ιατρείο',
+    defaultClinicName: 'Physiospecialists',
   },
   common: {
     cancel: 'Ακύρωση',
@@ -44,7 +45,7 @@ const el = {
     body:
       'Ένας ήρεμος συνοδός για την εξάσκηση του πυελικού εδάφους. Φτιαγμένος ώστε οι ασθενείς να ακολουθούν το πρόγραμμα του φυσικοθεραπευτή στο σπίτι — και να μπορείτε να δοκιμάσετε την εμπειρία στο Expo Go πριν τη δημοσίευση στο κατάστημα.',
     clinicLabel: 'Όνομα ιατρείου / φυσικοθεραπευτή',
-    clinicPlaceholder: 'Το όνομα του ιατρείου',
+    clinicPlaceholder: 'Physiospecialists',
     nameLabel: 'Όνομα ασθενούς (προαιρετικό)',
     namePlaceholder: 'π.χ. Άννα',
     continue: 'Συνέχεια',
@@ -73,7 +74,7 @@ const el = {
     subtitle:
       'Προσαρμόστε για το ιατρείο και τους ασθενείς σας. Τα δεδομένα μένουν σε αυτή τη συσκευή προς το παρόν.',
     clinicName: 'Όνομα ιατρείου',
-    clinicPlaceholder: 'π.χ. Φυσικοθεραπεία Μαρία Παπαδοπούλου',
+    clinicPlaceholder: 'Physiospecialists',
     yourName: 'Το όνομά σας (προαιρετικό)',
     yourNamePlaceholder: 'Όνομα ασθενούς',
     reminders: 'Υπενθυμίσεις',

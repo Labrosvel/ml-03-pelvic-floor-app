@@ -1,8 +1,9 @@
 const en = {
   brand: {
     appName: 'PelviGuide',
+    clinicName: 'Physiospecialists',
     tagline: 'Pelvic floor practice, guided gently',
-    defaultClinicName: 'Clinic practice',
+    defaultClinicName: 'Physiospecialists',
   },
   common: {
     cancel: 'Cancel',
@@ -44,7 +45,7 @@ const en = {
     body:
       'A calm companion for pelvic floor practice. Built so patients can follow a physiotherapist-guided plan at home — and so you can preview the experience in Expo Go before store release.',
     clinicLabel: 'Clinic / physiotherapist name',
-    clinicPlaceholder: "Your mother's clinic name",
+    clinicPlaceholder: 'Physiospecialists',
     nameLabel: 'Patient first name (optional)',
     namePlaceholder: 'e.g. Anna',
     continue: 'Continue',
@@ -72,7 +73,7 @@ const en = {
     title: 'Settings',
     subtitle: 'Customise for your clinic and patients. Data stays on this device for now.',
     clinicName: 'Clinic name',
-    clinicPlaceholder: 'e.g. Maria Papadopoulos Physio',
+    clinicPlaceholder: 'Physiospecialists',
     yourName: 'Your name (optional)',
     yourNamePlaceholder: 'Patient first name',
     reminders: 'Reminders',
