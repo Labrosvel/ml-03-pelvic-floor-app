@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react';
 import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/Button';
 import { Panel } from '@/components/ui/Panel';
 import { Screen } from '@/components/ui/Screen';
-import { DEFAULT_PLAN, ExercisePlan } from '@/constants/plans';
+import { createDefaultPlan, ExercisePlan } from '@/constants/plans';
 import { colors, fonts, spacing } from '@/constants/theme';
 import { useAppState } from '@/context/AppState';
 
@@ -33,21 +34,8 @@ function planToFields(plan: ExercisePlan): NumberFields {
   };
 }
 
-function parsePositiveInt(value: string, label: string): number | null {
-  const trimmed = value.trim();
-  if (!trimmed) {
-    Alert.alert('Missing value', `Please enter a number for ${label}.`);
-    return null;
-  }
-  const parsed = Number(trimmed);
-  if (!Number.isFinite(parsed) || !Number.isInteger(parsed) || parsed <= 0) {
-    Alert.alert('Invalid value', `${label} must be a whole number greater than 0.`);
-    return null;
-  }
-  return parsed;
-}
-
 export default function PlanScreen() {
+  const { t } = useTranslation();
   const { plan, updatePlan } = useAppState();
   const [name, setName] = useState(plan.name);
   const [fields, setFields] = useState<NumberFields>(() => planToFields(plan));
@@ -58,73 +46,89 @@ export default function PlanScreen() {
     setFields((current) => ({ ...current, [key]: value }));
   };
 
-  const starterFields = useMemo(() => planToFields(DEFAULT_PLAN), []);
+  const starterPlan = useMemo(() => createDefaultPlan(t), [t]);
+  const starterFields = useMemo(() => planToFields(starterPlan), [starterPlan]);
+
+  const parsePositiveInt = (value: string, label: string): number | null => {
+    const trimmed = value.trim();
+    if (!trimmed) {
+      Alert.alert(t('plan.missingTitle'), t('plan.missingBody', { label }));
+      return null;
+    }
+    const parsed = Number(trimmed);
+    if (!Number.isFinite(parsed) || !Number.isInteger(parsed) || parsed <= 0) {
+      Alert.alert(t('plan.invalidTitle'), t('plan.invalidBody', { label }));
+      return null;
+    }
+    return parsed;
+  };
 
   return (
     <Screen>
-      <Text style={styles.intro}>
-        Physiotherapist mode: tailor squeeze times and repetitions for each patient.
-      </Text>
+      <Text style={styles.intro}>{t('plan.intro')}</Text>
 
       <Panel style={styles.block}>
-        <Text style={styles.label}>Plan name</Text>
+        <Text style={styles.label}>{t('plan.planName')}</Text>
         <TextInput style={styles.input} value={name} onChangeText={setName} />
 
         <Field
-          label="Sessions per day"
+          label={t('plan.sessionsPerDay')}
           value={fields.sessionsPerDay}
           onChange={(value) => setField('sessionsPerDay', value)}
         />
       </Panel>
 
       <Panel style={styles.block}>
-        <Text style={styles.sectionTitle}>Slow squeezes</Text>
+        <Text style={styles.sectionTitle}>{t('plan.slowSqueezes')}</Text>
         <Field
-          label="Squeeze (sec)"
+          label={t('plan.squeezeSec')}
           value={fields.slowSqueeze}
           onChange={(value) => setField('slowSqueeze', value)}
         />
         <Field
-          label="Rest (sec)"
+          label={t('plan.restSec')}
           value={fields.slowRest}
           onChange={(value) => setField('slowRest', value)}
         />
         <Field
-          label="Repetitions"
+          label={t('plan.repetitions')}
           value={fields.slowReps}
           onChange={(value) => setField('slowReps', value)}
         />
       </Panel>
 
       <Panel style={styles.block}>
-        <Text style={styles.sectionTitle}>Quick squeezes</Text>
+        <Text style={styles.sectionTitle}>{t('plan.quickSqueezes')}</Text>
         <Field
-          label="Squeeze (sec)"
+          label={t('plan.squeezeSec')}
           value={fields.quickSqueeze}
           onChange={(value) => setField('quickSqueeze', value)}
         />
         <Field
-          label="Rest (sec)"
+          label={t('plan.restSec')}
           value={fields.quickRest}
           onChange={(value) => setField('quickRest', value)}
         />
         <Field
-          label="Repetitions"
+          label={t('plan.repetitions')}
           value={fields.quickReps}
           onChange={(value) => setField('quickReps', value)}
         />
       </Panel>
 
       <Button
-        label="Save plan"
+        label={t('plan.savePlan')}
         onPress={async () => {
-          const sessionsPerDay = parsePositiveInt(fields.sessionsPerDay, 'Sessions per day');
-          const slowSqueeze = parsePositiveInt(fields.slowSqueeze, 'Slow squeeze (sec)');
-          const slowRest = parsePositiveInt(fields.slowRest, 'Slow rest (sec)');
-          const slowReps = parsePositiveInt(fields.slowReps, 'Slow repetitions');
-          const quickSqueeze = parsePositiveInt(fields.quickSqueeze, 'Quick squeeze (sec)');
-          const quickRest = parsePositiveInt(fields.quickRest, 'Quick rest (sec)');
-          const quickReps = parsePositiveInt(fields.quickReps, 'Quick repetitions');
+          const sessionsPerDay = parsePositiveInt(
+            fields.sessionsPerDay,
+            t('plan.fieldSessionsPerDay'),
+          );
+          const slowSqueeze = parsePositiveInt(fields.slowSqueeze, t('plan.fieldSlowSqueeze'));
+          const slowRest = parsePositiveInt(fields.slowRest, t('plan.fieldSlowRest'));
+          const slowReps = parsePositiveInt(fields.slowReps, t('plan.fieldSlowReps'));
+          const quickSqueeze = parsePositiveInt(fields.quickSqueeze, t('plan.fieldQuickSqueeze'));
+          const quickRest = parsePositiveInt(fields.quickRest, t('plan.fieldQuickRest'));
+          const quickReps = parsePositiveInt(fields.quickReps, t('plan.fieldQuickReps'));
 
           if (
             sessionsPerDay == null ||
@@ -145,7 +149,7 @@ export default function PlanScreen() {
             blocks: [
               {
                 id: 'slow',
-                label: 'Slow squeezes',
+                label: t('plan.slowSqueezes'),
                 kind: 'slow',
                 squeezeSeconds: slowSqueeze,
                 restSeconds: slowRest,
@@ -153,7 +157,7 @@ export default function PlanScreen() {
               },
               {
                 id: 'quick',
-                label: 'Quick squeezes',
+                label: t('plan.quickSqueezes'),
                 kind: 'quick',
                 squeezeSeconds: quickSqueeze,
                 restSeconds: quickRest,
@@ -163,15 +167,15 @@ export default function PlanScreen() {
           };
 
           await updatePlan(nextPlan);
-          Alert.alert('Saved', 'Exercise plan updated on this device.');
+          Alert.alert(t('plan.savedTitle'), t('plan.savedBody'));
         }}
       />
       <Button
-        label="Restore starter plan"
+        label={t('plan.restoreStarter')}
         variant="secondary"
         style={styles.spaced}
         onPress={() => {
-          setName(DEFAULT_PLAN.name);
+          setName(starterPlan.name);
           setFields(starterFields);
         }}
       />

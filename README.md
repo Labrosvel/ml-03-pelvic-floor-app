@@ -14,6 +14,7 @@ This is a **mobile-first** app (iOS / Android). Hosted web builds are only for c
 - Optional daily reminders
 - Short education articles
 - Clinic name + patient name personalisation
+- English and Greek language support (Settings → Language)
 
 ## Validation framework (how to test before merge)
 

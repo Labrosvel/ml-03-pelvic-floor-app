@@ -6,6 +6,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+import { useTranslation } from 'react-i18next';
 
 import { colors, fonts, spacing } from '@/constants/theme';
 import { ExercisePhase } from '@/constants/plans';
@@ -18,6 +19,7 @@ type Props = {
 };
 
 export function SqueezeVisual({ phase, secondsLeft, cue, progress }: Props) {
+  const { t } = useTranslation();
   const scale = useSharedValue(1);
   const glow = useSharedValue(0.2);
 
@@ -40,7 +42,13 @@ export function SqueezeVisual({ phase, secondsLeft, cue, progress }: Props) {
   }));
 
   const phaseLabel =
-    phase === 'squeeze' ? 'Squeeze' : phase === 'rest' ? 'Rest' : phase === 'prepare' ? 'Get ready' : 'Done';
+    phase === 'squeeze'
+      ? t('phase.squeeze')
+      : phase === 'rest'
+        ? t('phase.rest')
+        : phase === 'prepare'
+          ? t('phase.prepare')
+          : t('phase.done');
 
   return (
     <View style={styles.wrap}>
@@ -48,7 +56,7 @@ export function SqueezeVisual({ phase, secondsLeft, cue, progress }: Props) {
         <View style={styles.inner}>
           <Text style={styles.phase}>{phaseLabel}</Text>
           <Text style={styles.seconds}>{Math.max(0, secondsLeft)}</Text>
-          <Text style={styles.unit}>sec</Text>
+          <Text style={styles.unit}>{t('common.sec')}</Text>
         </View>
         <View style={[styles.progressArc, { opacity: 0.35 + progress * 0.65 }]} />
       </Animated.View>

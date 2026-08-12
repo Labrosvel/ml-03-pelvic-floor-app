@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useTranslation } from 'react-i18next';
 
 import { SqueezeVisual } from '@/components/SqueezeVisual';
 import { Button } from '@/components/ui/Button';
@@ -13,8 +14,9 @@ import { useAppState } from '@/context/AppState';
 import { buildSessionSteps } from '@/lib/session';
 
 export default function ExerciseScreen() {
+  const { t } = useTranslation();
   const { plan, settings, addSession } = useAppState();
-  const steps = useMemo(() => buildSessionSteps(plan), [plan]);
+  const steps = useMemo(() => buildSessionSteps(plan, t), [plan, t]);
   const [index, setIndex] = useState(0);
   const [secondsLeft, setSecondsLeft] = useState(steps[0]?.seconds ?? 0);
   const [paused, setPaused] = useState(false);
@@ -72,12 +74,10 @@ export default function ExerciseScreen() {
     return (
       <LinearGradient colors={[colors.bg, colors.bgDeep]} style={styles.flex}>
         <SafeAreaView style={styles.finish}>
-          <Text style={styles.finishEyebrow}>Nice work</Text>
-          <Text style={styles.finishTitle}>Session complete</Text>
-          <Text style={styles.finishBody}>
-            Your practice is saved on this device. Consistency over intensity is the goal.
-          </Text>
-          <Button label="Done" onPress={() => router.back()} />
+          <Text style={styles.finishEyebrow}>{t('exercise.niceWork')}</Text>
+          <Text style={styles.finishTitle}>{t('exercise.sessionComplete')}</Text>
+          <Text style={styles.finishBody}>{t('exercise.finishBody')}</Text>
+          <Button label={t('common.done')} onPress={() => router.back()} />
         </SafeAreaView>
       </LinearGradient>
     );
@@ -92,14 +92,16 @@ export default function ExerciseScreen() {
       <SafeAreaView style={styles.flex}>
         <View style={styles.topBar}>
           <Pressable onPress={() => router.back()} hitSlop={12}>
-            <Text style={styles.topAction}>Close</Text>
+            <Text style={styles.topAction}>{t('common.close')}</Text>
           </Pressable>
           <Text style={styles.topMeta}>
             {step.blockLabel}
             {step.repTotal > 0 ? ` · ${step.repIndex}/${step.repTotal}` : ''}
           </Text>
           <Pressable onPress={() => setPaused((value) => !value)} hitSlop={12}>
-            <Text style={styles.topAction}>{paused ? 'Resume' : 'Pause'}</Text>
+            <Text style={styles.topAction}>
+              {paused ? t('common.resume') : t('common.pause')}
+            </Text>
           </Pressable>
         </View>
 

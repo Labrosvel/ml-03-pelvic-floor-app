@@ -1,18 +1,21 @@
 import { router } from 'expo-router';
 import { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/Button';
 import { Panel } from '@/components/ui/Panel';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
-import { estimateSessionSeconds, totalTargetReps } from '@/constants/plans';
+import { displayPlanName, estimateSessionSeconds, totalTargetReps } from '@/constants/plans';
 import { brand, colors, fonts, spacing } from '@/constants/theme';
 import { useAppState } from '@/context/AppState';
 
 export default function HomeScreen() {
+  const { t } = useTranslation();
   const { ready, settings, plan, sessionsToday } = useAppState();
   const minutes = Math.max(1, Math.round(estimateSessionSeconds(plan) / 60));
+  const planName = displayPlanName(plan, t);
 
   useEffect(() => {
     if (ready && !settings.onboardingComplete) {
@@ -24,7 +27,9 @@ export default function HomeScreen() {
     return (
       <Screen scroll={false}>
         <View style={styles.loading}>
-          <Text style={styles.loadingText}>Loading {brand.appName}…</Text>
+          <Text style={styles.loadingText}>
+            {t('home.loading', { appName: brand.appName })}
+          </Text>
         </View>
       </Screen>
     );
@@ -33,43 +38,47 @@ export default function HomeScreen() {
   return (
     <Screen>
       <SectionHeader
-        eyebrow={settings.clinicName || brand.defaultClinicName}
+        eyebrow={settings.clinicName || t('brand.defaultClinicName')}
         title={brand.appName}
         subtitle={
           settings.displayName
-            ? `Welcome back, ${settings.displayName}. Ready for today’s practice?`
-            : brand.tagline
+            ? t('home.welcomeBack', { name: settings.displayName })
+            : t('brand.tagline')
         }
       />
 
       <Panel style={styles.heroPanel}>
         <View style={styles.brandBar} />
-        <Text style={styles.heroKicker}>Today</Text>
+        <Text style={styles.heroKicker}>{t('home.today')}</Text>
         <Text style={styles.heroTitle}>
-          {sessionsToday}/{plan.sessionsPerDay} sessions complete
+          {t('home.sessionsComplete', {
+            done: sessionsToday,
+            total: plan.sessionsPerDay,
+          })}
         </Text>
         <Text style={styles.heroBody}>
-          About {minutes} min · {totalTargetReps(plan)} squeezes · {plan.name}
+          {t('home.sessionMeta', {
+            minutes,
+            squeezes: totalTargetReps(plan),
+            plan: planName,
+          })}
         </Text>
         <Button
-          label="Start session"
+          label={t('home.startSession')}
           variant="accent"
           onPress={() => router.push('/exercise')}
           style={styles.cta}
         />
         <Button
-          label="Adjust plan"
+          label={t('home.adjustPlan')}
           variant="secondary"
           onPress={() => router.push('/plan')}
         />
       </Panel>
 
       <View style={styles.tips}>
-        <Text style={styles.tipTitle}>Before you begin</Text>
-        <Text style={styles.tipBody}>
-          Soften your jaw and shoulders. Breathe normally. Squeeze upward and inward,
-          then fully release during rest.
-        </Text>
+        <Text style={styles.tipTitle}>{t('home.beforeTitle')}</Text>
+        <Text style={styles.tipBody}>{t('home.beforeBody')}</Text>
       </View>
     </Screen>
   );

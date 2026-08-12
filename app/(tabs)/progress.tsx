@@ -1,13 +1,15 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { Panel } from '@/components/ui/Panel';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { displayPlanName } from '@/constants/plans';
 import { colors, fonts, spacing } from '@/constants/theme';
 import { useAppState } from '@/context/AppState';
 
-function formatDate(iso: string): string {
-  return new Date(iso).toLocaleString(undefined, {
+function formatDate(iso: string, locale: string): string {
+  return new Date(iso).toLocaleString(locale, {
     weekday: 'short',
     month: 'short',
     day: 'numeric',
@@ -17,49 +19,55 @@ function formatDate(iso: string): string {
 }
 
 export default function ProgressScreen() {
+  const { t, i18n } = useTranslation();
   const { sessions, sessionsToday, plan } = useAppState();
   const last7 = sessions.filter((session) => {
     const age = Date.now() - new Date(session.completedAt).getTime();
     return age <= 7 * 24 * 60 * 60 * 1000;
   }).length;
+  const locale = i18n.language === 'el' ? 'el-GR' : 'en-GB';
+  const planName = displayPlanName(plan, t);
 
   return (
     <Screen>
       <SectionHeader
-        eyebrow="History"
-        title="Progress"
-        subtitle="A simple record you can share with your physiotherapist."
+        eyebrow={t('progress.eyebrow')}
+        title={t('progress.title')}
+        subtitle={t('progress.subtitle')}
       />
 
       <View style={styles.statsRow}>
         <View style={styles.stat}>
           <Text style={styles.statValue}>{sessionsToday}</Text>
-          <Text style={styles.statLabel}>Today</Text>
+          <Text style={styles.statLabel}>{t('progress.today')}</Text>
         </View>
         <View style={styles.stat}>
           <Text style={styles.statValue}>{last7}</Text>
-          <Text style={styles.statLabel}>Last 7 days</Text>
+          <Text style={styles.statLabel}>{t('progress.last7Days')}</Text>
         </View>
         <View style={styles.stat}>
           <Text style={styles.statValue}>{sessions.length}</Text>
-          <Text style={styles.statLabel}>All time</Text>
+          <Text style={styles.statLabel}>{t('progress.allTime')}</Text>
         </View>
       </View>
 
-      <Text style={styles.listTitle}>Recent sessions</Text>
+      <Text style={styles.listTitle}>{t('progress.recentSessions')}</Text>
       {sessions.length === 0 ? (
         <Panel>
           <Text style={styles.empty}>
-            No sessions yet. Complete your first {plan.name.toLowerCase()} session from Home.
+            {t('progress.empty', { plan: planName.toLowerCase() })}
           </Text>
         </Panel>
       ) : (
         sessions.slice(0, 20).map((session) => (
           <Panel key={session.id} style={styles.row}>
-            <Text style={styles.rowTitle}>{formatDate(session.completedAt)}</Text>
+            <Text style={styles.rowTitle}>{formatDate(session.completedAt, locale)}</Text>
             <Text style={styles.rowBody}>
-              {session.completedReps}/{session.targetReps} reps ·{' '}
-              {Math.round(session.durationSeconds / 60) || 1} min
+              {t('progress.sessionMeta', {
+                completed: session.completedReps,
+                target: session.targetReps,
+                minutes: Math.round(session.durationSeconds / 60) || 1,
+              })}
             </Text>
           </Panel>
         ))
