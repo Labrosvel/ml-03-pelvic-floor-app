@@ -78,6 +78,8 @@ const el = {
     yourNamePlaceholder: 'Όνομα ασθενούς',
     reminders: 'Υπενθυμίσεις',
     haptics: 'Δόνηση',
+    sound: 'Ηχητικά σήματα',
+    soundHint: 'Ήπιοι τόνοι για προετοιμασία, σύσφιξη, ξεκούραση και ολοκλήρωση',
     language: 'Γλώσσα',
     languageSystem: 'Γλώσσα συσκευής',
     languageEn: 'Αγγλικά',
