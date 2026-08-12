@@ -6,6 +6,7 @@ import {
   DEFAULT_PLAN,
   DEFAULT_SETTINGS,
   ExercisePlan,
+  normalizeSettings,
 } from '@/constants/plans';
 
 const KEYS = {
@@ -29,7 +30,8 @@ async function writeJson<T>(key: string, value: T): Promise<void> {
 }
 
 export async function loadSettings(): Promise<AppSettings> {
-  return readJson(KEYS.settings, DEFAULT_SETTINGS);
+  const raw = await readJson<Partial<AppSettings> | null>(KEYS.settings, null);
+  return normalizeSettings(raw ?? DEFAULT_SETTINGS);
 }
 
 export async function saveSettings(settings: AppSettings): Promise<void> {

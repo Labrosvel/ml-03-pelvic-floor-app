@@ -15,6 +15,7 @@ import {
   DEFAULT_SETTINGS,
   ExercisePlan,
 } from '@/constants/plans';
+import { applyLanguage } from '@/i18n';
 import { syncReminders } from '@/lib/reminders';
 import {
   clearAllData,
@@ -65,6 +66,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
         loadSessions(),
       ]);
       if (cancelled) return;
+      await applyLanguage(nextSettings.language);
       setSettings(nextSettings);
       setPlan(nextPlan);
       setSessions(nextSessions);
@@ -78,11 +80,24 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
 
   const updateSettings = useCallback(async (patch: Partial<AppSettings>) => {
     setSettings((current) => {
-      const next = { ...current, ...patch, reminders: patch.reminders ?? current.reminders };
-      void saveSettings(next);
-      if (patch.reminders) {
-        void syncReminders(next.reminders);
-      }
+      const next: AppSettings = {
+        ...current,
+        ...patch,
+        reminders: patch.reminders ?? current.reminders,
+      };
+
+      void (async () => {
+        await saveSettings(next);
+        if (patch.language && patch.language !== current.language) {
+          await applyLanguage(patch.language);
+          if (next.reminders.enabled) {
+            await syncReminders(next.reminders);
+          }
+        } else if (patch.reminders) {
+          await syncReminders(next.reminders);
+        }
+      })();
+
       return next;
     });
   }, []);
@@ -102,6 +117,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
 
   const resetAll = useCallback(async () => {
     await clearAllData();
+    await applyLanguage(DEFAULT_SETTINGS.language);
     setSettings(DEFAULT_SETTINGS);
     setPlan(DEFAULT_PLAN);
     setSessions([]);

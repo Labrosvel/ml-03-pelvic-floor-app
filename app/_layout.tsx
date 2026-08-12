@@ -12,8 +12,10 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
+import { useTranslation } from 'react-i18next';
 import 'react-native-reanimated';
 
+import '@/i18n';
 import { AppStateProvider } from '@/context/AppState';
 import { colors } from '@/constants/theme';
 
@@ -24,6 +26,34 @@ export const unstable_settings = {
 };
 
 SplashScreen.preventAutoHideAsync();
+
+function RootNavigator() {
+  const { t } = useTranslation();
+
+  return (
+    <>
+      <StatusBar style="dark" />
+      <Stack
+        screenOptions={{
+          headerShadowVisible: false,
+          headerStyle: { backgroundColor: colors.bg },
+          headerTintColor: colors.tealDeep,
+          headerTitleStyle: { fontFamily: 'DMSans_700Bold', color: colors.ink },
+          contentStyle: { backgroundColor: colors.bg },
+        }}
+      >
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="exercise"
+          options={{ title: t('navigation.session'), presentation: 'fullScreenModal', headerShown: false }}
+        />
+        <Stack.Screen name="plan" options={{ title: t('navigation.exercisePlan') }} />
+        <Stack.Screen name="article/[id]" options={{ title: t('navigation.learn') }} />
+        <Stack.Screen name="onboarding" options={{ headerShown: false, presentation: 'modal' }} />
+      </Stack>
+    </>
+  );
+}
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -50,25 +80,7 @@ export default function RootLayout() {
 
   return (
     <AppStateProvider>
-      <StatusBar style="dark" />
-      <Stack
-        screenOptions={{
-          headerShadowVisible: false,
-          headerStyle: { backgroundColor: colors.bg },
-          headerTintColor: colors.tealDeep,
-          headerTitleStyle: { fontFamily: 'DMSans_700Bold', color: colors.ink },
-          contentStyle: { backgroundColor: colors.bg },
-        }}
-      >
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="exercise"
-          options={{ title: 'Session', presentation: 'fullScreenModal', headerShown: false }}
-        />
-        <Stack.Screen name="plan" options={{ title: 'Exercise plan' }} />
-        <Stack.Screen name="article/[id]" options={{ title: 'Learn' }} />
-        <Stack.Screen name="onboarding" options={{ headerShown: false, presentation: 'modal' }} />
-      </Stack>
+      <RootNavigator />
     </AppStateProvider>
   );
 }

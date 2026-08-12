@@ -1,6 +1,7 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/Button';
 import { Screen } from '@/components/ui/Screen';
@@ -8,6 +9,7 @@ import { brand, colors, fonts, spacing } from '@/constants/theme';
 import { useAppState } from '@/context/AppState';
 
 export default function OnboardingScreen() {
+  const { t } = useTranslation();
   const { settings, updateSettings } = useAppState();
   const [clinicName, setClinicName] = useState(settings.clinicName);
   const [displayName, setDisplayName] = useState(settings.displayName);
@@ -15,40 +17,36 @@ export default function OnboardingScreen() {
   return (
     <Screen scroll={false} contentStyle={styles.content}>
       <View style={styles.copy}>
-        <Text style={styles.eyebrow}>Welcome</Text>
+        <Text style={styles.eyebrow}>{t('onboarding.eyebrow')}</Text>
         <Text style={styles.title}>{brand.appName}</Text>
-        <Text style={styles.body}>
-          A calm companion for pelvic floor practice. Built so patients can follow a
-          physiotherapist-guided plan at home — and so you can preview the experience in
-          Expo Go before store release.
-        </Text>
+        <Text style={styles.body}>{t('onboarding.body')}</Text>
       </View>
 
       <View style={styles.form}>
-        <Text style={styles.label}>Clinic / physiotherapist name</Text>
+        <Text style={styles.label}>{t('onboarding.clinicLabel')}</Text>
         <TextInput
           style={styles.input}
           value={clinicName}
           onChangeText={setClinicName}
-          placeholder="Your mother's clinic name"
+          placeholder={t('onboarding.clinicPlaceholder')}
           placeholderTextColor={colors.inkSoft}
         />
-        <Text style={styles.label}>Patient first name (optional)</Text>
+        <Text style={styles.label}>{t('onboarding.nameLabel')}</Text>
         <TextInput
           style={styles.input}
           value={displayName}
           onChangeText={setDisplayName}
-          placeholder="e.g. Anna"
+          placeholder={t('onboarding.namePlaceholder')}
           placeholderTextColor={colors.inkSoft}
         />
       </View>
 
       <Button
-        label="Continue"
+        label={t('onboarding.continue')}
         variant="accent"
         onPress={async () => {
           await updateSettings({
-            clinicName: clinicName.trim() || brand.defaultClinicName,
+            clinicName: clinicName.trim() || t('brand.defaultClinicName'),
             displayName: displayName.trim(),
             onboardingComplete: true,
           });

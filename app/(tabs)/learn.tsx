@@ -1,29 +1,32 @@
 import { router } from 'expo-router';
 import { Pressable, StyleSheet, Text } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
-import { ARTICLES } from '@/constants/education';
+import { ARTICLE_METAS } from '@/constants/education';
 import { colors, fonts, radii, spacing } from '@/constants/theme';
 
 export default function LearnScreen() {
+  const { t } = useTranslation();
+
   return (
     <Screen>
       <SectionHeader
-        eyebrow="Education"
-        title="Learn"
-        subtitle="Short guides to support technique and confidence."
+        eyebrow={t('learn.eyebrow')}
+        title={t('learn.title')}
+        subtitle={t('learn.subtitle')}
       />
 
-      {ARTICLES.map((article) => (
+      {ARTICLE_METAS.map((article) => (
         <Pressable
           key={article.id}
           onPress={() => router.push(`/article/${article.id}`)}
           style={({ pressed }) => [styles.item, pressed && styles.pressed]}
         >
-          <Text style={styles.minutes}>{article.minutes} min</Text>
-          <Text style={styles.title}>{article.title}</Text>
-          <Text style={styles.summary}>{article.summary}</Text>
+          <Text style={styles.minutes}>{t('learn.minutes', { count: article.minutes })}</Text>
+          <Text style={styles.title}>{t(`articles.${article.id}.title`)}</Text>
+          <Text style={styles.summary}>{t(`articles.${article.id}.summary`)}</Text>
         </Pressable>
       ))}
     </Screen>

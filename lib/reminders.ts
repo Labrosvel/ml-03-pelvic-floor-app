@@ -2,6 +2,7 @@ import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 
 import { ReminderSettings } from '@/constants/plans';
+import i18n from '@/i18n';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -47,8 +48,8 @@ export async function syncReminders(reminders: ReminderSettings): Promise<void> 
 
     await Notifications.scheduleNotificationAsync({
       content: {
-        title: 'PelviGuide reminder',
-        body: 'Time for your pelvic floor session.',
+        title: i18n.t('reminders.title'),
+        body: i18n.t('reminders.body'),
         sound: true,
       },
       trigger: {
