@@ -12,7 +12,7 @@ import { totalTargetReps } from '@/constants/plans';
 import { colors, fonts, spacing } from '@/constants/theme';
 import { useAppState } from '@/context/AppState';
 import { buildSessionSteps } from '@/lib/session';
-import { playCue, shouldPlayPhaseCue } from '@/lib/sound';
+import { playCue, playStepCue } from '@/lib/sound';
 
 export default function ExerciseScreen() {
   const { t } = useTranslation();
@@ -35,14 +35,17 @@ export default function ExerciseScreen() {
     }
 
     if (settings.soundEnabled) {
-      if (step.phase === 'prepare') {
-        void playCue('prepare');
-      } else if (shouldPlayPhaseCue(step.seconds)) {
-        if (step.phase === 'squeeze') void playCue('squeeze');
-        if (step.phase === 'rest') void playCue('rest');
-      }
+      playStepCue(settings.soundPack, step);
     }
-  }, [index, step, finished, paused, settings.hapticsEnabled, settings.soundEnabled]);
+  }, [
+    index,
+    step,
+    finished,
+    paused,
+    settings.hapticsEnabled,
+    settings.soundEnabled,
+    settings.soundPack,
+  ]);
 
   useEffect(() => {
     if (!step || finished || paused) return;
@@ -67,7 +70,7 @@ export default function ExerciseScreen() {
               void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
             }
             if (settings.soundEnabled) {
-              void playCue('complete');
+              void playCue(settings.soundPack, 'complete');
             }
             return 0;
           }
@@ -89,6 +92,7 @@ export default function ExerciseScreen() {
     plan,
     settings.hapticsEnabled,
     settings.soundEnabled,
+    settings.soundPack,
   ]);
 
   const progress = step ? 1 - secondsLeft / Math.max(step.seconds, 1) : 1;
