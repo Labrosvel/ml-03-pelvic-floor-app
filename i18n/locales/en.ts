@@ -78,7 +78,7 @@ const en = {
     reminders: 'Reminders',
     haptics: 'Haptics',
     sound: 'Sound cues',
-    soundHint: 'Soft tones for prepare, squeeze, rest, and session complete',
+    soundHint: 'Soft tones for slow holds, quick metronome ticks, and session complete',
     language: 'Language',
     languageSystem: 'Device default',
     languageEn: 'English',

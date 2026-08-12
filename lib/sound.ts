@@ -5,13 +5,33 @@ import {
   type AudioSource,
 } from 'expo-audio';
 
-export type CueSound = 'prepare' | 'squeeze' | 'rest' | 'complete';
+import type { SessionStep } from '@/lib/session';
+
+export type CueSound =
+  | 'prepare'
+  | 'squeeze'
+  | 'rest'
+  | 'quickSqueeze'
+  | 'quickRest'
+  | 'complete';
 
 const SOURCES: Record<CueSound, AudioSource> = {
   prepare: require('../assets/sounds/prepare.mp3'),
   squeeze: require('../assets/sounds/squeeze.mp3'),
   rest: require('../assets/sounds/rest.mp3'),
+  quickSqueeze: require('../assets/sounds/quick-squeeze.mp3'),
+  quickRest: require('../assets/sounds/quick-rest.mp3'),
   complete: require('../assets/sounds/complete.mp3'),
+};
+
+/** Slightly quieter ticks so rapid quick-reps stay comfortable. */
+const VOLUMES: Record<CueSound, number> = {
+  prepare: 0.85,
+  squeeze: 0.85,
+  rest: 0.85,
+  quickSqueeze: 0.7,
+  quickRest: 0.55,
+  complete: 0.9,
 };
 
 let ready: Promise<void> | null = null;
@@ -28,7 +48,7 @@ async function ensureReady() {
 
       (Object.keys(SOURCES) as CueSound[]).forEach((name) => {
         const player = createAudioPlayer(SOURCES[name]);
-        player.volume = 0.85;
+        player.volume = VOLUMES[name];
         players[name] = player;
       });
     })().catch((error) => {
@@ -54,9 +74,25 @@ export async function playCue(name: CueSound) {
 }
 
 /**
- * Skip per-phase cues on very short holds (e.g. 1s quick squeezes) so sound
- * stays helpful instead of chirping every second.
+ * Pick the right cue for a session step.
+ * Slow holds use short melodic tones; quick reps use metronome-style ticks
+ * so 1s phases stay clear without overlapping audio.
  */
-export function shouldPlayPhaseCue(seconds: number) {
-  return seconds >= 2;
+export function cueForStep(step: Pick<SessionStep, 'phase' | 'kind'>): CueSound | null {
+  if (step.phase === 'prepare') return 'prepare';
+
+  if (step.kind === 'quick') {
+    if (step.phase === 'squeeze') return 'quickSqueeze';
+    if (step.phase === 'rest') return 'quickRest';
+    return null;
+  }
+
+  if (step.phase === 'squeeze') return 'squeeze';
+  if (step.phase === 'rest') return 'rest';
+  return null;
+}
+
+export function playStepCue(step: Pick<SessionStep, 'phase' | 'kind'>) {
+  const cue = cueForStep(step);
+  if (cue) void playCue(cue);
 }
