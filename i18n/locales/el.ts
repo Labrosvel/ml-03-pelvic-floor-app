@@ -3,6 +3,7 @@ const el = {
     appName: 'PelviGuide',
     clinicName: 'Physiospecialists',
     tagline: 'Εξάσκηση πυελικού εδάφους, με ήπια καθοδήγηση',
+    fromClinic: 'από {{clinic}}',
     defaultClinicName: 'Physiospecialists',
   },
   common: {

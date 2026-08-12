@@ -29,7 +29,7 @@ export default function HomeScreen() {
       <Screen scroll={false}>
         <View style={styles.loading}>
           <Text style={styles.loadingText}>
-            {t('home.loading', { appName: brand.clinicName })}
+            {t('home.loading', { appName: brand.appName })}
           </Text>
         </View>
       </Screen>

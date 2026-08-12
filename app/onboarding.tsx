@@ -20,7 +20,6 @@ export default function OnboardingScreen() {
       <View style={styles.copy}>
         <BrandHeader />
         <Text style={styles.eyebrow}>{t('onboarding.eyebrow')}</Text>
-        <Text style={styles.title}>{brand.appName}</Text>
         <Text style={styles.body}>{t('onboarding.body')}</Text>
       </View>
 
@@ -71,11 +70,6 @@ const styles = StyleSheet.create({
     letterSpacing: 1.3,
     textTransform: 'uppercase',
     color: colors.orange,
-  },
-  title: {
-    fontFamily: fonts.display,
-    fontSize: 40,
-    color: colors.tealDeep,
   },
   body: {
     fontFamily: fonts.body,
