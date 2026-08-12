@@ -51,6 +51,15 @@ The PR also gets a comment with the link when the workflow finishes.
 
 Cloud Agent `localhost` / tunnel links are temporary and are **not** this framework.
 
+### If the main URL looks unchanged after a merge
+
+1. Wait ~1–2 minutes for GitHub Pages to finish deploying  
+2. Hard refresh the page: **Ctrl+Shift+R** (Windows/Linux) or **Cmd+Shift+R** (Mac)  
+3. Or open the URL in a private/incognito window  
+4. Open **Settings** — the footer shows `Web build <id>`; that id changes when main redeploys  
+
+Some fixes (like editable plan numbers) do not change the Home screen look — open **Edit exercise plan** to verify.
+
 ## One-time: enable GitHub Pages
 
 1. Open https://github.com/Labrosvel/ml-03-pelvic-floor-app/settings/pages  

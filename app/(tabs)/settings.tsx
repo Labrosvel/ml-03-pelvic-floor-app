@@ -6,6 +6,7 @@ import { Panel } from '@/components/ui/Panel';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { brand, colors, fonts, spacing } from '@/constants/theme';
+import { WEB_BUILD_ID } from '@/constants/buildInfo';
 import { useAppState } from '@/context/AppState';
 import { syncReminders } from '@/lib/reminders';
 
@@ -100,6 +101,7 @@ export default function SettingsScreen() {
         substitute for clinical assessment and is not affiliated with Squeezy or any other
         commercial pelvic health app.
       </Text>
+      <Text style={styles.buildId}>Web build {WEB_BUILD_ID}</Text>
     </Screen>
   );
 }
@@ -148,6 +150,12 @@ const styles = StyleSheet.create({
     fontFamily: fonts.body,
     fontSize: 13,
     lineHeight: 20,
+    color: colors.inkSoft,
+  },
+  buildId: {
+    marginTop: spacing.sm,
+    fontFamily: fonts.body,
+    fontSize: 12,
     color: colors.inkSoft,
   },
 });
