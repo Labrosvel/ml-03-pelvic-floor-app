@@ -6,10 +6,12 @@ import { Button } from '@/components/ui/Button';
 import { Panel } from '@/components/ui/Panel';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { SOUND_PACKS, type SoundPackId } from '@/constants/sounds';
 import { brand, colors, fonts, spacing } from '@/constants/theme';
 import { WEB_BUILD_ID } from '@/constants/buildInfo';
 import { useAppState } from '@/context/AppState';
 import { AppLanguage } from '@/i18n/types';
+import { previewSoundPack } from '@/lib/sound';
 
 const LANGUAGE_OPTIONS: {
   value: AppLanguage;
@@ -19,6 +21,13 @@ const LANGUAGE_OPTIONS: {
   { value: 'en', labelKey: 'languageEn' },
   { value: 'el', labelKey: 'languageEl' },
 ];
+
+const SOUND_PACK_LABEL_KEYS: Record<SoundPackId, 'soundPackGentle' | 'soundPackChime' | 'soundPackClick'> =
+  {
+    gentle: 'soundPackGentle',
+    chime: 'soundPackChime',
+    click: 'soundPackClick',
+  };
 
 export default function SettingsScreen() {
   const { t } = useTranslation();
@@ -111,6 +120,37 @@ export default function SettingsScreen() {
             trackColor={{ true: colors.teal, false: colors.border }}
           />
         </View>
+
+        {settings.soundEnabled ? (
+          <View style={styles.soundPackBlock}>
+            <Text style={styles.rowTitle}>{t('settings.soundPack')}</Text>
+            <Text style={styles.rowBody}>{t('settings.soundPackHint')}</Text>
+            <View style={styles.languageRow}>
+              {SOUND_PACKS.map((pack) => {
+                const selected = settings.soundPack === pack;
+                return (
+                  <Pressable
+                    key={pack}
+                    onPress={() => {
+                      void updateSettings({ soundPack: pack });
+                      previewSoundPack(pack);
+                    }}
+                    style={[styles.languageChip, selected && styles.languageChipSelected]}
+                  >
+                    <Text
+                      style={[
+                        styles.languageChipText,
+                        selected && styles.languageChipTextSelected,
+                      ]}
+                    >
+                      {t(`settings.${SOUND_PACK_LABEL_KEYS[pack]}`)}
+                    </Text>
+                  </Pressable>
+                );
+              })}
+            </View>
+          </View>
+        ) : null}
       </Panel>
 
       <Button label={t('settings.editPlan')} onPress={() => router.push('/plan')} />
@@ -207,6 +247,12 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   spaced: { marginTop: spacing.sm, marginBottom: spacing.sm },
+  soundPackBlock: {
+    paddingTop: spacing.sm,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: colors.border,
+    marginTop: spacing.xs,
+  },
   disclaimer: {
     marginTop: spacing.lg,
     fontFamily: fonts.body,

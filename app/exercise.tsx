@@ -35,9 +35,17 @@ export default function ExerciseScreen() {
     }
 
     if (settings.soundEnabled) {
-      playStepCue(step);
+      playStepCue(settings.soundPack, step);
     }
-  }, [index, step, finished, paused, settings.hapticsEnabled, settings.soundEnabled]);
+  }, [
+    index,
+    step,
+    finished,
+    paused,
+    settings.hapticsEnabled,
+    settings.soundEnabled,
+    settings.soundPack,
+  ]);
 
   useEffect(() => {
     if (!step || finished || paused) return;
@@ -62,7 +70,7 @@ export default function ExerciseScreen() {
               void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
             }
             if (settings.soundEnabled) {
-              void playCue('complete');
+              void playCue(settings.soundPack, 'complete');
             }
             return 0;
           }
@@ -84,6 +92,7 @@ export default function ExerciseScreen() {
     plan,
     settings.hapticsEnabled,
     settings.soundEnabled,
+    settings.soundPack,
   ]);
 
   const progress = step ? 1 - secondsLeft / Math.max(step.seconds, 1) : 1;

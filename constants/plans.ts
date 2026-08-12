@@ -1,6 +1,7 @@
 import type { TFunction } from 'i18next';
 
 import { AppLanguage, isAppLanguage } from '@/i18n/types';
+import { isSoundPackId, type SoundPackId } from '@/constants/sounds';
 
 export type ExercisePhase = 'prepare' | 'squeeze' | 'rest' | 'done';
 
@@ -40,6 +41,7 @@ export type AppSettings = {
   displayName: string;
   hapticsEnabled: boolean;
   soundEnabled: boolean;
+  soundPack: SoundPackId;
   onboardingComplete: boolean;
   language: AppLanguage;
   reminders: ReminderSettings;
@@ -127,6 +129,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   displayName: '',
   hapticsEnabled: true,
   soundEnabled: true,
+  soundPack: 'gentle',
   onboardingComplete: false,
   language: 'system',
   reminders: {
@@ -140,6 +143,7 @@ export function normalizeSettings(raw: Partial<AppSettings> | null | undefined):
     ...DEFAULT_SETTINGS,
     ...raw,
     language: isAppLanguage(raw?.language) ? raw.language : DEFAULT_SETTINGS.language,
+    soundPack: isSoundPackId(raw?.soundPack) ? raw.soundPack : DEFAULT_SETTINGS.soundPack,
     reminders: {
       ...DEFAULT_SETTINGS.reminders,
       ...raw?.reminders,
