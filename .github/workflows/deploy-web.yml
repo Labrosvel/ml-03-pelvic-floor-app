@@ -1,0 +1,48 @@
+# Stable public web preview of GitHub `main`.
+# URL: https://labrosvel.github.io/ml-03-pelvic-floor-app/
+#
+# This is a convenience preview of the same Expo app (not a pivot away from mobile).
+# Mobile EAS previews remain optional once EXPO_TOKEN is configured.
+name: deploy-web
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: pages-main
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy main → GitHub Pages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Export static web build
+        env:
+          BASE_PATH: /ml-03-pelvic-floor-app
+        run: npx expo export -p web
+
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          # Keep PR preview folders published by preview-web.yml
+          keep_files: true
+          commit_message: 'Deploy main web preview ${{ github.sha }}'
