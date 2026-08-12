@@ -1,0 +1,55 @@
+# Optional mobile preview via EAS Update (requires EXPO_TOKEN).
+# Skips cleanly when the secret is not configured.
+name: preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  update:
+    name: EAS Update (PR preview)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Check for EXPO_TOKEN
+        id: expo
+        run: |
+          if [ -z "${{ secrets.EXPO_TOKEN }}" ]; then
+            echo "has_token=false" >> "$GITHUB_OUTPUT"
+            echo "EXPO_TOKEN not set — skipping mobile EAS preview."
+            echo "Web PR preview still runs via preview-web.yml."
+            echo "To enable mobile previews later, add EXPO_TOKEN and run eas init."
+          else
+            echo "has_token=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout repository
+        if: steps.expo.outputs.has_token == 'true'
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        if: steps.expo.outputs.has_token == 'true'
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Setup EAS
+        if: steps.expo.outputs.has_token == 'true'
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        if: steps.expo.outputs.has_token == 'true'
+        run: npm ci
+
+      - name: Create preview
+        if: steps.expo.outputs.has_token == 'true'
+        uses: expo/expo-github-action/preview@v8
+        with:
+          command: eas update --auto --environment preview

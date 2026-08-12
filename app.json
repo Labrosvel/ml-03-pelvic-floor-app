@@ -8,6 +8,12 @@
     "scheme": "pelviguide",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/replace-after-eas-init"
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.pelviguide.app",

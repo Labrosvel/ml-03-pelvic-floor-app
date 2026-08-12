@@ -1,0 +1,56 @@
+# Optional mobile production channel via EAS Update (requires EXPO_TOKEN).
+# Skips cleanly when the secret is not configured.
+name: production
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  update:
+    name: EAS Update (production / main)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check for EXPO_TOKEN
+        id: expo
+        run: |
+          if [ -z "${{ secrets.EXPO_TOKEN }}" ]; then
+            echo "has_token=false" >> "$GITHUB_OUTPUT"
+            echo "EXPO_TOKEN not set — skipping mobile EAS production publish."
+            echo "Stable web main preview still deploys via deploy-web.yml."
+          else
+            echo "has_token=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout repository
+        if: steps.expo.outputs.has_token == 'true'
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        if: steps.expo.outputs.has_token == 'true'
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Setup EAS
+        if: steps.expo.outputs.has_token == 'true'
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        if: steps.expo.outputs.has_token == 'true'
+        run: npm ci
+
+      - name: Publish production update
+        if: steps.expo.outputs.has_token == 'true'
+        run: |
+          eas update \
+            --channel production \
+            --environment production \
+            --message "main@${GITHUB_SHA::7}" \
+            --non-interactive
