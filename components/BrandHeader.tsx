@@ -1,34 +1,24 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
-import { useTranslation } from 'react-i18next';
 
 import { brand, colors, fonts, spacing } from '@/constants/theme';
 
-/**
- * Product + parent clinic hierarchy (common for clinic-affiliated apps):
- * PelviGuide leads on the left; Physiospecialists mark sits top-right as affiliation.
- */
-export function BrandHeader() {
-  const { t } = useTranslation();
+type Props = {
+  /** Align the clinic lockup to the end (default) or stretch as a full brand row. */
+  align?: 'end' | 'start';
+};
 
+/**
+ * Parent-clinic lockup: Physiospecialists mark + name.
+ * Placed top-right on content screens so page titles keep the product hierarchy.
+ */
+export function BrandHeader({ align = 'end' }: Props) {
   return (
     <View
-      style={styles.wrap}
+      style={[styles.wrap, align === 'start' ? styles.alignStart : styles.alignEnd]}
       accessibilityRole="header"
-      accessibilityLabel={`${brand.appName}, ${t('brand.fromClinic', { clinic: brand.clinicName })}`}
+      accessibilityLabel={brand.clinicName}
     >
-      <View style={styles.product}>
-        <Text style={styles.appName} numberOfLines={1}>
-          {brand.appName}
-        </Text>
-        <Text style={styles.affiliation} numberOfLines={1}>
-          {t('brand.fromClinic', { clinic: brand.clinicName })}
-        </Text>
-      </View>
-      <View
-        style={styles.markWell}
-        accessibilityLabel={brand.clinicName}
-        accessible
-      >
+      <View style={styles.markWell}>
         <Image
           source={require('../assets/images/physiospecialists-mark.png')}
           style={styles.mark}
@@ -37,6 +27,9 @@ export function BrandHeader() {
           accessible={false}
         />
       </View>
+      <Text style={styles.name} numberOfLines={1}>
+        {brand.clinicName}
+      </Text>
     </View>
   );
 }
@@ -45,38 +38,34 @@ const styles = StyleSheet.create({
   wrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: spacing.md,
-    marginBottom: spacing.lg,
+    gap: spacing.sm,
+    marginBottom: spacing.md,
   },
-  product: {
-    flex: 1,
-    minWidth: 0,
-    gap: 2,
+  alignEnd: {
+    alignSelf: 'flex-end',
+    maxWidth: '100%',
   },
-  appName: {
-    fontFamily: fonts.display,
-    fontSize: 26,
-    lineHeight: 32,
-    color: colors.tealDeep,
-  },
-  affiliation: {
-    fontFamily: fonts.bodyMedium,
-    fontSize: 13,
-    lineHeight: 18,
-    color: colors.inkMuted,
+  alignStart: {
+    alignSelf: 'stretch',
   },
   markWell: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
     backgroundColor: '#000000',
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
   },
   mark: {
-    width: 36,
-    height: 36,
+    width: 30,
+    height: 30,
+  },
+  name: {
+    flexShrink: 1,
+    fontFamily: fonts.bodyBold,
+    fontSize: 15,
+    letterSpacing: 0.1,
+    color: colors.tealDeep,
   },
 });

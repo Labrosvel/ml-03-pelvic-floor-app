@@ -3,7 +3,6 @@ const en = {
     appName: 'PelviGuide',
     clinicName: 'Physiospecialists',
     tagline: 'Pelvic floor practice, guided gently',
-    fromClinic: 'from {{clinic}}',
     defaultClinicName: 'Physiospecialists',
   },
   common: {
@@ -31,9 +30,8 @@ const en = {
   },
   home: {
     loading: 'Loading {{appName}}…',
-    welcomeBack: 'Welcome back, {{name}}',
+    welcomeBack: 'Welcome back, {{name}}. Ready for today’s practice?',
     today: 'Today',
-    sessionFocus: 'Your practice',
     sessionsComplete: '{{done}}/{{total}} sessions complete',
     sessionMeta: 'About {{minutes}} min · {{squeezes}} squeezes · {{plan}}',
     startSession: 'Start session',

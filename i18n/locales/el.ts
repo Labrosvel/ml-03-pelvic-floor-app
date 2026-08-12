@@ -3,7 +3,6 @@ const el = {
     appName: 'PelviGuide',
     clinicName: 'Physiospecialists',
     tagline: 'Εξάσκηση πυελικού εδάφους, με ήπια καθοδήγηση',
-    fromClinic: 'από {{clinic}}',
     defaultClinicName: 'Physiospecialists',
   },
   common: {
@@ -31,9 +30,8 @@ const el = {
   },
   home: {
     loading: 'Φόρτωση {{appName}}…',
-    welcomeBack: 'Καλωσήρθες, {{name}}',
+    welcomeBack: 'Καλωσήρθες, {{name}}. Ώρα για τη σημερινή εξάσκηση;',
     today: 'Σήμερα',
-    sessionFocus: 'Η εξάσκησή σας',
     sessionsComplete: '{{done}}/{{total}} συνεδρίες ολοκληρώθηκαν',
     sessionMeta: 'Περίπου {{minutes}} λεπτά · {{squeezes}} συσφίξεις · {{plan}}',
     startSession: 'Έναρξη συνεδρίας',

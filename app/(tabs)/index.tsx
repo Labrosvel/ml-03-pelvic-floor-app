@@ -40,7 +40,8 @@ export default function HomeScreen() {
     <Screen>
       <BrandHeader />
       <SectionHeader
-        title={t('home.today')}
+        eyebrow={settings.clinicName || t('brand.defaultClinicName')}
+        title={brand.appName}
         subtitle={
           settings.displayName
             ? t('home.welcomeBack', { name: settings.displayName })
@@ -50,7 +51,7 @@ export default function HomeScreen() {
 
       <Panel style={styles.heroPanel}>
         <View style={styles.brandBar} />
-        <Text style={styles.heroKicker}>{t('home.sessionFocus')}</Text>
+        <Text style={styles.heroKicker}>{t('home.today')}</Text>
         <Text style={styles.heroTitle}>
           {t('home.sessionsComplete', {
             done: sessionsToday,
