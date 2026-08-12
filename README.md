@@ -2,7 +2,7 @@
 
 Cross-platform pelvic floor exercise companion built with **React Native + Expo**.
 
-Designed so a physiotherapist (or their patients) can preview the UI in **Expo Go** for free — including across countries — before publishing to the App Store or Google Play.
+This is a **mobile-first** app (iOS / Android). Web is only an optional local convenience for quick UI checks — not the product.
 
 > This is an original app inspired by the pelvic-floor exercise category. It is **not** affiliated with Squeezy or any other commercial product.
 
@@ -15,90 +15,98 @@ Designed so a physiotherapist (or their patients) can preview the UI in **Expo G
 - Short education articles
 - Clinic name + patient name personalisation
 
-## Using this Cloud Agent (Cursor web)
+## How validation works (important)
 
-This project often runs inside a **Cursor Cloud Agent** (a remote machine), not on your laptop.
+We use **EAS Update** so you can test like a normal app team:
 
-That means:
+| Who | What they open | Tracks |
+| --- | --- | --- |
+| Your mother (stable app) | **Production** Expo link / QR | GitHub `main` |
+| You (before merge) | **PR preview** link / QR on the pull request | The feature branch |
 
-1. The Expo server is on the **remote VM** (usually port **8081**).
-2. Your browser’s `localhost` only works if Cursor **port-forwards** that remote port to your machine.
-3. Open **`http://localhost:8081`** (not 8082).
+Flow:
 
-### Open the web UI from Cursor
+1. Agent develops on a **feature branch** and opens a PR  
+2. GitHub Action publishes an EAS Update for that PR and comments a **QR / link**  
+3. You open that preview on your phone (Expo Go) and validate  
+4. You merge to `main` only when happy  
+5. GitHub Action publishes `main` to the **production** channel  
+6. Your mother keeps using the **same production link** — it updates to the new `main`
 
-1. Keep Expo running in the agent (`npx expo start --web --port 8081`).
-2. In the Cursor Agents UI, click the **plug / ports** icon (top-right of the editor panel).
-3. Confirm port **8081** is forwarded (enable Auto-Forward Ports if needed).
-4. Open `http://localhost:8081` in your browser, or use “Open in browser” from that ports menu.
+Cloud Agent tunnel / `localhost` links are temporary developer tools. They are **not** the stable framework.
 
-If you open `8082` or any port that is not forwarded, you will see “This site can’t be reached” — that is expected.
+## One-time setup (required before previews work)
 
-### Phone preview from a Cloud Agent
+Do this once on your Expo + GitHub accounts:
 
-The QR code’s `exp://172.x.x.x` address is **internal** to the VM. Your phone cannot reach it unless you start with tunnel:
+1. Create / log into an Expo account: https://expo.dev  
+2. On your computer (or any machine with the repo):
 
 ```bash
-npx expo start --tunnel --web --port 8081
+npm install
+npx eas-cli login
+npx eas init
+npx eas update:configure
 ```
 
-Then scan the QR with Expo Go.
+   Commit the updated `app.json` / project ID that `eas init` writes.
 
-## First-time setup (on your own computer)
+3. Create an Expo access token: https://expo.dev/settings/access-tokens  
+4. Add it as a GitHub Actions secret named **`EXPO_TOKEN`**:  
+   `https://github.com/Labrosvel/ml-03-pelvic-floor-app/settings/secrets/actions`
 
-Do this on **your laptop/PC** if you prefer not to use the Cloud Agent. Keep the terminal window open while testing.
+After that:
 
-### 1. Get the app code
+- every PR gets a mobile preview comment automatically  
+- every merge to `main` updates the production channel automatically  
+
+### Mother’s stable link
+
+After the first production publish, open the project on Expo and use the **production** channel link/QR (from the Expo dashboard or the production workflow log). Bookmark that — it is her app entry point.
+
+### Your branch validation link
+
+Open the pull request on GitHub → wait for the **preview** workflow → use the QR/link in the bot comment.
+
+## Local development (laptop or Cloud Agent)
 
 ```bash
 git clone https://github.com/Labrosvel/ml-03-pelvic-floor-app.git
 cd ml-03-pelvic-floor-app
-git checkout cursor/pelvic-floor-app-mvp-cef3
-```
-
-> Important: the app is on branch `cursor/pelvic-floor-app-mvp-cef3`. If you stay on `main`, you will not have the Expo project.
-
-### 2. Install dependencies
-
-```bash
 npm install
+npx expo start
 ```
 
-Success looks like: it finishes without a red error, and you have a `node_modules` folder. Warnings are usually OK.
+### Phone via Expo Go (same Wi‑Fi or tunnel)
 
-### 3a. Easiest: open in a browser on your computer
-
-```bash
-npx expo start --web
-```
-
-Wait until the terminal shows Metro started. Your browser should open (or visit `http://localhost:8081`).  
-This is the best first check that everything works.
-
-### 3b. Phone preview with Expo Go (for you or your mother)
-
-1. Install **Expo Go** on the phone: https://expo.dev/go  
-2. On your computer run:
+1. Install Expo Go: https://expo.dev/go  
+2. Run:
 
 ```bash
 npx expo start --tunnel
 ```
 
-3. Wait 30–90 seconds. You should see a **QR code** in the terminal (and often a Dev Tools page).  
-4. Keep that terminal running.  
-5. Scan the QR:
-   - **iPhone**: Camera app → open in Expo Go  
-   - **Android**: open Expo Go → Scan QR code  
+3. Scan the QR with Expo Go  
 
-`--tunnel` is required when you and your mother are on different Wi‑Fi / countries.
+### Optional browser check (not the mobile product)
 
-### If you see no QR code
+```bash
+npx expo start --web
+```
 
-- Make sure you are in the project folder and on the branch above  
-- Make sure `npm install` finished  
-- Wait longer — tunnel startup can be slow  
-- Press `c` in the Expo terminal to show the QR again (when the menu appears)  
-- Try web first (`npx expo start --web`) to confirm the app runs  
+### Cloud Agent port forwarding
+
+If Expo runs inside a Cursor Cloud Agent, forward port **8081** and open `http://localhost:8081` for a quick web glance. Prefer EAS PR/production links for real validation.
+
+## Manual publish (optional)
+
+```bash
+# Feature / staging channel
+npm run update:preview
+
+# Stable channel (usually done by CI on main)
+npm run update:production
+```
 
 ## Project structure
 
@@ -107,14 +115,15 @@ npx expo start --tunnel
 - `constants/` — theme, default plan, education copy
 - `context/` — local app state
 - `lib/` — storage, reminders, session builder
+- `.github/workflows/` — EAS Update CI for PR previews + production
 
 ## Next customisation steps
 
-1. Rename branding / clinic defaults in `constants/theme.ts`
-2. Adjust default clinical plan in `constants/plans.ts`
-3. Add Greek language strings when ready
-4. Create an Expo account + run `eas init` / `eas build` for store binaries
-5. Later: clinician dashboard / multi-patient sync (not in MVP)
+1. Finish Expo one-time setup (`eas init` + `EXPO_TOKEN`) if not done  
+2. Rename branding / clinic defaults in `constants/theme.ts`  
+3. Adjust default clinical plan in `constants/plans.ts`  
+4. Add Greek language strings when ready  
+5. Later: `eas build` for store binaries; clinician dashboard / multi-patient sync  
 
 ## Disclaimer
 
