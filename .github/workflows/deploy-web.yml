@@ -36,13 +36,34 @@ jobs:
       - name: Export static web build
         env:
           BASE_PATH: /ml-03-pelvic-floor-app
-        run: npx expo export -p web
+        run: |
+          echo "export const WEB_BUILD_ID = '${GITHUB_SHA::7}';" > constants/buildInfo.ts
+          npx expo export -p web
 
-      - name: Publish to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          # Keep PR preview folders published by preview-web.yml
-          keep_files: true
-          commit_message: 'Deploy main web preview ${{ github.sha }}'
+      - name: Patch HTML cache headers
+        run: bash scripts/patch-web-cache-headers.sh dist
+
+      - name: Publish to gh-pages (preserve PR previews only)
+        env:
+          GIT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          WORK=/tmp/gh-pages-main
+          rm -rf "$WORK"
+          git clone --branch gh-pages --single-branch \
+            "https://x-access-token:${GIT_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+            "$WORK"
+          cd "$WORK"
+          # Keep only PR preview folders; replace everything else with the new main build.
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name 'pr-preview' -exec rm -rf {} +
+          cp -a "$GITHUB_WORKSPACE/dist/." .
+          touch .nojekyll
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to publish."
+          else
+            git commit -m "Deploy main web preview ${GITHUB_SHA}"
+            git push origin gh-pages
+          fi

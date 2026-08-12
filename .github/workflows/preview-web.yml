@@ -37,7 +37,13 @@ jobs:
         if: github.event.action != 'closed'
         env:
           BASE_PATH: /ml-03-pelvic-floor-app/pr-preview/pr-${{ github.event.number }}
-        run: npx expo export -p web
+        run: |
+          echo "export const WEB_BUILD_ID = 'pr-${{ github.event.number }}-${GITHUB_SHA::7}';" > constants/buildInfo.ts
+          npx expo export -p web
+
+      - name: Patch HTML cache headers
+        if: github.event.action != 'closed'
+        run: bash scripts/patch-web-cache-headers.sh dist
 
       - name: Ensure dist exists
         run: mkdir -p dist
