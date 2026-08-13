@@ -5,13 +5,15 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { TabIcon } from '@/components/TabIcon';
 import { colors } from '@/constants/theme';
 
+// Room for the icon (28px wrapper) + 12px label with line-height + the
+// tab item's own vertical padding (5+5). Must be taller than React
+// Navigation's default 49px UIKit content height, otherwise phone
+// labels get clipped mid-glyph.
+const TAB_BAR_CONTENT_HEIGHT = 64;
+
 export default function TabLayout() {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  // Always lift the bar by at least this much, on top of whatever the
-  // device's own safe-area inset is (which can be 0 on some Android
-  // devices even though the label still needs breathing room).
-  const extraLift = Math.max(insets.bottom, 16);
 
   return (
     <Tabs
@@ -22,13 +24,16 @@ export default function TabLayout() {
         tabBarStyle: {
           backgroundColor: colors.surface,
           borderTopColor: colors.border,
-          height: 64 + extraLift,
-          paddingBottom: 8 + extraLift,
-          paddingTop: 8,
+          // Total height = content + safe-area. Do NOT also set
+          // paddingBottom/paddingTop here — the tab bar already applies
+          // paddingBottom: insets.bottom itself. Setting both used to
+          // shrink the content area and clip the labels.
+          height: TAB_BAR_CONTENT_HEIGHT + insets.bottom,
         },
         tabBarLabelStyle: {
           fontFamily: 'DMSans_500Medium',
           fontSize: 12,
+          lineHeight: 16,
         },
       }}
     >
@@ -36,28 +41,28 @@ export default function TabLayout() {
         name="index"
         options={{
           title: t('tabs.home'),
-          tabBarIcon: ({ color }) => <TabIcon name="home" color={color} />,
+          tabBarIcon: ({ color, size }) => <TabIcon name="home" color={color} size={size} />,
         }}
       />
       <Tabs.Screen
         name="progress"
         options={{
           title: t('tabs.progress'),
-          tabBarIcon: ({ color }) => <TabIcon name="stats" color={color} />,
+          tabBarIcon: ({ color, size }) => <TabIcon name="stats" color={color} size={size} />,
         }}
       />
       <Tabs.Screen
         name="learn"
         options={{
           title: t('tabs.learn'),
-          tabBarIcon: ({ color }) => <TabIcon name="book" color={color} />,
+          tabBarIcon: ({ color, size }) => <TabIcon name="book" color={color} size={size} />,
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
           title: t('tabs.settings'),
-          tabBarIcon: ({ color }) => <TabIcon name="settings" color={color} />,
+          tabBarIcon: ({ color, size }) => <TabIcon name="settings" color={color} size={size} />,
         }}
       />
     </Tabs>
