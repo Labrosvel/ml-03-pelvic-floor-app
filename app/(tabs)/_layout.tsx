@@ -8,7 +8,10 @@ import { colors } from '@/constants/theme';
 export default function TabLayout() {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const bottomInset = Math.max(insets.bottom, 8);
+  // Always lift the bar by at least this much, on top of whatever the
+  // device's own safe-area inset is (which can be 0 on some Android
+  // devices even though the label still needs breathing room).
+  const extraLift = Math.max(insets.bottom, 16);
 
   return (
     <Tabs
@@ -19,8 +22,8 @@ export default function TabLayout() {
         tabBarStyle: {
           backgroundColor: colors.surface,
           borderTopColor: colors.border,
-          height: 56 + bottomInset,
-          paddingBottom: bottomInset,
+          height: 64 + extraLift,
+          paddingBottom: 8 + extraLift,
           paddingTop: 8,
         },
         tabBarLabelStyle: {
