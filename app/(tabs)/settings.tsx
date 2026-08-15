@@ -12,6 +12,7 @@ import { colors, fonts, spacing } from '@/constants/theme';
 import { WEB_BUILD_ID } from '@/constants/buildInfo';
 import { useAppState } from '@/context/AppState';
 import { AppLanguage } from '@/i18n/types';
+import { areRemindersSupported } from '@/lib/reminders';
 import { previewSoundPack } from '@/lib/sound';
 
 const LANGUAGE_OPTIONS: {
@@ -88,10 +89,15 @@ export default function SettingsScreen() {
         <View style={styles.row}>
           <View style={styles.rowText}>
             <Text style={styles.rowTitle}>{t('settings.reminders')}</Text>
-            <Text style={styles.rowBody}>{settings.reminders.times.join(' · ')}</Text>
+            <Text style={styles.rowBody}>
+              {areRemindersSupported()
+                ? settings.reminders.times.join(' · ')
+                : t('settings.remindersExpoGo')}
+            </Text>
           </View>
           <Switch
-            value={settings.reminders.enabled}
+            value={areRemindersSupported() ? settings.reminders.enabled : false}
+            disabled={!areRemindersSupported()}
             onValueChange={(enabled) => {
               void updateSettings({
                 reminders: { ...settings.reminders, enabled },

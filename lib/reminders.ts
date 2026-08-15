@@ -1,20 +1,47 @@
-import * as Notifications from 'expo-notifications';
+import Constants, { ExecutionEnvironment } from 'expo-constants';
 import { Platform } from 'react-native';
 
 import { ReminderSettings } from '@/constants/plans';
 import i18n from '@/i18n';
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowBanner: true,
-    shouldShowList: true,
-    shouldPlaySound: true,
-    shouldSetBadge: false,
-  }),
-});
+/** Expo Go (Android SDK 53+) throws if expo-notifications is imported. */
+const isExpoGo = Constants.executionEnvironment === ExecutionEnvironment.StoreClient;
+
+type NotificationsModule = typeof import('expo-notifications');
+
+let notifications: NotificationsModule | null = null;
+let handlerConfigured = false;
+
+function getNotifications(): NotificationsModule | null {
+  if (Platform.OS === 'web' || isExpoGo) return null;
+  if (notifications) return notifications;
+
+  // Lazy require so Expo Go never evaluates the native module.
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  notifications = require('expo-notifications') as NotificationsModule;
+
+  if (!handlerConfigured) {
+    notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowBanner: true,
+        shouldShowList: true,
+        shouldPlaySound: true,
+        shouldSetBadge: false,
+      }),
+    });
+    handlerConfigured = true;
+  }
+
+  return notifications;
+}
+
+export function areRemindersSupported(): boolean {
+  return Platform.OS !== 'web' && !isExpoGo;
+}
 
 export async function ensureReminderPermissions(): Promise<boolean> {
-  if (Platform.OS === 'web') return false;
+  const Notifications = getNotifications();
+  if (!Notifications) return false;
 
   const current = await Notifications.getPermissionsAsync();
   if (current.granted) return true;
@@ -33,7 +60,8 @@ function parseTime(time: string): { hour: number; minute: number } | null {
 }
 
 export async function syncReminders(reminders: ReminderSettings): Promise<void> {
-  if (Platform.OS === 'web') return;
+  const Notifications = getNotifications();
+  if (!Notifications) return;
 
   await Notifications.cancelAllScheduledNotificationsAsync();
 

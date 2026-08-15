@@ -111,6 +111,8 @@ npx expo start --tunnel
 
 If you previously saw **Failed to download remote update**, pull the latest fix (placeholder EAS update URL removed) and restart Metro with `npx expo start --tunnel` before scanning again.
 
+Expo Go on Android cannot use `expo-notifications` (SDK 53+). The app skips reminders there so the rest of the UI can load; reminders work in a development/production build later.
+
 If QR / Metro URL still fails after installing SDK 57 Expo Go, use the **web preview** URL in the validation framework above — that path does not need Expo Go.
 
 ### Optional local web
