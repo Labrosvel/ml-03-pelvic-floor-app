@@ -13,10 +13,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.pelviguide.app",
-      "infoPlist": {
-        "UIBackgroundModes": ["remote-notification"]
-      }
+      "bundleIdentifier": "com.pelviguide.app"
     },
     "android": {
       "adaptiveIcon": {
@@ -26,7 +23,14 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "package": "com.pelviguide.app",
-      "predictiveBackGestureEnabled": false
+      "versionCode": 1,
+      "predictiveBackGestureEnabled": false,
+      "blockedPermissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+        "android.permission.FOREGROUND_SERVICE_MICROPHONE"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -36,7 +40,15 @@
     "plugins": [
       "expo-router",
       "expo-localization",
-      "expo-audio",
+      [
+        "expo-audio",
+        {
+          "microphonePermission": false,
+          "recordAudioAndroid": false,
+          "enableBackgroundRecording": false,
+          "enableBackgroundPlayback": false
+        }
+      ],
       [
         "expo-splash-screen",
         {
@@ -48,7 +60,8 @@
       [
         "expo-notifications",
         {
-          "color": "#169A8E"
+          "color": "#169A8E",
+          "defaultChannel": "reminders"
         }
       ]
     ],

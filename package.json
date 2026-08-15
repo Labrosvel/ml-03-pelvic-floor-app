@@ -47,7 +47,10 @@
     "export:web": "expo export -p web",
     "typecheck": "tsc --noEmit",
     "update:production": "eas update --channel production --environment production",
-    "update:preview": "eas update --channel preview --environment preview"
+    "update:preview": "eas update --channel preview --environment preview",
+    "build:android:preview": "eas build -p android --profile preview",
+    "build:android:production": "eas build -p android --profile production",
+    "submit:android": "eas submit -p android --profile production"
   },
   "private": true
 }

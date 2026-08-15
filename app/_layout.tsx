@@ -50,6 +50,7 @@ function RootNavigator() {
         <Stack.Screen name="plan" options={{ title: t('navigation.exercisePlan') }} />
         <Stack.Screen name="article/[id]" options={{ title: t('navigation.learn') }} />
         <Stack.Screen name="onboarding" options={{ headerShown: false, presentation: 'modal' }} />
+        <Stack.Screen name="privacy" options={{ title: t('privacy.title') }} />
       </Stack>
     </>
   );
