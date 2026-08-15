@@ -92,10 +92,14 @@ npx expo start
 ### Phone via Expo Go
 
 ```bash
+npm install
 npx expo start --tunnel
 ```
 
-Scan the QR with Expo Go: https://expo.dev/go
+Scan the QR in the terminal with Expo Go: https://expo.dev/go  
+Or open Expo Go → **Enter URL manually** and paste the `exp://…` URL printed by the terminal.
+
+`@expo/ngrok` is a project dependency so tunnel mode works without a global npm install (global install often fails with `EACCES`).
 
 ### Optional local web
 
