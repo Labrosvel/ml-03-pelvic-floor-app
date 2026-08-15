@@ -79,28 +79,25 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const updateSettings = useCallback(async (patch: Partial<AppSettings>) => {
-    setSettings((current) => {
-      const next: AppSettings = {
-        ...current,
-        ...patch,
-        reminders: patch.reminders ?? current.reminders,
-      };
+    const current = settings;
+    const next: AppSettings = {
+      ...current,
+      ...patch,
+      reminders: patch.reminders ?? current.reminders,
+    };
 
-      void (async () => {
-        await saveSettings(next);
-        if (patch.language && patch.language !== current.language) {
-          await applyLanguage(patch.language);
-          if (next.reminders.enabled) {
-            await syncReminders(next.reminders);
-          }
-        } else if (patch.reminders) {
-          await syncReminders(next.reminders);
-        }
-      })();
+    setSettings(next);
+    await saveSettings(next);
 
-      return next;
-    });
-  }, []);
+    if (patch.language && patch.language !== current.language) {
+      await applyLanguage(patch.language);
+      if (next.reminders.enabled) {
+        await syncReminders(next.reminders);
+      }
+    } else if (patch.reminders) {
+      await syncReminders(next.reminders);
+    }
+  }, [settings]);
 
   const updatePlan = useCallback(async (nextPlan: ExercisePlan) => {
     setPlan(nextPlan);

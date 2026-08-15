@@ -50,6 +50,14 @@ The PR also gets a comment with the link when the workflow finishes.
 4. **Main URL** updates to the new `main`  
 5. Your mother keeps using the same main URL  
 
+**For your mother: prefer the web link.** She does **not** need Expo Go, and you do **not** need to keep `npx expo start` running.
+
+| Validation method | Needs your computer running? | Good for mother? |
+| --- | --- | --- |
+| **Main web URL** (GitHub Pages) | No — hosted online | **Yes (recommended)** |
+| **Expo Go + QR / tunnel** | **Yes** — Metro must stay open | No — fragile, phone SDK matching |
+| Later: EAS installable build | No after install | Yes, when ready |
+
 Cloud Agent `localhost` / tunnel links are temporary and are **not** this framework.
 
 ### If the main URL looks unchanged after a merge
@@ -75,6 +83,7 @@ No Expo account is required for these web preview links.
 When you want phone validation via Expo Go / EAS (recommended before store release):
 
 1. Expo account + `npx eas init` + `npx eas update:configure`  
+   (this writes a real `updates.url` + `extra.eas.projectId`; until then updates stay disabled so Expo Go does not try a fake OTA URL)  
 2. GitHub secret **`EXPO_TOKEN`**  
 3. Existing workflows `preview.yml` / `production.yml` will stop skipping and publish mobile QR/links  
 
@@ -91,11 +100,28 @@ npx expo start
 
 ### Phone via Expo Go
 
+This project uses **Expo SDK 57**. The Expo Go app from the App Store / Play Store is often still on an older SDK, so scanning the QR can fail even when Metro/tunnel is healthy.
+
+1. Install the **SDK 57** Expo Go build from https://expo.dev/go (choose SDK 57 → Android or iOS).  
+   - **Android:** install the APK from that page (sideload).  
+   - **iOS:** store Expo Go may not support SDK 57 yet — use the web preview below, or later `eas go` / a development build.
+2. On the phone, stay on Expo Go **home** (you do **not** need to log in). Ignore any screen that tells you to run `npx expo start` — that is for Expo account projects, not your local Metro QR.
+3. On the computer, start the project:
+
 ```bash
+npm install
 npx expo start --tunnel
 ```
 
-Scan the QR with Expo Go: https://expo.dev/go
+4. Scan the QR in the **computer terminal**, or paste the printed `exp://…` URL into Expo Go → **Enter URL manually**.
+
+`@expo/ngrok` is a project dependency so tunnel mode works without a global npm install (global install often fails with `EACCES`).
+
+If you previously saw **Failed to download remote update**, pull the latest fix (placeholder EAS update URL removed) and restart Metro with `npx expo start --tunnel` before scanning again.
+
+Expo Go on Android cannot use `expo-notifications` (SDK 53+). The app skips reminders there so the rest of the UI can load; reminders work in a development/production build later.
+
+If QR / Metro URL still fails after installing SDK 57 Expo Go, use the **web preview** URL in the validation framework above — that path does not need Expo Go.
 
 ### Optional local web
 

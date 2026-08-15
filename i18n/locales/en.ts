@@ -77,6 +77,7 @@ const en = {
     yourName: 'Your name (optional)',
     yourNamePlaceholder: 'Patient first name',
     reminders: 'Reminders',
+    remindersExpoGo: 'Available in a full install (not Expo Go)',
     haptics: 'Haptics',
     sound: 'Sound cues',
     soundHint: 'Prepare, slow squeeze/rest, quick squeeze ticks, and session complete',
