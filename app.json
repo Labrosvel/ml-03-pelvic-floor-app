@@ -8,11 +8,8 @@
     "scheme": "pelviguide",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
     "updates": {
-      "url": "https://u.expo.dev/replace-after-eas-init"
+      "enabled": false
     },
     "ios": {
       "supportsTablet": true,
@@ -57,11 +54,6 @@
     ],
     "experiments": {
       "typedRoutes": true
-    },
-    "extra": {
-      "eas": {
-        "projectId": "replace-after-eas-init"
-      }
     }
   }
 }
