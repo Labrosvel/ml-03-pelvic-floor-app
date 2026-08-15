@@ -50,6 +50,14 @@ The PR also gets a comment with the link when the workflow finishes.
 4. **Main URL** updates to the new `main`  
 5. Your mother keeps using the same main URL  
 
+**For your mother: prefer the web link.** She does **not** need Expo Go, and you do **not** need to keep `npx expo start` running.
+
+| Validation method | Needs your computer running? | Good for mother? |
+| --- | --- | --- |
+| **Main web URL** (GitHub Pages) | No — hosted online | **Yes (recommended)** |
+| **Expo Go + QR / tunnel** | **Yes** — Metro must stay open | No — fragile, phone SDK matching |
+| Later: EAS installable build | No after install | Yes, when ready |
+
 Cloud Agent `localhost` / tunnel links are temporary and are **not** this framework.
 
 ### If the main URL looks unchanged after a merge

@@ -34,7 +34,8 @@ if (!i18n.isInitialized) {
 
 export async function applyLanguage(preference: AppLanguage): Promise<ResolvedLanguage> {
   const resolved = resolveLanguage(preference);
-  if (i18n.language !== resolved) {
+  const current = (i18n.language || '').split('-')[0];
+  if (current !== resolved) {
     await i18n.changeLanguage(resolved);
   }
   return resolved;

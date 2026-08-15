@@ -26,7 +26,11 @@ async function readJson<T>(key: string, fallback: T): Promise<T> {
 }
 
 async function writeJson<T>(key: string, value: T): Promise<void> {
-  await AsyncStorage.setItem(key, JSON.stringify(value));
+  try {
+    await AsyncStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    console.warn(`Failed to persist ${key}`, error);
+  }
 }
 
 export async function loadSettings(): Promise<AppSettings> {
@@ -55,5 +59,5 @@ export async function saveSessions(sessions: CompletedSession[]): Promise<void> 
 }
 
 export async function clearAllData(): Promise<void> {
-  await AsyncStorage.removeMany([KEYS.settings, KEYS.plan, KEYS.sessions]);
+  await AsyncStorage.multiRemove([KEYS.settings, KEYS.plan, KEYS.sessions]);
 }
