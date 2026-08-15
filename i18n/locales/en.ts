@@ -98,7 +98,39 @@ const en = {
       'This clears plan customisations, settings, and session history on this device.',
     disclaimer:
       'PelviGuide supports home practice between physiotherapy appointments. It is not a substitute for clinical assessment and is not affiliated with Squeezy or any other commercial pelvic health app.',
+    privacyPolicy: 'Privacy policy',
     webBuild: 'Web build {{id}}',
+  },
+  privacy: {
+    title: 'Privacy policy',
+    updated: 'Last updated: 15 August 2026',
+    introTitle: 'Overview',
+    introBody:
+      'PelviGuide (“the app”) is a pelvic floor exercise companion. This policy explains what information the app handles on your device. We designed the current version to keep practice data on the device rather than uploading it to PelviGuide servers.',
+    dataTitle: 'Information stored on your device',
+    dataBody:
+      'Depending on what you enter, the app may store locally: clinic name label, optional display name, language preference, sound/haptics preferences, reminder preferences, custom exercise plan timings, and completed session history. This information stays in on-device storage unless you use OS backups that copy app data.',
+    permissionsTitle: 'Permissions',
+    permissionsBody:
+      'Notifications may be requested if you enable reminders, so the app can show local reminder alerts. The app plays sound cues for exercise timing; it does not record audio from the microphone. Haptics may vibrate the device when enabled.',
+    sharingTitle: 'Sharing',
+    sharingBody:
+      'The current version does not create an account and does not send your exercise history, names, or clinic labels to PelviGuide cloud servers. We do not sell personal information. If a future version adds analytics, accounts, or sync, this policy will be updated before those features ship.',
+    retentionTitle: 'Retention and deletion',
+    retentionBody:
+      'Data remains on the device until you clear it. Use Settings → Reset local data to remove stored settings, plan customisations, and session history from the app. Uninstalling the app also removes its local storage.',
+    childrenTitle: 'Children',
+    childrenBody:
+      'PelviGuide is intended for adults using a physiotherapist-agreed exercise plan. It is not directed at children.',
+    healthTitle: 'Health information',
+    healthBody:
+      'PelviGuide supports home practice between physiotherapy appointments. It is not a medical device, does not diagnose conditions, and does not replace clinical assessment. Do not use it for emergency care.',
+    contactTitle: 'Contact',
+    contactBody:
+      'For privacy questions about this app, contact the publisher via the Google Play store listing contact details for PelviGuide (or the email shown there once the listing is published).',
+    changesTitle: 'Changes',
+    changesBody:
+      'We may update this policy as the product evolves. The “Last updated” date at the top will change when we do.',
   },
   plan: {
     intro: 'Physiotherapist mode: tailor squeeze times and repetitions for each patient.',

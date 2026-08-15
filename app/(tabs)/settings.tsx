@@ -182,6 +182,12 @@ export default function SettingsScreen() {
         }}
       />
 
+      <Button
+        label={t('settings.privacyPolicy')}
+        variant="ghost"
+        onPress={() => router.push('/privacy')}
+      />
+
       <Text style={styles.disclaimer}>{t('settings.disclaimer')}</Text>
       <Text style={styles.buildId}>{t('settings.webBuild', { id: WEB_BUILD_ID })}</Text>
     </Screen>

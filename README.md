@@ -78,6 +78,13 @@ Some fixes (like editable plan numbers) do not change the Home screen look — o
 
 No Expo account is required for these web preview links.
 
+## Google Play release (Android store)
+
+Start here: **[docs/GOOGLE_PLAY.md](docs/GOOGLE_PLAY.md)** — checklist, Data safety notes, listing copy, and what only you can do in Play Console / Expo.
+
+Privacy policy (after Pages deploy):  
+https://labrosvel.github.io/ml-03-pelvic-floor-app/privacy
+
 ## Optional later: mobile Expo previews (EAS)
 
 When you want phone validation via Expo Go / EAS (recommended before store release):
