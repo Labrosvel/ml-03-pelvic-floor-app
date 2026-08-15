@@ -91,15 +91,23 @@ npx expo start
 
 ### Phone via Expo Go
 
+This project uses **Expo SDK 57**. The Expo Go app from the App Store / Play Store is often still on an older SDK, so scanning the QR can fail even when Metro/tunnel is healthy.
+
+1. Install the **SDK 57** Expo Go build from https://expo.dev/go (choose SDK 57 → Android or iOS).  
+   - **Android:** install the APK from that page (sideload).  
+   - **iOS:** store Expo Go may not support SDK 57 yet — use the web preview below, or later `eas go` / a development build.
+2. Then start the project:
+
 ```bash
 npm install
 npx expo start --tunnel
 ```
 
-Scan the QR in the terminal with Expo Go: https://expo.dev/go  
-Or open Expo Go → **Enter URL manually** and paste the `exp://…` URL printed by the terminal.
+3. Scan the QR in the terminal, or paste the printed `exp://…` URL into Expo Go → **Enter URL manually**.
 
 `@expo/ngrok` is a project dependency so tunnel mode works without a global npm install (global install often fails with `EACCES`).
+
+If QR / Metro URL still fails after installing SDK 57 Expo Go, use the **web preview** URL in the validation framework above — that path does not need Expo Go.
 
 ### Optional local web
 
