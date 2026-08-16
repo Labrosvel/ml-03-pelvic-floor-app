@@ -56,6 +56,22 @@ npx eas-cli build -p android --profile production
 
 Test the **preview** build on a real phone before submitting production.
 
+#### Install the preview APK on a phone (not an emulator)
+
+When the build finishes, EAS prints a link like:
+
+`https://expo.dev/accounts/<you>/projects/pelviguide/builds/<build-id>`
+
+1. Open that link **on the Android phone** (Chrome), or scan the QR from another device.  
+2. Download / install the APK.  
+3. If Android blocks it: **Settings → security / install unknown apps** → allow the browser.  
+4. When the CLI asks *“Install and run the Android build on an emulator?”*, answer **No** unless you have Android Studio + an emulator on **that same machine**.  
+   - In Cursor Cloud / remote agents there is usually **no `adb`**, so choosing Yes fails with `spawn adb ENOENT` even when the cloud build succeeded.  
+5. Phone install does **not** need Expo Go and does **not** need your laptop to keep running Metro.
+
+Current successful preview build (example):  
+https://expo.dev/accounts/lamprosv/projects/pelviguide/builds/2ea28e9e-ec50-4016-93d6-e3d6f748785e
+
 ### 4. Submit to Play
 
 ```bash
