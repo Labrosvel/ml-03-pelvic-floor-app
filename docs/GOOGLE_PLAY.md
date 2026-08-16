@@ -30,12 +30,15 @@ On your computer, in this repo:
 
 ```bash
 npm install
-npx eas-cli login          # or: npx eas login
-npx eas init               # creates a real Expo projectId
-npx eas update:configure   # optional later for OTA updates
+npx eas-cli login
+npx eas-cli init --account <your-expo-username>
+# optional later for OTA updates:
+npx eas-cli update:configure
 ```
 
-`eas init` writes a real `extra.eas.projectId` and updates URL into the Expo config. Until that exists, production OTA stays off (`updates.enabled: false`), which is fine for the **first** store binary.
+Use **`npx eas-cli …`** (not `npx eas …`). `npx eas` fails with `could not determine executable to run` because the npm package name is `eas-cli`.
+
+`eas-cli init` writes a real `extra.eas.projectId` into the Expo config. Until that exists, production OTA stays off (`updates.enabled: false`), which is fine for the **first** store binary.
 
 Optional CI later: add GitHub secret `EXPO_TOKEN` from https://expo.dev/settings/access-tokens
 
@@ -43,10 +46,12 @@ Optional CI later: add GitHub secret `EXPO_TOKEN` from https://expo.dev/settings
 
 ```bash
 # Installable test build (internal link / APK-style distribution via EAS)
-npx eas build -p android --profile preview
+npx eas-cli build -p android --profile preview
+# or: npm run build:android:preview
 
 # Store-ready production AAB
-npx eas build -p android --profile production
+npx eas-cli build -p android --profile production
+# or: npm run build:android:production
 ```
 
 Test the **preview** build on a real phone before submitting production.
@@ -54,7 +59,8 @@ Test the **preview** build on a real phone before submitting production.
 ### 4. Submit to Play
 
 ```bash
-npx eas submit -p android --profile production
+npx eas-cli submit -p android --profile production
+# or: npm run submit:android
 ```
 
 Or download the `.aab` from the Expo build page and upload manually in Play Console → Production / Internal testing.
@@ -127,9 +133,9 @@ Yes. Keep coding on branches. Users only get new code when you ship a new Play r
 1. Merge this prep PR  
 2. Confirm privacy URL loads on GitHub Pages  
 3. Create Play Console account + draft listing  
-4. `eas login` + `eas init`  
-5. `eas build -p android --profile preview` → mother installs & validates  
-6. `eas build` production → Internal testing → Production  
+4. `npx eas-cli login` + `npx eas-cli init --account <username>`  
+5. `npm run build:android:preview` → mother installs & validates  
+6. `npm run build:android:production` → Internal testing → Production  
 
 ## Apple later
 
