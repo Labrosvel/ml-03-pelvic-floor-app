@@ -89,7 +89,7 @@ https://labrosvel.github.io/ml-03-pelvic-floor-app/privacy
 
 When you want phone validation via Expo Go / EAS (recommended before store release):
 
-1. Expo account + `npx eas init` + `npx eas update:configure`  
+1. Expo account + `npx eas-cli init --account <username>` (+ optional `npx eas-cli update:configure`)  
    (this writes a real `updates.url` + `extra.eas.projectId`; until then updates stay disabled so Expo Go does not try a fake OTA URL)  
 2. GitHub secret **`EXPO_TOKEN`**  
 3. Existing workflows `preview.yml` / `production.yml` will stop skipping and publish mobile QR/links  
