@@ -5,7 +5,7 @@ set -euo pipefail
 root="${1:-dist}"
 stamp="${GITHUB_SHA:-$(git rev-parse --short HEAD 2>/dev/null || echo local)}"
 stamp="${stamp:0:7}"
-injected="<meta http-equiv=\"Cache-Control\" content=\"no-cache, no-store, must-revalidate\" /><meta http-equiv=\"Pragma\" content=\"no-cache\" /><meta name=\"pelviguide-build\" content=\"${stamp}\" />"
+injected="<meta http-equiv=\"Cache-Control\" content=\"no-cache, no-store, must-revalidate\" /><meta http-equiv=\"Pragma\" content=\"no-cache\" /><meta name=\"pelvipilot-build\" content=\"${stamp}\" />"
 
 if [[ ! -d "$root" ]]; then
   echo "Missing export directory: $root" >&2
@@ -13,7 +13,7 @@ if [[ ! -d "$root" ]]; then
 fi
 
 while IFS= read -r -d '' file; do
-  if grep -q 'pelviguide-build' "$file"; then
+  if grep -q 'pelvipilot-build' "$file"; then
     continue
   fi
   # Insert cache meta immediately after <head ...>

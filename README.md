@@ -1,8 +1,10 @@
-# PelviGuide
+# PelviPilot
 
 Cross-platform pelvic floor exercise companion built with **React Native + Expo**.
 
 This is a **mobile-first** app (iOS / Android). Hosted web builds are only for convenient validation links — not a product pivot.
+
+> Former working name: PelviGuide. Store identifiers use **PelviPilot** (`com.pelvipilot.app`).
 
 > This is an original app inspired by the pelvic-floor exercise category. It is **not** affiliated with Squeezy or any other commercial product.
 
@@ -157,4 +159,4 @@ npm run export:web
 
 ## Disclaimer
 
-PelviGuide supports home practice between physiotherapy appointments. It is not a medical device, does not diagnose conditions, and does not replace clinical assessment.
+PelviPilot supports home practice between physiotherapy appointments. It is not a medical device, does not diagnose conditions, and does not replace clinical assessment.

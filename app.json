@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "PelviGuide",
-    "slug": "pelviguide",
+    "name": "PelviPilot",
+    "slug": "pelvipilot",
     "owner": "lamprosv",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "pelviguide",
+    "scheme": "pelvipilot",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "updates": {
@@ -14,7 +14,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.pelviguide.app"
+      "bundleIdentifier": "com.pelvipilot.app"
     },
     "android": {
       "adaptiveIcon": {
@@ -23,7 +23,7 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "package": "com.pelviguide.app",
+      "package": "com.pelvipilot.app",
       "predictiveBackGestureEnabled": false,
       "blockedPermissions": [
         "android.permission.RECORD_AUDIO",

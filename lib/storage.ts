@@ -10,9 +10,9 @@ import {
 } from '@/constants/plans';
 
 const KEYS = {
-  settings: 'pelviguide.settings.v1',
-  plan: 'pelviguide.plan.v1',
-  sessions: 'pelviguide.sessions.v1',
+  settings: 'pelvipilot.settings.v1',
+  plan: 'pelvipilot.plan.v1',
+  sessions: 'pelvipilot.sessions.v1',
 } as const;
 
 async function readJson<T>(key: string, fallback: T): Promise<T> {
