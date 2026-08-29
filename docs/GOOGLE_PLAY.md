@@ -40,6 +40,14 @@ Use **`npx eas-cli …`** (not `npx eas …`). `npx eas` fails with `could not d
 
 `eas-cli init` writes a real `extra.eas.projectId` into the Expo config. Until that exists, production OTA stays off (`updates.enabled: false`), which is fine for the **first** store binary.
 
+**After renaming the Expo slug** (e.g. `pelviguide` → `pelvipilot`), the old EAS project id no longer matches. If `eas build` fails with *Slug … does not match*, run:
+
+```bash
+npx eas-cli init --account lamprosv --non-interactive --force --json
+```
+
+That links/creates `@lamprosv/pelvipilot` and updates `app.json` → `extra.eas.projectId`. Old preview builds stay under the previous Expo project; install a **new** build for PelviPilot on your phone.
+
 Optional CI later: add GitHub secret `EXPO_TOKEN` from https://expo.dev/settings/access-tokens
 
 ### 3. Build a signed Android App Bundle
