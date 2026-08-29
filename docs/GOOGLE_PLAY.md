@@ -1,12 +1,12 @@
-# Google Play release guide (PelviGuide)
+# Google Play release guide (PelviPilot)
 
-This is the educational checklist for shipping **PelviGuide** to the Google Play Store with Expo + EAS.
+This is the educational checklist for shipping **PelviPilot** to the Google Play Store with Expo + EAS.
 
 **Honest answer:** nobody can guarantee Google will accept an app on the first try. Acceptance depends on listing accuracy, Data safety answers, permissions, and health-related wording — not only whether the APK builds. This repo can be put in **good shape** for submission; **you** still complete account, payment, and Console steps.
 
 ## What is already in good shape
 
-- Real Android package id: `com.pelviguide.app`
+- Real Android package id: `com.pelvipilot.app`
 - App name, icon, splash, adaptive icons
 - Expo SDK 57 + `eas.json` production / preview profiles
 - Local-only data model (settings, plan, sessions on device)
@@ -21,7 +21,7 @@ This is the educational checklist for shipping **PelviGuide** to the Google Play
 
 1. Open https://play.google.com/console  
 2. Create a developer account and pay the registration fee  
-3. Create app **PelviGuide** (app, not game)  
+3. Create app **PelviPilot** (app, not game)  
 4. Complete **App content**: privacy policy URL, Data safety, ads (no), target audience, news/COVID (no), etc.
 
 ### 2. Expo account + EAS project link
@@ -60,7 +60,7 @@ Test the **preview** build on a real phone before submitting production.
 
 When the build finishes, EAS prints a link like:
 
-`https://expo.dev/accounts/<you>/projects/pelviguide/builds/<build-id>`
+`https://expo.dev/accounts/<you>/projects/pelvipilot/builds/<build-id>`
 
 1. Open that link **on the Android phone** (Chrome), or scan the QR from another device.  
 2. Download / install the APK.  
@@ -70,7 +70,7 @@ When the build finishes, EAS prints a link like:
 5. Phone install does **not** need Expo Go and does **not** need your laptop to keep running Metro.
 
 Current successful preview build (example):  
-https://expo.dev/accounts/lamprosv/projects/pelviguide/builds/2ea28e9e-ec50-4016-93d6-e3d6f748785e
+https://expo.dev/accounts/lamprosv/projects/pelvipilot/builds/2ea28e9e-ec50-4016-93d6-e3d6f748785e
 
 ### 4. Submit to Play
 
@@ -91,9 +91,9 @@ Use careful, non-diagnostic language.
 `Guided pelvic floor exercise companion for home practice between physio visits.`
 
 **Full description (draft):**  
-PelviGuide helps people follow a physiotherapist-agreed pelvic floor exercise plan at home. It provides timed squeeze/rest cues, a simple progress log on the device, optional reminders, and short education articles.
+PelviPilot helps people follow a physiotherapist-agreed pelvic floor exercise plan at home. It provides timed squeeze/rest cues, a simple progress log on the device, optional reminders, and short education articles.
 
-PelviGuide is an exercise companion. It does not diagnose conditions, does not replace clinical assessment, and is not a medical device.
+PelviPilot is an exercise companion. It does not diagnose conditions, does not replace clinical assessment, and is not a medical device.
 
 Features:
 - Guided squeeze and rest sessions
@@ -111,7 +111,7 @@ Features:
 
 Current app behaviour:
 
-| Question | Typical answer for PelviGuide today |
+| Question | Typical answer for PelviPilot today |
 | --- | --- |
 | Collects user data? | **No** personal data sent to your servers (everything is on-device). If you only store clinic/patient labels locally, declare accordingly — do **not** claim “no data” if you later add analytics/accounts. |
 | Encrypted in transit? | N/A if nothing is transmitted |
