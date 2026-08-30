@@ -50,11 +50,13 @@ Do this **once**. After that, every app build can send emails without Vercel, Re
 1. Dashboard → **Email Templates** → **Create new template**
 2. Set **To email** to: `{{to_email}}`
 3. Set **Subject** to: `{{subject}}`
-4. Set **Content** (plain text) to:
+4. In the **Content** section (this is the email body — EmailJS does not label it “Body”), click **Edit Content** and use plain text with:
 
 ```
 {{message}}
 ```
+
+The default “Contact Us” template also works: it already includes `{{message}}` in Content. Optional: set **From name** to `PelviPilot` instead of `{{name}}`.
 
 5. Save and copy the **Template ID** (looks like `template_xyz789`)
 
@@ -103,10 +105,11 @@ Commit, merge, and **build a new Android version** (Play internal test or APK). 
 | Problem | Fix |
 | --- | --- |
 | No “Physiotherapist alert email” in Settings | Install a build that includes PR #23+ (daily alerts feature) |
-| Test button says not configured | Paste EmailJS IDs in `constants/notifications.ts` and rebuild |
+| Test button says not configured | Rebuild the app after pasting EmailJS IDs in `constants/notifications.ts` |
 | Email goes to wrong person | Change **Settings → Physiotherapist alert email** on that phone |
 | No email after completing sessions | Ensure **Patient name** is filled; complete all sessions for the day (e.g. 3/3) |
 | Only one email per day | By design — duplicate protection for the same calendar day |
+| Push to GitHub fails locally | Run `git pull origin main` first; check GitHub login/token; see note below |
 
 ---
 

@@ -55,6 +55,7 @@ async function sendViaEmailJs(payload: DailyCompletePayload): Promise<{ ok: bool
         template_params: {
           to_email: payload.physioEmail.trim(),
           subject,
+          name: payload.patientName.trim(),
           patient_name: payload.patientName.trim(),
           clinic_name: payload.clinicName.trim() || 'Clinic',
           plan_name: payload.planName.trim() || 'Exercise plan',
