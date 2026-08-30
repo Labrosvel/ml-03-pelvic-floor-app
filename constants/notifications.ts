@@ -9,7 +9,7 @@
  */
 
 /** Who receives alerts by default on new installs. Change before production release. */
-export const DEFAULT_PHYSIO_NOTIFY_EMAIL = 'labros.velentzas@gmail.com';
+export const DEFAULT_PHYSIO_NOTIFY_EMAIL = 'physiolourida@gmail.com';
 
 /** EmailJS service ID (Dashboard → Email Services). */
 export const EMAILJS_SERVICE_ID = 'service_95o68ys';
