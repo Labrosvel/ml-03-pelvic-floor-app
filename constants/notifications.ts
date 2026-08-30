@@ -12,13 +12,13 @@
 export const DEFAULT_PHYSIO_NOTIFY_EMAIL = 'labros.velentzas@gmail.com';
 
 /** EmailJS service ID (Dashboard → Email Services). */
-export const EMAILJS_SERVICE_ID = '';
+export const EMAILJS_SERVICE_ID = 'service_95o68ys';
 
 /** EmailJS template ID (Dashboard → Email Templates). */
-export const EMAILJS_TEMPLATE_ID = '';
+export const EMAILJS_TEMPLATE_ID = 'template_8t7zpwr';
 
 /** EmailJS public key (Dashboard → Account → Public Key). */
-export const EMAILJS_PUBLIC_KEY = '';
+export const EMAILJS_PUBLIC_KEY = 'xM1ltPZzG8fRc-Qro';
 
 export function isEmailJsConfigured(): boolean {
   return Boolean(EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY);
