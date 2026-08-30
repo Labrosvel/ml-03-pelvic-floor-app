@@ -13,6 +13,7 @@ const KEYS = {
   settings: 'pelvipilot.settings.v1',
   plan: 'pelvipilot.plan.v1',
   sessions: 'pelvipilot.sessions.v1',
+  lastDailyNotifyDate: 'pelvipilot.lastDailyNotifyDate.v1',
 } as const;
 
 async function readJson<T>(key: string, fallback: T): Promise<T> {
@@ -58,6 +59,19 @@ export async function saveSessions(sessions: CompletedSession[]): Promise<void> 
   await writeJson(KEYS.sessions, sessions);
 }
 
+export async function loadLastDailyNotifyDate(): Promise<string | null> {
+  return readJson<string | null>(KEYS.lastDailyNotifyDate, null);
+}
+
+export async function saveLastDailyNotifyDate(dateKey: string): Promise<void> {
+  await writeJson(KEYS.lastDailyNotifyDate, dateKey);
+}
+
 export async function clearAllData(): Promise<void> {
-  await AsyncStorage.multiRemove([KEYS.settings, KEYS.plan, KEYS.sessions]);
+  await AsyncStorage.multiRemove([
+    KEYS.settings,
+    KEYS.plan,
+    KEYS.sessions,
+    KEYS.lastDailyNotifyDate,
+  ]);
 }

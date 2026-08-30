@@ -121,12 +121,12 @@ Current app behaviour:
 
 | Question | Typical answer for PelviPilot today |
 | --- | --- |
-| Collects user data? | **No** personal data sent to your servers (everything is on-device). If you only store clinic/patient labels locally, declare accordingly — do **not** claim “no data” if you later add analytics/accounts. |
-| Encrypted in transit? | N/A if nothing is transmitted |
+| Collects user data? | **Yes — limited.** When daily plan is complete, patient name, clinic label, plan name, and session count are sent to your notify API (email to physiotherapist). Other exercise history stays on-device. Update the form if you add accounts, analytics, or full cloud sync. |
+| Encrypted in transit? | **Yes** (HTTPS to notify API and email provider) |
 | Users can request deletion? | Local “Reset local data” clears on-device storage |
 | Independent security review? | No (unless you commission one) |
 
-Update this form if you add accounts, analytics, crash reporting, or cloud sync.
+Update this form if you add accounts, analytics, crash reporting, or broader cloud sync. See `docs/PHYSIO_NOTIFICATIONS.md` for the notify API.
 
 ## Health / medical review tips
 

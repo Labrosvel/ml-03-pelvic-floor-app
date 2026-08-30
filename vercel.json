@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/notify-daily-complete.js": {
+      "maxDuration": 10
+    }
+  }
+}
