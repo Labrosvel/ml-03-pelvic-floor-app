@@ -93,7 +93,8 @@ const el = {
     testAlertSentBody: 'Ελέγξτε το inbox του email ειδοποιήσεων φυσικοθεραπευτή παραπάνω.',
     testAlertFailedTitle: 'Αποτυχία αποστολής',
     testAlertFailedBody:
-      'Ελέγξτε τη σύνδεση και τη ρύθμιση EmailJS στο constants/notifications.ts.',
+      'Ελέγξτε EmailJS → Email History. Στο Account → Security επιτρέψτε browser API. Ελέγξτε και τα spam.',
+    testAlertFailedDetail: 'Το EmailJS απάντησε: {{detail}}',
     testAlertMissingEmail: 'Εισάγετε πρώτα email ειδοποιήσεων φυσικοθεραπευτή.',
     testAlertSamplePatient: 'Δοκιμαστικός ασθενής',
     reminders: 'Υπενθυμίσεις',

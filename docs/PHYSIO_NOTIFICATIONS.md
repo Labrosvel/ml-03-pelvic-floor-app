@@ -81,10 +81,23 @@ Commit, merge, and **build a new Android version** (Play internal test or APK). 
 
 ### Step 6 — Test from the app
 
-1. Install the new build
+1. Hard-refresh the web preview (or install a new Android build)
 2. Settings → set **Patient name** and **Physiotherapist alert email**
 3. Tap **Send test alert email**
-4. Check the inbox — you should receive a test message within a minute
+4. Check the inbox (and spam) — you should receive a test message within a minute
+5. If it fails, read the error popup, then check EmailJS → **Email History**
+
+### EmailJS security (common cause of “button does nothing / no email”)
+
+Open [Account → Security](https://dashboard.emailjs.com/admin/account/security):
+
+1. Leave **API access for non-browser applications** OFF for web testing (browser requests are allowed by default).
+2. If you use an **Allowed origins / domains** list, add:
+   - `https://labrosvel.github.io`
+   - `http://localhost` (for local `expo start --web`)
+3. Confirm **Email Services** shows your Gmail as **Active** (not expired).
+
+Also tap **Test It** inside the EmailJS template editor once — that proves Gmail sending works independently of the app.
 
 ---
 
