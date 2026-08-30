@@ -50,8 +50,8 @@ const en = {
     namePlaceholder: 'e.g. Maria Papadopoulou',
     nameHint: 'Your physiotherapist enters this so they know who completed the plan.',
     physioNotifyEmail: 'Physiotherapist alert email',
-    physioNotifyEmailPlaceholder: 'e.g. physio@clinic.example',
-    physioNotifyEmailHint: 'Daily completion alerts are sent to this address.',
+    physioNotifyEmailPlaceholder: 'e.g. clinic@example.com',
+    physioNotifyEmailHint: 'Enter the clinic email that should receive daily completion alerts.',
     continue: 'Continue',
   },
   progress: {
@@ -75,15 +75,16 @@ const en = {
   },
   settings: {
     title: 'Settings',
-    subtitle: 'Set up each patient device. Daily completion alerts go to the physiotherapist email below.',
+    subtitle: 'Set up each patient device. Enter the clinic email that should receive daily completion alerts.',
     clinicName: 'Clinic name',
     clinicPlaceholder: 'Physiospecialists',
     yourName: 'Patient name',
     yourNamePlaceholder: 'e.g. Maria Papadopoulou',
     yourNameHint: 'Required for daily completion alerts to identify the patient.',
     physioNotifyEmail: 'Physiotherapist alert email',
-    physioNotifyEmailPlaceholder: 'physio@clinic.example',
-    physioNotifyEmailHint: 'Receives one email when this patient completes all sessions for the day.',
+    physioNotifyEmailPlaceholder: 'e.g. clinic@example.com',
+    physioNotifyEmailHint:
+      'Enter the physiotherapist’s email for this clinic. Leave blank until setup — no default is filled in.',
     emailNotConfigured:
       'Email sending is not set up in this build yet. Add EmailJS IDs in constants/notifications.ts and rebuild.',
     testAlert: 'Send test alert email',

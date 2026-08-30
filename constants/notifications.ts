@@ -1,15 +1,15 @@
 /**
  * Physiotherapist alert configuration — edit this file before each release.
  *
- * 1. DEFAULT_PHYSIO_NOTIFY_EMAIL — who receives daily completion emails.
- *    Also editable per patient phone in Settings → Physiotherapist alert email.
+ * 1. Physio alert email — left blank by default. Each clinic enters their own
+ *    address in Settings / onboarding on the patient’s phone.
  *
  * 2. EmailJS — one-time free setup at https://www.emailjs.com/ (see docs/PHYSIO_NOTIFICATIONS.md).
  *    Paste the three IDs below after creating your EmailJS template.
  */
 
-/** Who receives alerts by default on new installs. Change before production release. */
-export const DEFAULT_PHYSIO_NOTIFY_EMAIL = 'physiolourida@gmail.com';
+/** Empty by default — each physiotherapist enters their clinic email on the device. */
+export const DEFAULT_PHYSIO_NOTIFY_EMAIL = '';
 
 /** EmailJS service ID (Dashboard → Email Services). */
 export const EMAILJS_SERVICE_ID = 'service_95o68ys';
