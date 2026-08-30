@@ -1,0 +1,12 @@
+---
+description: PelviPilot product vision — read before proposing features or taking action
+alwaysApply: true
+---
+
+# Product vision
+
+Before suggesting solutions or making changes, read and follow **`docs/VISION.md`**.
+
+That document defines who the app is for (physiotherapist + patient), what is in scope today, what is still being decided with the physiotherapist, and which future ideas (login, dashboard, cloud sync) are **debatable** — do not build them by default.
+
+When in doubt, prefer the smallest change that supports: **physio-configured plan → patient reminders → guided practice → local progress**.
