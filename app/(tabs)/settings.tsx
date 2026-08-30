@@ -61,6 +61,20 @@ export default function SettingsScreen() {
           placeholderTextColor={colors.inkSoft}
           style={styles.input}
         />
+        <Text style={styles.hint}>{t('settings.yourNameHint')}</Text>
+
+        <Text style={styles.label}>{t('settings.physioNotifyEmail')}</Text>
+        <TextInput
+          value={settings.physioNotifyEmail}
+          onChangeText={(physioNotifyEmail) => void updateSettings({ physioNotifyEmail })}
+          placeholder={t('settings.physioNotifyEmailPlaceholder')}
+          placeholderTextColor={colors.inkSoft}
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="email-address"
+          style={styles.input}
+        />
+        <Text style={styles.hint}>{t('settings.physioNotifyEmailHint')}</Text>
       </Panel>
 
       <Panel style={styles.block}>
@@ -213,6 +227,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.ink,
     backgroundColor: colors.bg,
+  },
+  hint: {
+    fontFamily: fonts.body,
+    fontSize: 13,
+    lineHeight: 18,
+    color: colors.inkSoft,
+    marginTop: spacing.xs,
   },
   languageRow: {
     flexDirection: 'row',

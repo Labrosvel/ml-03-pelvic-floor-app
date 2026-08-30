@@ -1,5 +1,6 @@
 import type { TFunction } from 'i18next';
 
+import { DEFAULT_PHYSIO_NOTIFY_EMAIL } from '@/constants/notifications';
 import { AppLanguage, isAppLanguage } from '@/i18n/types';
 import { isSoundPackId, type SoundPackId } from '@/constants/sounds';
 
@@ -39,6 +40,7 @@ export type ReminderSettings = {
 export type AppSettings = {
   clinicName: string;
   displayName: string;
+  physioNotifyEmail: string;
   hapticsEnabled: boolean;
   soundEnabled: boolean;
   soundPack: SoundPackId;
@@ -127,6 +129,7 @@ export function displayBlockLabel(block: ExerciseBlock, t: TFunction): string {
 export const DEFAULT_SETTINGS: AppSettings = {
   clinicName: 'Physiospecialists',
   displayName: '',
+  physioNotifyEmail: DEFAULT_PHYSIO_NOTIFY_EMAIL,
   hapticsEnabled: true,
   soundEnabled: true,
   soundPack: 'gentle',

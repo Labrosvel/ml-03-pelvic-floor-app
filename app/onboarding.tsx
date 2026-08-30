@@ -41,6 +41,7 @@ export default function OnboardingScreen() {
           placeholder={t('onboarding.namePlaceholder')}
           placeholderTextColor={colors.inkSoft}
         />
+        <Text style={styles.hint}>{t('onboarding.nameHint')}</Text>
       </View>
 
       <Button
@@ -100,5 +101,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.ink,
     backgroundColor: colors.surface,
+  },
+  hint: {
+    fontFamily: fonts.body,
+    fontSize: 13,
+    lineHeight: 18,
+    color: colors.inkSoft,
   },
 });

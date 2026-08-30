@@ -46,8 +46,9 @@ const en = {
       'A calm companion for pelvic floor practice. Built so patients can follow a physiotherapist-guided plan at home — and so you can preview the experience in Expo Go before store release.',
     clinicLabel: 'Clinic / physiotherapist name',
     clinicPlaceholder: 'Physiospecialists',
-    nameLabel: 'Patient first name (optional)',
-    namePlaceholder: 'e.g. Anna',
+    nameLabel: 'Patient name',
+    namePlaceholder: 'e.g. Maria Papadopoulou',
+    nameHint: 'Your physiotherapist enters this so they know who completed the plan.',
     continue: 'Continue',
   },
   progress: {
@@ -71,11 +72,15 @@ const en = {
   },
   settings: {
     title: 'Settings',
-    subtitle: 'Customise for your clinic and patients. Data stays on this device for now.',
+    subtitle: 'Set up each patient device. Daily completion alerts go to the physiotherapist email below.',
     clinicName: 'Clinic name',
     clinicPlaceholder: 'Physiospecialists',
-    yourName: 'Your name (optional)',
-    yourNamePlaceholder: 'Patient first name',
+    yourName: 'Patient name',
+    yourNamePlaceholder: 'e.g. Maria Papadopoulou',
+    yourNameHint: 'Required for daily completion alerts to identify the patient.',
+    physioNotifyEmail: 'Physiotherapist alert email',
+    physioNotifyEmailPlaceholder: 'physio@clinic.example',
+    physioNotifyEmailHint: 'Receives one email when this patient completes all sessions for the day.',
     reminders: 'Reminders',
     remindersExpoGo: 'Available in a full install (not Expo Go)',
     haptics: 'Haptics',
@@ -103,10 +108,10 @@ const en = {
   },
   privacy: {
     title: 'Privacy policy',
-    updated: 'Last updated: 15 August 2026',
+    updated: 'Last updated: 30 August 2026',
     introTitle: 'Overview',
     introBody:
-      'PelviPilot (“the app”) is a pelvic floor exercise companion. This policy explains what information the app handles on your device. We designed the current version to keep practice data on the device rather than uploading it to PelviPilot servers.',
+      'PelviPilot (“the app”) is a pelvic floor exercise companion. This policy explains what information the app handles on your device and what may be sent to your physiotherapist when you complete your daily plan.',
     dataTitle: 'Information stored on your device',
     dataBody:
       'Depending on what you enter, the app may store locally: clinic name label, optional display name, language preference, sound/haptics preferences, reminder preferences, custom exercise plan timings, and completed session history. This information stays in on-device storage unless you use OS backups that copy app data.',
@@ -115,7 +120,7 @@ const en = {
       'Notifications may be requested if you enable reminders, so the app can show local reminder alerts. The app plays sound cues for exercise timing; it does not record audio from the microphone. Haptics may vibrate the device when enabled.',
     sharingTitle: 'Sharing',
     sharingBody:
-      'The current version does not create an account and does not send your exercise history, names, or clinic labels to PelviPilot cloud servers. We do not sell personal information. If a future version adds analytics, accounts, or sync, this policy will be updated before those features ship.',
+      'When you finish all required sessions for the day, the app may send a single email to the physiotherapist address configured on this device. That email includes the patient name, clinic name, plan name, session count, and date — so your physiotherapist knows who completed their daily plan. We do not sell personal information. Exercise history beyond that daily alert is not uploaded to PelviPilot servers.',
     retentionTitle: 'Retention and deletion',
     retentionBody:
       'Data remains on the device until you clear it. Use Settings → Reset local data to remove stored settings, plan customisations, and session history from the app. Uninstalling the app also removes its local storage.',

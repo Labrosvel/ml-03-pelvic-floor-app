@@ -16,6 +16,7 @@ import {
   ExercisePlan,
 } from '@/constants/plans';
 import { applyLanguage } from '@/i18n';
+import { maybeNotifyDailyPlanComplete } from '@/lib/notifyPhysio';
 import { syncReminders } from '@/lib/reminders';
 import {
   clearAllData,
@@ -48,6 +49,15 @@ function isSameDay(iso: string, now = new Date()): boolean {
     date.getMonth() === now.getMonth() &&
     date.getDate() === now.getDate()
   );
+}
+
+function formatCompletedDate(now = new Date()): string {
+  return now.toLocaleDateString('en-GB', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 }
 
 export function AppStateProvider({ children }: { children: ReactNode }) {
@@ -104,13 +114,29 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     await savePlan(nextPlan);
   }, []);
 
-  const addSession = useCallback(async (session: CompletedSession) => {
-    setSessions((current) => {
-      const next = [session, ...current].slice(0, 365);
-      void saveSessions(next);
-      return next;
-    });
-  }, []);
+  const addSession = useCallback(
+    async (session: CompletedSession) => {
+      const next = [session, ...sessions].slice(0, 365);
+      setSessions(next);
+      await saveSessions(next);
+
+      const todayCount = next.filter((item) => isSameDay(item.completedAt)).length;
+      if (todayCount < plan.sessionsPerDay) {
+        return;
+      }
+
+      void maybeNotifyDailyPlanComplete({
+        physioEmail: settings.physioNotifyEmail,
+        patientName: settings.displayName,
+        clinicName: settings.clinicName,
+        planName: plan.name,
+        sessionsCompleted: todayCount,
+        sessionsRequired: plan.sessionsPerDay,
+        completedDate: formatCompletedDate(new Date(session.completedAt)),
+      });
+    },
+    [sessions, plan, settings],
+  );
 
   const resetAll = useCallback(async () => {
     await clearAllData();
