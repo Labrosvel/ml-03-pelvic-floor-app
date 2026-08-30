@@ -10,8 +10,10 @@ import { SectionHeader } from '@/components/ui/SectionHeader';
 import { SOUND_PACKS, type SoundPackId } from '@/constants/sounds';
 import { colors, fonts, spacing } from '@/constants/theme';
 import { WEB_BUILD_ID } from '@/constants/buildInfo';
+import { isEmailJsConfigured } from '@/constants/notifications';
 import { useAppState } from '@/context/AppState';
 import { AppLanguage } from '@/i18n/types';
+import { sendPhysioDailyCompleteEmail } from '@/lib/notifyPhysio';
 import { areRemindersSupported } from '@/lib/reminders';
 import { previewSoundPack } from '@/lib/sound';
 
@@ -33,7 +35,42 @@ const SOUND_PACK_LABEL_KEYS: Record<SoundPackId, 'soundPackGentle' | 'soundPackC
 
 export default function SettingsScreen() {
   const { t } = useTranslation();
-  const { settings, updateSettings, resetAll } = useAppState();
+  const { settings, plan, updateSettings, resetAll } = useAppState();
+  const emailConfigured = isEmailJsConfigured();
+
+  async function sendTestAlert() {
+    if (!emailConfigured) {
+      Alert.alert(t('settings.testAlertFailedTitle'), t('settings.emailNotConfigured'));
+      return;
+    }
+    if (!settings.physioNotifyEmail.trim()) {
+      Alert.alert(t('settings.testAlertFailedTitle'), t('settings.testAlertMissingEmail'));
+      return;
+    }
+    const patientName = settings.displayName.trim() || t('settings.testAlertSamplePatient');
+    const result = await sendPhysioDailyCompleteEmail(
+      {
+        physioEmail: settings.physioNotifyEmail,
+        patientName,
+        clinicName: settings.clinicName,
+        planName: plan.name,
+        sessionsCompleted: plan.sessionsPerDay,
+        sessionsRequired: plan.sessionsPerDay,
+        completedDate: new Date().toLocaleDateString('en-GB', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        }),
+      },
+      { skipDailyLimit: true },
+    );
+    if (result.sent) {
+      Alert.alert(t('settings.testAlertSentTitle'), t('settings.testAlertSentBody'));
+    } else {
+      Alert.alert(t('settings.testAlertFailedTitle'), t('settings.testAlertFailedBody'));
+    }
+  }
 
   return (
     <Screen>
@@ -75,6 +112,17 @@ export default function SettingsScreen() {
           style={styles.input}
         />
         <Text style={styles.hint}>{t('settings.physioNotifyEmailHint')}</Text>
+
+        {!emailConfigured ? (
+          <Text style={styles.warning}>{t('settings.emailNotConfigured')}</Text>
+        ) : null}
+
+        <Button
+          label={t('settings.testAlert')}
+          variant="secondary"
+          onPress={() => void sendTestAlert()}
+          style={styles.testAlertButton}
+        />
       </Panel>
 
       <Panel style={styles.block}>
@@ -234,6 +282,16 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     color: colors.inkSoft,
     marginTop: spacing.xs,
+  },
+  warning: {
+    fontFamily: fonts.bodyMedium,
+    fontSize: 13,
+    lineHeight: 18,
+    color: colors.orange,
+    marginTop: spacing.sm,
+  },
+  testAlertButton: {
+    marginTop: spacing.md,
   },
   languageRow: {
     flexDirection: 'row',

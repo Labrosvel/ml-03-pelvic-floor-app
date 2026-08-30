@@ -49,6 +49,9 @@ const el = {
     nameLabel: 'Όνομα ασθενούς',
     namePlaceholder: 'π.χ. Μαρία Παπαδοπούλου',
     nameHint: 'Το συμπληρώνει ο φυσικοθεραπευτής ώστε να γνωρίζει ποιος ολοκλήρωσε το πρόγραμμα.',
+    physioNotifyEmail: 'Email ειδοποιήσεων φυσικοθεραπευτή',
+    physioNotifyEmailPlaceholder: 'π.χ. physio@clinic.example',
+    physioNotifyEmailHint: 'Οι ημερήσιες ειδοποιήσεις ολοκλήρωσης στέλνονται σε αυτή τη διεύθυνση.',
     continue: 'Συνέχεια',
   },
   progress: {
@@ -83,6 +86,16 @@ const el = {
     physioNotifyEmailPlaceholder: 'physio@clinic.example',
     physioNotifyEmailHint:
       'Λαμβάνει ένα email όταν ο ασθενής ολοκληρώσει όλες τις συνεδρίες της ημέρας.',
+    emailNotConfigured:
+      'Η αποστολή email δεν έχει ρυθμιστεί σε αυτή την έκδοση. Προσθέστε τα EmailJS IDs στο constants/notifications.ts και κάντε νέο build.',
+    testAlert: 'Αποστολή δοκιμαστικού email',
+    testAlertSentTitle: 'Στάλθηκε δοκιμή',
+    testAlertSentBody: 'Ελέγξτε το inbox του email ειδοποιήσεων φυσικοθεραπευτή παραπάνω.',
+    testAlertFailedTitle: 'Αποτυχία αποστολής',
+    testAlertFailedBody:
+      'Ελέγξτε τη σύνδεση και τη ρύθμιση EmailJS στο constants/notifications.ts.',
+    testAlertMissingEmail: 'Εισάγετε πρώτα email ειδοποιήσεων φυσικοθεραπευτή.',
+    testAlertSamplePatient: 'Δοκιμαστικός ασθενής',
     reminders: 'Υπενθυμίσεις',
     remindersExpoGo: 'Διαθέσιμο σε πλήρη εγκατάσταση (όχι Expo Go)',
     haptics: 'Δόνηση',

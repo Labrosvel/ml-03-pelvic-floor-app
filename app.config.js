@@ -10,10 +10,5 @@ module.exports = () => {
       ...(appJson.expo.experiments || {}),
       ...(basePath ? { baseUrl: basePath } : {}),
     },
-    extra: {
-      ...(appJson.expo.extra || {}),
-      notifyApiUrl: process.env.EXPO_PUBLIC_NOTIFY_API_URL || '',
-      notifyApiSecret: process.env.EXPO_PUBLIC_NOTIFY_API_SECRET || '',
-    },
   };
 };
