@@ -14,6 +14,7 @@ export default function OnboardingScreen() {
   const { settings, updateSettings } = useAppState();
   const [clinicName, setClinicName] = useState(settings.clinicName || brand.clinicName);
   const [displayName, setDisplayName] = useState(settings.displayName);
+  const [physioNotifyEmail, setPhysioNotifyEmail] = useState(settings.physioNotifyEmail);
 
   return (
     <Screen scroll={false} contentStyle={styles.content}>
@@ -42,6 +43,19 @@ export default function OnboardingScreen() {
           placeholderTextColor={colors.inkSoft}
         />
         <Text style={styles.hint}>{t('onboarding.nameHint')}</Text>
+
+        <Text style={styles.label}>{t('onboarding.physioNotifyEmail')}</Text>
+        <TextInput
+          style={styles.input}
+          value={physioNotifyEmail}
+          onChangeText={setPhysioNotifyEmail}
+          placeholder={t('onboarding.physioNotifyEmailPlaceholder')}
+          placeholderTextColor={colors.inkSoft}
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="email-address"
+        />
+        <Text style={styles.hint}>{t('onboarding.physioNotifyEmailHint')}</Text>
       </View>
 
       <Button
@@ -51,6 +65,7 @@ export default function OnboardingScreen() {
           await updateSettings({
             clinicName: clinicName.trim() || t('brand.defaultClinicName'),
             displayName: displayName.trim(),
+            physioNotifyEmail: physioNotifyEmail.trim() || settings.physioNotifyEmail,
             onboardingComplete: true,
           });
           router.back();

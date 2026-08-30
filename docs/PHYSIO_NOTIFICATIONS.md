@@ -1,8 +1,22 @@
-# Physiotherapist daily completion alerts
+# Physiotherapist daily completion alerts — setup guide
 
-When a patient finishes **all required sessions for the day** (e.g. 3/3), the app sends **one email** to the physiotherapist with the patient name, clinic, plan, and date.
+## What happens
 
-## Where to change the default alert email
+When a patient finishes **all sessions required for that day** (e.g. 3/3), the app sends **one email** to the physiotherapist with the patient’s name.
+
+**Resend is not used for this feature.** You only need **EmailJS** (free) + three IDs pasted into one file in the repo.
+
+---
+
+## Where to change who receives the email
+
+### In the app (no rebuild needed)
+
+Open **Settings** (last tab) → **Physiotherapist alert email**.
+
+Your mother can change this on each patient’s phone. Default for new installs comes from the file below.
+
+### In code (default for new installs)
 
 **File:** `constants/notifications.ts`
 
@@ -10,69 +24,92 @@ When a patient finishes **all required sessions for the day** (e.g. 3/3), the ap
 export const DEFAULT_PHYSIO_NOTIFY_EMAIL = 'labros.velentzas@gmail.com';
 ```
 
-Change this before a production Play release if alerts should go to your mother’s clinic inbox instead of the test address.
+Change this before a production Play release if the default inbox should be your mother’s clinic email instead of your test address.
 
-Each device also stores the email in **Settings → Physiotherapist alert email** (editable per patient phone). New installs pick up the default from the constant above.
+---
 
-## App setup (mother’s workflow)
+## One-time EmailJS setup (about 10 minutes)
 
-1. Take the patient’s phone, install PelviPilot.
-2. **Settings** (or onboarding): enter **Patient name**, adjust **Exercise plan**, save.
-3. Hand the phone back. When the patient completes every session required for that day, one email is sent.
+Do this **once**. After that, every app build can send emails without Vercel, Resend, or extra env vars.
 
-Alerts are skipped if patient name is empty, or if the notify API URL is not configured in the build.
+### Step 1 — Create EmailJS account
 
-## Server setup (required for email to send)
+1. Go to [https://www.emailjs.com/](https://www.emailjs.com/)
+2. Sign up with **one** email (e.g. `labros.velentzas@gmail.com`)
+3. You do **not** need a second account
 
-The app does not send email directly (API keys must stay on a server). Deploy the included Vercel function:
+### Step 2 — Connect an email service
 
-### 1. Resend
+1. EmailJS dashboard → **Email Services** → **Add new service**
+2. Choose **Gmail** (easiest for testing)
+3. Connect the Gmail account that will **send** the alerts (can be the same as the recipient for testing)
+4. Copy the **Service ID** (looks like `service_abc123`)
 
-1. Create a free account at [resend.com](https://resend.com).
-2. Create an API key.
-3. For testing, Resend’s `onboarding@resend.dev` sender only delivers to the email on your Resend account. Use `labros.velentzas@gmail.com` as the Resend account email for testing, or verify a clinic domain for production.
+### Step 3 — Create email template
 
-### 2. Deploy API to Vercel
+1. Dashboard → **Email Templates** → **Create new template**
+2. Set **To email** to: `{{to_email}}`
+3. Set **Subject** to: `{{subject}}`
+4. Set **Content** (plain text) to:
 
-From the repo root:
-
-```bash
-npx vercel
+```
+{{message}}
 ```
 
-In the Vercel project **Environment variables**:
+5. Save and copy the **Template ID** (looks like `template_xyz789`)
 
-| Variable | Example |
+Optional: add `{{patient_name}}`, `{{clinic_name}}`, etc. in the body if you prefer a custom layout — the app sends all of these.
+
+### Step 4 — Copy your Public Key
+
+1. Dashboard → **Account** → **General**
+2. Copy **Public Key** (looks like `aBcDeFgHiJkLmNoPq`)
+
+### Step 5 — Paste into the repo
+
+Edit **`constants/notifications.ts`**:
+
+```ts
+export const EMAILJS_SERVICE_ID = 'service_abc123';
+export const EMAILJS_TEMPLATE_ID = 'template_xyz789';
+export const EMAILJS_PUBLIC_KEY = 'aBcDeFgHiJkLmNoPq';
+```
+
+Commit, merge, and **build a new Android version** (Play internal test or APK). Older installs without these IDs cannot send email.
+
+### Step 6 — Test from the app
+
+1. Install the new build
+2. Settings → set **Patient name** and **Physiotherapist alert email**
+3. Tap **Send test alert email**
+4. Check the inbox — you should receive a test message within a minute
+
+---
+
+## Mother’s workflow (each patient)
+
+1. Take patient’s phone → install PelviPilot
+2. **Settings** (or onboarding):
+   - **Patient name** — e.g. Maria Papadopoulou
+   - **Physiotherapist alert email** — her inbox (pre-filled from default)
+   - Adjust **Exercise plan** → save
+3. Hand phone back
+4. When the patient completes all daily sessions → one email arrives
+
+---
+
+## Troubleshooting
+
+| Problem | Fix |
 | --- | --- |
-| `RESEND_API_KEY` | `re_…` |
-| `NOTIFY_API_SECRET` | long random string (match app below) |
-| `NOTIFY_FROM_EMAIL` | optional; `PelviPilot <notify@yourdomain.com>` after domain verify |
+| No “Physiotherapist alert email” in Settings | Install a build that includes PR #23+ (daily alerts feature) |
+| Test button says not configured | Paste EmailJS IDs in `constants/notifications.ts` and rebuild |
+| Email goes to wrong person | Change **Settings → Physiotherapist alert email** on that phone |
+| No email after completing sessions | Ensure **Patient name** is filled; complete all sessions for the day (e.g. 3/3) |
+| Only one email per day | By design — duplicate protection for the same calendar day |
 
-Note the deployment URL, e.g. `https://pelvipilot-xyz.vercel.app/api/notify-daily-complete`.
+---
 
-### 3. Point the app at the API
+## Optional: Vercel + Resend (advanced)
 
-Set at **build time** (EAS secrets or local `.env`):
-
-```bash
-EXPO_PUBLIC_NOTIFY_API_URL=https://your-project.vercel.app/api/notify-daily-complete
-EXPO_PUBLIC_NOTIFY_API_SECRET=same-as-NOTIFY_API_SECRET-on-vercel
-```
-
-Rebuild the Android app after setting these. OTA updates alone are enough if only JS changed and env was already set on the build profile.
-
-### 4. Local API test
-
-```bash
-npx vercel dev
-```
-
-Then set `EXPO_PUBLIC_NOTIFY_API_URL=http://YOUR_LAN_IP:3000/api/notify-daily-complete` for a dev client build.
-
-## Duplicate protection
-
-The app stores `lastDailyNotifyDate` on device and sends **at most one email per calendar day**, even if the patient completes extra sessions.
-
-## Privacy / Play Console
-
-Update **Data safety** when shipping this: the app sends patient name and completion metadata to your notify endpoint (email provider). See updated in-app privacy policy.
+The `api/notify-daily-complete.js` file is an alternative server-side sender. The app now uses **EmailJS by default** so you do not need Vercel or Resend unless you prefer that architecture later.
