@@ -152,6 +152,8 @@ Your codebase is **MVP-ready to start the release path**, not â€œpre-approved.â€
 
 Yes. Keep coding on branches. Users only get new code when you ship a new Play release (and later optional EAS Update). Waiting on review does not freeze development.
 
+**Repeat releases (internal testing and beyond):** see the **Releasing a new Android version** section in [README.md](../README.md).
+
 ## Suggested order of operations
 
 1. Merge this prep PR  
