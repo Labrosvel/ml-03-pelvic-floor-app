@@ -67,8 +67,17 @@ export default function SettingsScreen() {
     );
     if (result.sent) {
       Alert.alert(t('settings.testAlertSentTitle'), t('settings.testAlertSentBody'));
+    } else if (result.reason === 'email_not_configured') {
+      Alert.alert(t('settings.testAlertFailedTitle'), t('settings.emailNotConfigured'));
+    } else if (result.reason === 'missing_physio_email') {
+      Alert.alert(t('settings.testAlertFailedTitle'), t('settings.testAlertMissingEmail'));
     } else {
-      Alert.alert(t('settings.testAlertFailedTitle'), t('settings.testAlertFailedBody'));
+      Alert.alert(
+        t('settings.testAlertFailedTitle'),
+        result.detail
+          ? t('settings.testAlertFailedDetail', { detail: result.detail })
+          : t('settings.testAlertFailedBody'),
+      );
     }
   }
 

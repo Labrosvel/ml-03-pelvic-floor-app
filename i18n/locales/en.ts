@@ -90,7 +90,9 @@ const en = {
     testAlertSentTitle: 'Test sent',
     testAlertSentBody: 'Check the physiotherapist alert email inbox above.',
     testAlertFailedTitle: 'Could not send',
-    testAlertFailedBody: 'Check your internet connection and EmailJS setup in constants/notifications.ts.',
+    testAlertFailedBody:
+      'Check EmailJS → Email History for errors. In Account → Security, allow browser API access. Also check spam.',
+    testAlertFailedDetail: 'EmailJS said: {{detail}}',
     testAlertMissingEmail: 'Enter a physiotherapist alert email first.',
     testAlertSamplePatient: 'Test Patient',
     reminders: 'Reminders',

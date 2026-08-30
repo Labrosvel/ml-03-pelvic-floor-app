@@ -26,7 +26,9 @@ function validatePayload(payload: DailyCompletePayload): string | null {
   return null;
 }
 
-async function sendViaEmailJs(payload: DailyCompletePayload): Promise<{ ok: boolean; reason?: string }> {
+async function sendViaEmailJs(
+  payload: DailyCompletePayload,
+): Promise<{ ok: boolean; reason?: string; detail?: string }> {
   if (!isEmailJsConfigured()) {
     return { ok: false, reason: 'email_not_configured' };
   }
@@ -67,22 +69,30 @@ async function sendViaEmailJs(payload: DailyCompletePayload): Promise<{ ok: bool
     });
 
     if (!response.ok) {
-      const detail = await response.text().catch(() => '');
+      const detail = (await response.text().catch(() => '')).trim();
       console.warn('[notifyPhysio] EmailJS error', response.status, detail);
-      return { ok: false, reason: 'send_failed' };
+      return {
+        ok: false,
+        reason: 'send_failed',
+        detail: detail || `EmailJS returned HTTP ${response.status}`,
+      };
     }
 
     return { ok: true };
   } catch (error) {
     console.warn('[notifyPhysio] Network error', error);
-    return { ok: false, reason: 'network_error' };
+    return {
+      ok: false,
+      reason: 'network_error',
+      detail: error instanceof Error ? error.message : 'Network request failed',
+    };
   }
 }
 
 export async function sendPhysioDailyCompleteEmail(
   payload: DailyCompletePayload,
   options?: { skipDailyLimit?: boolean },
-): Promise<{ sent: boolean; reason?: string }> {
+): Promise<{ sent: boolean; reason?: string; detail?: string }> {
   const validationError = validatePayload(payload);
   if (validationError) {
     return { sent: false, reason: validationError };
@@ -98,7 +108,7 @@ export async function sendPhysioDailyCompleteEmail(
 
   const result = await sendViaEmailJs(payload);
   if (!result.ok) {
-    return { sent: false, reason: result.reason };
+    return { sent: false, reason: result.reason, detail: result.detail };
   }
 
   if (!options?.skipDailyLimit) {
