@@ -145,6 +145,8 @@ export function normalizeSettings(raw: Partial<AppSettings> | null | undefined):
   return {
     ...DEFAULT_SETTINGS,
     ...raw,
+    physioNotifyEmail:
+      typeof raw?.physioNotifyEmail === 'string' ? raw.physioNotifyEmail : DEFAULT_SETTINGS.physioNotifyEmail,
     language: isAppLanguage(raw?.language) ? raw.language : DEFAULT_SETTINGS.language,
     soundPack: isSoundPackId(raw?.soundPack) ? raw.soundPack : DEFAULT_SETTINGS.soundPack,
     reminders: {

@@ -8,23 +8,14 @@ When a patient finishes **all sessions required for that day** (e.g. 3/3), the a
 
 ---
 
-## Where to change who receives the email
+## Where to set who receives the email
 
-### In the app (no rebuild needed)
+There is **no default clinic email** in the app. Each physiotherapist enters their own address when setting up a patient’s phone:
 
-Open **Settings** (last tab) → **Physiotherapist alert email**.
+**Settings** (last tab) → **Physiotherapist alert email**  
+(or the same field during onboarding)
 
-Your mother can change this on each patient’s phone. Default for new installs comes from the file below.
-
-### In code (default for new installs)
-
-**File:** `constants/notifications.ts`
-
-```ts
-export const DEFAULT_PHYSIO_NOTIFY_EMAIL = 'labros.velentzas@gmail.com';
-```
-
-Change this before a production Play release if the default inbox should be your mother’s clinic email instead of your test address.
+That value is stored only on that device. Different clinics / physios use different emails on their patients’ phones.
 
 ---
 

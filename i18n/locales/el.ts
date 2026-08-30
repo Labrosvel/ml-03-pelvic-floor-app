@@ -50,8 +50,8 @@ const el = {
     namePlaceholder: 'π.χ. Μαρία Παπαδοπούλου',
     nameHint: 'Το συμπληρώνει ο φυσικοθεραπευτής ώστε να γνωρίζει ποιος ολοκλήρωσε το πρόγραμμα.',
     physioNotifyEmail: 'Email ειδοποιήσεων φυσικοθεραπευτή',
-    physioNotifyEmailPlaceholder: 'π.χ. physio@clinic.example',
-    physioNotifyEmailHint: 'Οι ημερήσιες ειδοποιήσεις ολοκλήρωσης στέλνονται σε αυτή τη διεύθυνση.',
+    physioNotifyEmailPlaceholder: 'π.χ. clinic@example.com',
+    physioNotifyEmailHint: 'Εισάγετε το email του ιατρείου για τις ημερήσιες ειδοποιήσεις ολοκλήρωσης.',
     continue: 'Συνέχεια',
   },
   progress: {
@@ -76,16 +76,16 @@ const el = {
   settings: {
     title: 'Ρυθμίσεις',
     subtitle:
-      'Ρυθμίστε τη συσκευή κάθε ασθενούς. Οι ημερήσιες ειδοποιήσεις ολοκλήρωσης πηγαίνουν στο email φυσικοθεραπευτή παρακάτω.',
+      'Ρυθμίστε τη συσκευή κάθε ασθενούς. Εισάγετε το email του ιατρείου για τις ημερήσιες ειδοποιήσεις ολοκλήρωσης.',
     clinicName: 'Όνομα ιατρείου',
     clinicPlaceholder: 'Physiospecialists',
     yourName: 'Όνομα ασθενούς',
     yourNamePlaceholder: 'π.χ. Μαρία Παπαδοπούλου',
     yourNameHint: 'Απαιτείται ώστε οι ημερήσιες ειδοποιήσεις να αναγνωρίζουν τον ασθενή.',
     physioNotifyEmail: 'Email ειδοποιήσεων φυσικοθεραπευτή',
-    physioNotifyEmailPlaceholder: 'physio@clinic.example',
+    physioNotifyEmailPlaceholder: 'π.χ. clinic@example.com',
     physioNotifyEmailHint:
-      'Λαμβάνει ένα email όταν ο ασθενής ολοκληρώσει όλες τις συνεδρίες της ημέρας.',
+      'Εισάγετε το email του φυσικοθεραπευτή για αυτό το ιατρείο. Αφήστε κενό μέχρι τη ρύθμιση — δεν υπάρχει προεπιλογή.',
     emailNotConfigured:
       'Η αποστολή email δεν έχει ρυθμιστεί σε αυτή την έκδοση. Προσθέστε τα EmailJS IDs στο constants/notifications.ts και κάντε νέο build.',
     testAlert: 'Αποστολή δοκιμαστικού email',
