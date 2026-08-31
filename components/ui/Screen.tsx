@@ -2,6 +2,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import {
   createContext,
   ReactNode,
+  RefObject,
   useCallback,
   useContext,
   useEffect,
@@ -23,8 +24,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { colors, spacing } from '@/constants/theme';
 
+type FocusScrollOptions = {
+  /** Also scroll enough to keep this view above the keyboard (e.g. Save below the field). */
+  revealBelowRef?: RefObject<View | null>;
+};
+
 type ScreenScrollContextValue = {
-  registerFocusedField: (target: View | null) => void;
+  registerFocusedField: (target: View | null, options?: FocusScrollOptions) => void;
 };
 
 const ScreenScrollContext = createContext<ScreenScrollContextValue | null>(null);
@@ -82,32 +88,48 @@ export function Screen({
   const scrollRef = useRef<ScrollView>(null);
   const scrollY = useRef(0);
   const focusedFieldRef = useRef<View | null>(null);
+  const focusScrollOptionsRef = useRef<FocusScrollOptions>({});
   const isWeb = Platform.OS === 'web';
 
-  const scrollFieldAboveKeyboard = useCallback((target: View, keyboardHeight: number) => {
-    target.measureInWindow((_x, y, _width, height) => {
-      const windowHeight = Dimensions.get('window').height;
-      const visibleBottom = windowHeight - keyboardHeight - KEYBOARD_CLEARANCE;
-      const fieldBottom = y + height;
+  const scrollToFitBottom = useCallback((bottomY: number, keyboardHeight: number) => {
+    const windowHeight = Dimensions.get('window').height;
+    const visibleBottom = windowHeight - keyboardHeight - KEYBOARD_CLEARANCE;
 
-      if (fieldBottom > visibleBottom) {
-        scrollRef.current?.scrollTo({
-          y: scrollY.current + (fieldBottom - visibleBottom) + KEYBOARD_SCROLL_SLACK,
-          animated: true,
-        });
-      }
-    });
+    if (bottomY > visibleBottom) {
+      scrollRef.current?.scrollTo({
+        y: scrollY.current + (bottomY - visibleBottom) + KEYBOARD_SCROLL_SLACK,
+        animated: true,
+      });
+    }
   }, []);
+
+  const scrollFieldAboveKeyboard = useCallback(
+    (target: View, keyboardHeight: number, options: FocusScrollOptions = {}) => {
+      target.measureInWindow((_x, y, _width, height) => {
+        const fieldBottom = y + height;
+        const revealRef = options.revealBelowRef?.current;
+
+        if (revealRef) {
+          revealRef.measureInWindow((_x2, y2, _width2, height2) => {
+            scrollToFitBottom(Math.max(fieldBottom, y2 + height2), keyboardHeight);
+          });
+        } else {
+          scrollToFitBottom(fieldBottom, keyboardHeight);
+        }
+      });
+    },
+    [scrollToFitBottom],
+  );
 
   const scrollFocusedField = useCallback(
     (keyboardHeight: number) => {
       const target = focusedFieldRef.current;
       if (!target || keyboardHeight <= 0) return;
 
-      scrollFieldAboveKeyboard(target, keyboardHeight);
-      // Android layout settles after keyboard animation; iOS KAV shifts content once.
+      const options = focusScrollOptionsRef.current;
+      scrollFieldAboveKeyboard(target, keyboardHeight, options);
       const delay = Platform.OS === 'android' ? 100 : 50;
-      setTimeout(() => scrollFieldAboveKeyboard(target, keyboardHeight), delay);
+      setTimeout(() => scrollFieldAboveKeyboard(target, keyboardHeight, options), delay);
     },
     [scrollFieldAboveKeyboard],
   );
@@ -118,8 +140,9 @@ export function Screen({
   }, [keyboardInset, scrollFocusedField]);
 
   const registerFocusedField = useCallback(
-    (target: View | null) => {
+    (target: View | null, options: FocusScrollOptions = {}) => {
       focusedFieldRef.current = target;
+      focusScrollOptionsRef.current = options;
       if (target && keyboardInset > 0) {
         scrollFocusedField(keyboardInset);
       }
