@@ -153,6 +153,8 @@ After a merge, wait ~1–2 minutes and hard-refresh. Settings footer shows `Web 
 
 Privacy policy (Play Console): https://labrosvel.github.io/ml-03-pelvic-floor-app/privacy
 
+**Testing on a real phone (dev client, preview APK, Play) without waiting 20 minutes every time:** see **[docs/TESTING.md](docs/TESTING.md)**.
+
 ---
 
 ## Google Play (first-time setup)
@@ -174,7 +176,7 @@ npx expo start
 
 For a quick browser check: `npm run web` or use the hosted preview above (no Metro required for testers).
 
-Phone dev via Expo Go is possible but fiddly (SDK 57). Prefer web preview or an EAS preview APK for validation.
+For **phone testing** (dev client, preview APK vs Play, why not Expo Go): **[docs/TESTING.md](docs/TESTING.md)**.
 
 ## Scripts
 
@@ -195,6 +197,8 @@ Phone dev via Expo Go is possible but fiddly (SDK 57). Prefer web preview or an 
 - `context/` — local app state
 - `lib/` — storage, reminders, sessions
 - `docs/GOOGLE_PLAY.md` — Play Console checklist
+- `docs/TESTING.md` — web vs dev client vs preview APK vs Play
+- `docs/PHYSIO_NOTIFICATIONS.md` — daily email alerts setup
 - `.github/workflows/` — web deploy + optional EAS
 
 ## Disclaimer

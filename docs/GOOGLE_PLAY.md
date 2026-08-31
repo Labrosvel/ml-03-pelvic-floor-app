@@ -62,7 +62,7 @@ npx eas-cli build -p android --profile production
 # or: npm run build:android:production
 ```
 
-Test the **preview** build on a real phone before submitting production.
+Test the **preview** build on a real phone before submitting production. Full testing workflow (web, dev client, preview APK, Play): **[TESTING.md](TESTING.md)**.
 
 #### Install the preview APK on a phone (not an emulator)
 
