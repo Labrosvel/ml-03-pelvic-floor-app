@@ -10,6 +10,7 @@
     "expo": "~57.0.13",
     "expo-audio": "~57.0.3",
     "expo-constants": "~57.0.11",
+    "expo-dev-client": "~57.0.16",
     "expo-font": "~57.0.1",
     "expo-haptics": "^57.0.1",
     "expo-linear-gradient": "^57.0.1",
@@ -42,6 +43,8 @@
   },
   "scripts": {
     "start": "expo start",
+    "start:dev-client": "expo start --dev-client",
+    "start:dev-client:tunnel": "expo start --dev-client --tunnel",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
@@ -49,6 +52,7 @@
     "typecheck": "tsc --noEmit",
     "update:production": "eas update --channel production --environment production",
     "update:preview": "eas update --channel preview --environment preview",
+    "build:android:development": "eas build -p android --profile development",
     "build:android:preview": "eas build -p android --profile preview",
     "build:android:production": "eas build -p android --profile production",
     "submit:android": "eas submit -p android --profile production"
