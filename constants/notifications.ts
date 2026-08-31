@@ -17,8 +17,15 @@ export const EMAILJS_SERVICE_ID = 'service_95o68ys';
 /** EmailJS template ID (Dashboard → Email Templates). */
 export const EMAILJS_TEMPLATE_ID = 'template_8t7zpwr';
 
-/** EmailJS public key (Dashboard → Account → Public Key). */
+/** EmailJS public key (Dashboard → Account → API Keys → Public Key). */
 export const EMAILJS_PUBLIC_KEY = 'xM1ltPZzG8fRc-Qro';
+
+/**
+ * EmailJS private key — required if Account → Security has strict mode enabled.
+ * Dashboard → Account → API Keys → Private Key.
+ * Paste here, then rebuild. Alternative: turn strict mode OFF in EmailJS Security.
+ */
+export const EMAILJS_PRIVATE_KEY = 'EGYj13qH_rKs8G8Txcf_P';
 
 export function isEmailJsConfigured(): boolean {
   return Boolean(EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY);
