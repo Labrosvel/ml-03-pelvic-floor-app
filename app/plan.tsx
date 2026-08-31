@@ -1,10 +1,11 @@
-import { useMemo, useState } from 'react';
-import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useMemo, useRef, useState } from 'react';
+import { Alert, Platform, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/ui/Button';
 import { Panel } from '@/components/ui/Panel';
-import { Screen } from '@/components/ui/Screen';
+import { Screen, useScreenFieldFocus } from '@/components/ui/Screen';
 import { createDefaultPlan, ExercisePlan } from '@/constants/plans';
 import { colors, fonts, spacing } from '@/constants/theme';
 import { useAppState } from '@/context/AppState';
@@ -48,6 +49,9 @@ export default function PlanScreen() {
 
   const starterPlan = useMemo(() => createDefaultPlan(t), [t]);
   const starterFields = useMemo(() => planToFields(starterPlan), [starterPlan]);
+  const insets = useSafeAreaInsets();
+  const keyboardVerticalOffset =
+    insets.top + (Platform.OS === 'ios' ? 44 : Platform.OS === 'android' ? 56 : 0);
 
   const parsePositiveInt = (value: string, label: string): number | null => {
     const trimmed = value.trim();
@@ -64,7 +68,7 @@ export default function PlanScreen() {
   };
 
   return (
-    <Screen>
+    <Screen keyboardVerticalOffset={keyboardVerticalOffset}>
       <Text style={styles.intro}>{t('plan.intro')}</Text>
 
       <Panel style={styles.block}>
@@ -192,8 +196,11 @@ function Field({
   value: string;
   onChange: (value: string) => void;
 }) {
+  const scrollFieldIntoView = useScreenFieldFocus();
+  const fieldRef = useRef<View>(null);
+
   return (
-    <View style={styles.field}>
+    <View ref={fieldRef} style={styles.field} collapsable={false}>
       <Text style={styles.label}>{label}</Text>
       <TextInput
         style={styles.input}
@@ -202,6 +209,10 @@ function Field({
         onChangeText={onChange}
         placeholder="0"
         placeholderTextColor={colors.inkSoft}
+        onFocus={() => {
+          requestAnimationFrame(() => scrollFieldIntoView(fieldRef.current));
+          setTimeout(() => scrollFieldIntoView(fieldRef.current), 120);
+        }}
       />
     </View>
   );
