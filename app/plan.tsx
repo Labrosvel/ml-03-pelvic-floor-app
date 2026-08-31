@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { RefObject, useMemo, useRef, useState } from 'react';
 import { Alert, Platform, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -52,6 +52,7 @@ export default function PlanScreen() {
   const insets = useSafeAreaInsets();
   const keyboardVerticalOffset =
     insets.top + (Platform.OS === 'ios' ? 44 : Platform.OS === 'android' ? 56 : 0);
+  const savePlanRef = useRef<View>(null);
 
   const parsePositiveInt = (value: string, label: string): number | null => {
     const trimmed = value.trim();
@@ -117,12 +118,14 @@ export default function PlanScreen() {
           label={t('plan.repetitions')}
           value={fields.quickReps}
           onChange={(value) => setField('quickReps', value)}
+          revealBelowRef={savePlanRef}
         />
       </Panel>
 
-      <Button
-        label={t('plan.savePlan')}
-        onPress={async () => {
+      <View ref={savePlanRef} collapsable={false}>
+        <Button
+          label={t('plan.savePlan')}
+          onPress={async () => {
           const sessionsPerDay = parsePositiveInt(
             fields.sessionsPerDay,
             t('plan.fieldSessionsPerDay'),
@@ -173,7 +176,8 @@ export default function PlanScreen() {
           await updatePlan(nextPlan);
           Alert.alert(t('plan.savedTitle'), t('plan.savedBody'));
         }}
-      />
+        />
+      </View>
       <Button
         label={t('plan.restoreStarter')}
         variant="secondary"
@@ -191,10 +195,12 @@ function Field({
   label,
   value,
   onChange,
+  revealBelowRef,
 }: {
   label: string;
   value: string;
   onChange: (value: string) => void;
+  revealBelowRef?: RefObject<View | null>;
 }) {
   const registerFocusedField = useScreenFieldFocus();
   const fieldRef = useRef<View>(null);
@@ -209,7 +215,7 @@ function Field({
         onChangeText={onChange}
         placeholder="0"
         placeholderTextColor={colors.inkSoft}
-        onFocus={() => registerFocusedField(fieldRef.current)}
+        onFocus={() => registerFocusedField(fieldRef.current, { revealBelowRef })}
         onBlur={() => registerFocusedField(null)}
       />
     </View>
