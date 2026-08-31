@@ -13,7 +13,6 @@
     "expo-dev-client": "~57.0.16",
     "expo-font": "~57.0.1",
     "expo-haptics": "^57.0.1",
-    "expo-in-app-updates": "^0.12.0",
     "expo-linear-gradient": "^57.0.1",
     "expo-linking": "~57.0.6",
     "expo-localization": "^57.0.1",

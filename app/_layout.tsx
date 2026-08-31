@@ -18,7 +18,6 @@ import 'react-native-reanimated';
 import '@/i18n';
 import { AppStateProvider } from '@/context/AppState';
 import { colors } from '@/constants/theme';
-import { usePlayStoreUpdate } from '@/lib/usePlayStoreUpdate';
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -58,8 +57,6 @@ function RootNavigator() {
 }
 
 export default function RootLayout() {
-  usePlayStoreUpdate();
-
   const [loaded, error] = useFonts({
     DMSans_400Regular,
     DMSans_500Medium,
