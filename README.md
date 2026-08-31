@@ -183,8 +183,9 @@ For **phone testing** (dev client, preview APK vs Play, why not Expo Go): **[doc
 | Command | Purpose |
 | --- | --- |
 | `npm start` | Expo dev server |
-| `npm run start:dev-client` | Metro for development APK |
-| `npm run start:dev-client:tunnel` | Metro via tunnel (phone ↔ laptop) |
+| `npm run start:dev-client` | Metro for development APK (LAN) |
+| `npm run start:dev-client:tunnel` | Metro via Expo account tunnel (phone ↔ laptop) |
+| `npm run start:dev-client:usb` | Metro on localhost + `adb reverse` (Android USB) |
 | `npm run typecheck` | TypeScript check |
 | `npm run build:android:development` | Dev client APK (connects to Metro) |
 | `npm run build:android:preview` | Standalone APK for direct phone install |
