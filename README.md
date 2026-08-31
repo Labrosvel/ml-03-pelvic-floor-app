@@ -183,8 +183,11 @@ For **phone testing** (dev client, preview APK vs Play, why not Expo Go): **[doc
 | Command | Purpose |
 | --- | --- |
 | `npm start` | Expo dev server |
+| `npm run start:dev-client` | Metro for development APK |
+| `npm run start:dev-client:tunnel` | Metro via tunnel (phone ↔ laptop) |
 | `npm run typecheck` | TypeScript check |
-| `npm run build:android:preview` | APK for direct phone install |
+| `npm run build:android:development` | Dev client APK (connects to Metro) |
+| `npm run build:android:preview` | Standalone APK for direct phone install |
 | `npm run build:android:production` | AAB for Google Play |
 | `npm run submit:android` | Upload latest AAB to internal testing (draft) |
 | `npm run export:web` | Static web export to `dist/` |

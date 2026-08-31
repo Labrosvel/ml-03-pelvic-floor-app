@@ -40,29 +40,59 @@ Use this when you are tired of waiting ~20 minutes for every small JS change (e.
 
 ### One-time setup (~20 min cloud build)
 
+**Important:** this is a different install from **preview APK** or **Google Play**. Those builds cannot connect to Metro. You need the **`development`** EAS profile.
+
 ```bash
 npm install
 npx eas-cli login
-npx eas-cli build -p android --profile development
+npm run build:android:development
+# or: npx eas-cli build -p android --profile development
 ```
 
-When the build finishes, open the Expo build link **on your Android phone** and install the APK. This is a **development client** — your own PelviPilot shell, not Expo Go.
+When the build finishes, open the Expo build link **on your Android phone** and install the APK.
+
+You should see a **development launcher** (or PelviPilot opens with a dev menu) — not the normal standalone app, and **not** Expo Go from the Play Store.
+
+If you previously installed PelviPilot from **internal testing** or **`build:android:preview`**, that build will **not** work with `expo start --dev-client`. Install the **development** APK instead (both can coexist if package id matches — the dev build replaces the same app icon).
+
+After changing native config (e.g. adding `expo-dev-client` to `app.json` plugins), run **`build:android:development` again**.
 
 ### Daily workflow (seconds per change)
 
-On your computer, in the repo:
+On your computer, in the repo (keep this terminal running):
 
 ```bash
 npm install
-npx expo start --dev-client
+npm run start:dev-client
 ```
 
-1. Open the **PelviPilot dev client** on your phone (not Expo Go).
-2. Scan the QR code or enter the URL Metro shows.
-3. Edit JS/TS (screens, `constants/notifications.ts`, i18n, etc.).
-4. Save → the app reloads on the phone without a new EAS build.
+If the phone cannot reach your laptop on Wi‑Fi, use the tunnel (slower but reliable):
 
-Your laptop must be on the same network as the phone (or use tunnel: `npx expo start --dev-client --tunnel`).
+```bash
+npm run start:dev-client:tunnel
+```
+
+Then on the phone:
+
+1. Open the **PelviPilot development build** you installed from the **development** EAS profile — **not** Expo Go, **not** the Play Store internal-testing install unless it was built with `--profile development`.
+2. The dev client should list your project or show a QR / URL entry. Connect to the Metro server (scan QR or tap the local project).
+3. Edit JS/TS on your laptop → save → the app reloads on the phone.
+
+**Metro must stay running** on your laptop the whole time. Closing the terminal stops the phone from loading new code.
+
+### Dev client troubleshooting
+
+| Symptom | Likely cause | Fix |
+| --- | --- | --- |
+| Metro exits / “crashed” immediately | Port 8081 in use | Stop other Metro/Expo processes; or `npx expo start --dev-client --port 8082` |
+| Phone shows nothing / “Unable to load” | Wrong app installed | Install APK from **`development`** profile, not preview/Play |
+| Phone can’t connect | Different Wi‑Fi / firewall | `npm run start:dev-client:tunnel` |
+| Opens in Expo Go | Wrong app | Uninstall Expo Go test; use dev client APK |
+| “Could not connect to development server” | Laptop sleep / VPN / Metro stopped | Wake laptop, restart Metro, same network or tunnel |
+| Bundling error in terminal | JS/TS error in code | Read the red error in the Metro log; fix and save |
+| Worked before, broke after git pull | Native config changed | Re-run `npm run build:android:development` |
+
+If dev client still feels brittle, skip it: use **web preview** for fast JS checks and **`build:android:preview`** when you need a full standalone phone test before Play.
 
 ### When you need a **new** dev client build
 
@@ -150,10 +180,12 @@ Onboarding copy still mentions Expo Go historically; for real validation use **w
 
 ```bash
 npm start                    # Expo dev server (Expo Go or dev client)
-npx expo start --dev-client  # Prefer with development build installed
+npm run start:dev-client     # With development APK installed
+npm run start:dev-client:tunnel  # If phone cannot reach laptop on LAN
 npm run web                  # Browser on localhost
 npm run typecheck            # TypeScript
-npm run build:android:preview     # APK for direct install
+npm run build:android:development  # Dev client APK (Metro daily workflow)
+npm run build:android:preview     # Standalone APK for direct install
 npm run build:android:production  # AAB for Google Play
 ```
 
