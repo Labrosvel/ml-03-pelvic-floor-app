@@ -66,11 +66,23 @@ npm install
 npm run start:dev-client
 ```
 
-If the phone cannot reach your laptop on Wi‑Fi, use the tunnel (slower but reliable):
+Phone and laptop must be on the **same Wi‑Fi** (not guest/isolated Wi‑Fi). Disable VPN on both if connection fails.
+
+If the phone cannot reach your laptop on Wi‑Fi, use the tunnel (slower but more reliable across networks):
 
 ```bash
+npx expo login    # once — required for tunnel in Expo SDK 57
 npm run start:dev-client:tunnel
 ```
+
+**Android over USB** (no Wi‑Fi needed — often the most reliable option):
+
+```bash
+adb reverse tcp:8081 tcp:8081
+npm run start:dev-client:usb
+```
+
+Then open the development build on the phone (still connected by USB).
 
 Then on the phone:
 
@@ -84,13 +96,17 @@ Then on the phone:
 
 | Symptom | Likely cause | Fix |
 | --- | --- | --- |
-| Metro exits / “crashed” immediately | Port 8081 in use | Stop other Metro/Expo processes; or `npx expo start --dev-client --port 8082` |
+| QR loads forever / “Could not connect” | Phone on different network, VPN, or firewall | Same Wi‑Fi; disable VPN; allow Node through OS firewall; or use USB (`start:dev-client:usb`) or tunnel |
+| Tunnel command errors immediately | Not logged into Expo, or port 8081 busy | `npx expo login`, close other Metro windows, retry `npm run start:dev-client:tunnel` |
+| Tunnel mentions ngrok / “remote gone away” | Legacy ngrok path (broken on many machines in 2026) | Pull latest repo — tunnel script uses Expo ws-tunnel; run `npx expo login` first |
+| Metro exits / “crashed” immediately | Port 8081 in use | Script auto-stops stale Metro for tunnel; for LAN, close other Expo terminals or use `--port 8082` |
 | Phone shows nothing / “Unable to load” | Wrong app installed | Install APK from **`development`** profile, not preview/Play |
-| Phone can’t connect | Different Wi‑Fi / firewall | `npm run start:dev-client:tunnel` |
+| Phone can’t connect on Wi‑Fi | Guest network blocks device-to-device | Use tunnel or USB mode instead |
 | Opens in Expo Go | Wrong app | Uninstall Expo Go test; use dev client APK |
 | “Could not connect to development server” | Laptop sleep / VPN / Metro stopped | Wake laptop, restart Metro, same network or tunnel |
 | Bundling error in terminal | JS/TS error in code | Read the red error in the Metro log; fix and save |
 | Worked before, broke after git pull | Native config changed | Re-run `npm run build:android:development` |
+| WSL2 on Windows | LAN IP is the Linux VM, not your PC | Run Metro from Windows PowerShell/cmd in the repo, or use tunnel/USB |
 
 If dev client still feels brittle, skip it: use **web preview** for fast JS checks and **`build:android:preview`** when you need a full standalone phone test before Play.
 
@@ -180,8 +196,9 @@ Onboarding copy still mentions Expo Go historically; for real validation use **w
 
 ```bash
 npm start                    # Expo dev server (Expo Go or dev client)
-npm run start:dev-client     # With development APK installed
-npm run start:dev-client:tunnel  # If phone cannot reach laptop on LAN
+npm run start:dev-client     # LAN — phone and laptop on same Wi‑Fi
+npm run start:dev-client:tunnel  # Expo account tunnel (run `npx expo login` first)
+npm run start:dev-client:usb     # Android USB + adb reverse
 npm run web                  # Browser on localhost
 npm run typecheck            # TypeScript
 npm run build:android:development  # Dev client APK (Metro daily workflow)

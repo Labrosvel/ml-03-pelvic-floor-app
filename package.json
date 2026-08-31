@@ -43,8 +43,9 @@
   },
   "scripts": {
     "start": "expo start",
-    "start:dev-client": "expo start --dev-client",
-    "start:dev-client:tunnel": "expo start --dev-client --tunnel",
+    "start:dev-client": "node scripts/start-dev-client.mjs",
+    "start:dev-client:tunnel": "node scripts/start-dev-client.mjs --tunnel",
+    "start:dev-client:usb": "node scripts/start-dev-client.mjs --usb",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
