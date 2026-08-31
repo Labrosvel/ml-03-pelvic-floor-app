@@ -25,7 +25,7 @@ export const EMAILJS_PUBLIC_KEY = 'xM1ltPZzG8fRc-Qro';
  * Dashboard → Account → API Keys → Private Key.
  * Paste here, then rebuild. Alternative: turn strict mode OFF in EmailJS Security.
  */
-export const EMAILJS_PRIVATE_KEY = '';
+export const EMAILJS_PRIVATE_KEY = 'EGYj13qH_rKs8G8Txcf_P';
 
 export function isEmailJsConfigured(): boolean {
   return Boolean(EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY);
