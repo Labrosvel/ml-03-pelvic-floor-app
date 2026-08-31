@@ -53,10 +53,11 @@ The default “Contact Us” template also works: it already includes `{{message
 
 Optional: add `{{patient_name}}`, `{{clinic_name}}`, etc. in the body if you prefer a custom layout — the app sends all of these.
 
-### Step 4 — Copy your Public Key
+### Step 4 — Copy your API keys
 
-1. Dashboard → **Account** → **General**
-2. Copy **Public Key** (looks like `aBcDeFgHiJkLmNoPq`)
+1. Dashboard → **Account** → **API Keys**
+2. Copy **Public Key**
+3. If **Strict mode** is ON under [Account → Security](https://dashboard.emailjs.com/admin/account/security), also copy **Private Key** (required for sends)
 
 ### Step 5 — Paste into the repo
 
@@ -65,8 +66,14 @@ Edit **`constants/notifications.ts`**:
 ```ts
 export const EMAILJS_SERVICE_ID = 'service_abc123';
 export const EMAILJS_TEMPLATE_ID = 'template_xyz789';
-export const EMAILJS_PUBLIC_KEY = 'aBcDeFgHiJkLmNoPq';
+export const EMAILJS_PUBLIC_KEY = 'your_public_key';
+export const EMAILJS_PRIVATE_KEY = 'your_private_key'; // only if strict mode is ON
 ```
+
+**Strict mode error?** If the app says *“API access in strict mode, but no Private Key was provided”*, either:
+
+- Paste your **Private Key** into `EMAILJS_PRIVATE_KEY` and rebuild, **or**
+- Turn **strict mode OFF** in EmailJS → Account → Security (then private key is not needed)
 
 Commit, merge, and **build a new Android version** (Play internal test or APK). Older installs without these IDs cannot send email.
 
@@ -82,7 +89,8 @@ Commit, merge, and **build a new Android version** (Play internal test or APK). 
 
 Open [Account → Security](https://dashboard.emailjs.com/admin/account/security):
 
-1. Leave **API access for non-browser applications** OFF for web testing (browser requests are allowed by default).
+1. **Strict mode:** if enabled, you must paste **Private Key** in `constants/notifications.ts` (see Step 5). Or disable strict mode to skip the private key.
+2. Leave **API access for non-browser applications** OFF for web testing (browser requests are allowed by default).
 2. If you use an **Allowed origins / domains** list, add:
    - `https://labrosvel.github.io`
    - `http://localhost` (for local `expo start --web`)

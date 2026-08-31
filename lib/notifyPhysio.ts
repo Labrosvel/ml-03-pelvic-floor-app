@@ -1,4 +1,5 @@
 import {
+  EMAILJS_PRIVATE_KEY,
   EMAILJS_PUBLIC_KEY,
   EMAILJS_SERVICE_ID,
   EMAILJS_TEMPLATE_ID,
@@ -47,25 +48,31 @@ async function sendViaEmailJs(
   ].join('\n');
 
   try {
+    const body: Record<string, unknown> = {
+      service_id: EMAILJS_SERVICE_ID,
+      template_id: EMAILJS_TEMPLATE_ID,
+      user_id: EMAILJS_PUBLIC_KEY,
+      template_params: {
+        to_email: payload.physioEmail.trim(),
+        subject,
+        name: payload.patientName.trim(),
+        patient_name: payload.patientName.trim(),
+        clinic_name: payload.clinicName.trim() || 'Clinic',
+        plan_name: payload.planName.trim() || 'Exercise plan',
+        sessions: `${payload.sessionsCompleted}/${payload.sessionsRequired}`,
+        date: payload.completedDate,
+        message,
+      },
+    };
+
+    if (EMAILJS_PRIVATE_KEY.trim()) {
+      body.accessToken = EMAILJS_PRIVATE_KEY.trim();
+    }
+
     const response = await fetch(EMAILJS_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        service_id: EMAILJS_SERVICE_ID,
-        template_id: EMAILJS_TEMPLATE_ID,
-        user_id: EMAILJS_PUBLIC_KEY,
-        template_params: {
-          to_email: payload.physioEmail.trim(),
-          subject,
-          name: payload.patientName.trim(),
-          patient_name: payload.patientName.trim(),
-          clinic_name: payload.clinicName.trim() || 'Clinic',
-          plan_name: payload.planName.trim() || 'Exercise plan',
-          sessions: `${payload.sessionsCompleted}/${payload.sessionsRequired}`,
-          date: payload.completedDate,
-          message,
-        },
-      }),
+      body: JSON.stringify(body),
     });
 
     if (!response.ok) {
