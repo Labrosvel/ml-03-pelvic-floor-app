@@ -43,7 +43,10 @@ type ScreenProps = {
   keyboardVerticalOffset?: number;
 };
 
-const KEYBOARD_CLEARANCE = spacing.xl;
+/** Space to leave above the keyboard — generous, not the bare minimum. */
+const KEYBOARD_CLEARANCE = spacing.xxl + spacing.xl;
+/** Extra nudge so the focused field sits comfortably in view, not at the edge. */
+const KEYBOARD_SCROLL_SLACK = spacing.lg;
 
 function useKeyboardBottomInset() {
   const [inset, setInset] = useState(0);
@@ -89,7 +92,7 @@ export function Screen({
 
       if (fieldBottom > visibleBottom) {
         scrollRef.current?.scrollTo({
-          y: scrollY.current + (fieldBottom - visibleBottom),
+          y: scrollY.current + (fieldBottom - visibleBottom) + KEYBOARD_SCROLL_SLACK,
           animated: true,
         });
       }
