@@ -24,14 +24,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors, spacing } from '@/constants/theme';
 
 type ScreenScrollContextValue = {
-  scrollFieldIntoView: (target: View | null) => void;
+  registerFocusedField: (target: View | null) => void;
 };
 
 const ScreenScrollContext = createContext<ScreenScrollContextValue | null>(null);
 
-/** Scroll a form field above the keyboard on native (no-op on web). */
+/** Keep the focused form field visible above the keyboard on native (no-op on web). */
 export function useScreenFieldFocus() {
-  return useContext(ScreenScrollContext)?.scrollFieldIntoView ?? (() => {});
+  return useContext(ScreenScrollContext)?.registerFocusedField ?? (() => {});
 }
 
 type ScreenProps = {
@@ -39,9 +39,11 @@ type ScreenProps = {
   scroll?: boolean;
   style?: StyleProp<ViewStyle>;
   contentStyle?: StyleProp<ViewStyle>;
-  /** Stack header height + safe area — pass from screens under a Stack header. */
+  /** Stack header height + safe area — iOS KeyboardAvoidingView only. */
   keyboardVerticalOffset?: number;
 };
+
+const KEYBOARD_CLEARANCE = spacing.xl;
 
 function useKeyboardBottomInset() {
   const [inset, setInset] = useState(0);
@@ -76,30 +78,54 @@ export function Screen({
   const keyboardInset = useKeyboardBottomInset();
   const scrollRef = useRef<ScrollView>(null);
   const scrollY = useRef(0);
+  const focusedFieldRef = useRef<View | null>(null);
   const isWeb = Platform.OS === 'web';
 
-  const scrollFieldIntoView = useCallback(
-    (target: View | null) => {
-      if (isWeb || !target || keyboardInset <= 0) return;
+  const scrollFieldAboveKeyboard = useCallback((target: View, keyboardHeight: number) => {
+    target.measureInWindow((_x, y, _width, height) => {
+      const windowHeight = Dimensions.get('window').height;
+      const visibleBottom = windowHeight - keyboardHeight - KEYBOARD_CLEARANCE;
+      const fieldBottom = y + height;
 
-      target.measureInWindow((_x, y, _width, height) => {
-        const windowHeight = Dimensions.get('window').height;
-        const visibleBottom = windowHeight - keyboardInset - keyboardVerticalOffset - spacing.lg;
-        const fieldBottom = y + height;
+      if (fieldBottom > visibleBottom) {
+        scrollRef.current?.scrollTo({
+          y: scrollY.current + (fieldBottom - visibleBottom),
+          animated: true,
+        });
+      }
+    });
+  }, []);
 
-        if (fieldBottom > visibleBottom) {
-          scrollRef.current?.scrollTo({
-            y: scrollY.current + (fieldBottom - visibleBottom),
-            animated: true,
-          });
-        }
-      });
+  const scrollFocusedField = useCallback(
+    (keyboardHeight: number) => {
+      const target = focusedFieldRef.current;
+      if (!target || keyboardHeight <= 0) return;
+
+      scrollFieldAboveKeyboard(target, keyboardHeight);
+      // Android layout settles after keyboard animation; iOS KAV shifts content once.
+      const delay = Platform.OS === 'android' ? 100 : 50;
+      setTimeout(() => scrollFieldAboveKeyboard(target, keyboardHeight), delay);
     },
-    [isWeb, keyboardInset, keyboardVerticalOffset],
+    [scrollFieldAboveKeyboard],
   );
 
-  const scrollContext = useRef<ScreenScrollContextValue>({ scrollFieldIntoView });
-  scrollContext.current.scrollFieldIntoView = scrollFieldIntoView;
+  useEffect(() => {
+    if (keyboardInset <= 0) return;
+    scrollFocusedField(keyboardInset);
+  }, [keyboardInset, scrollFocusedField]);
+
+  const registerFocusedField = useCallback(
+    (target: View | null) => {
+      focusedFieldRef.current = target;
+      if (target && keyboardInset > 0) {
+        scrollFocusedField(keyboardInset);
+      }
+    },
+    [keyboardInset, scrollFocusedField],
+  );
+
+  const scrollContext = useRef<ScreenScrollContextValue>({ registerFocusedField });
+  scrollContext.current.registerFocusedField = registerFocusedField;
 
   const scrollView = (
     <ScrollView
@@ -122,17 +148,20 @@ export function Screen({
     </ScrollView>
   );
 
-  const scrollBody = isWeb ? (
-    scrollView
-  ) : (
-    <KeyboardAvoidingView
-      style={styles.flex}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={keyboardVerticalOffset}
-    >
-      {scrollView}
-    </KeyboardAvoidingView>
-  );
+  // Android: avoid KeyboardAvoidingView + ScrollView — it fights adjustPan/adjustResize.
+  // Rely on keyboard inset padding + scroll-into-view instead.
+  const scrollBody =
+    isWeb || Platform.OS === 'android' ? (
+      scrollView
+    ) : (
+      <KeyboardAvoidingView
+        style={styles.flex}
+        behavior="padding"
+        keyboardVerticalOffset={keyboardVerticalOffset}
+      >
+        {scrollView}
+      </KeyboardAvoidingView>
+    );
 
   const staticBody = (
     <KeyboardAvoidingView

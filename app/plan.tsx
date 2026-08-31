@@ -196,7 +196,7 @@ function Field({
   value: string;
   onChange: (value: string) => void;
 }) {
-  const scrollFieldIntoView = useScreenFieldFocus();
+  const registerFocusedField = useScreenFieldFocus();
   const fieldRef = useRef<View>(null);
 
   return (
@@ -209,10 +209,8 @@ function Field({
         onChangeText={onChange}
         placeholder="0"
         placeholderTextColor={colors.inkSoft}
-        onFocus={() => {
-          requestAnimationFrame(() => scrollFieldIntoView(fieldRef.current));
-          setTimeout(() => scrollFieldIntoView(fieldRef.current), 120);
-        }}
+        onFocus={() => registerFocusedField(fieldRef.current)}
+        onBlur={() => registerFocusedField(null)}
       />
     </View>
   );
