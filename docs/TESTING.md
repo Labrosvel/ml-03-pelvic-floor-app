@@ -97,7 +97,9 @@ Then on the phone:
 | Symptom | Likely cause | Fix |
 | --- | --- | --- |
 | QR loads forever / “Could not connect” | Phone on different network, VPN, or firewall | Same Wi‑Fi; disable VPN; allow Node through OS firewall; or use USB (`start:dev-client:usb`) or tunnel |
-| Tunnel command errors immediately | Not logged into Expo, or port 8081 busy | `npx expo login`, close other Metro windows, retry `npm run start:dev-client:tunnel` |
+| Keyboard covers Quick squeezes (dev client) | Web and native handle keyboards differently | Pull latest — plan screen scrolls fields on focus; shake device → Reload if Metro was already running |
+| Keyboard still bad on dev client after reload | Old development APK (`adjustPan` not `resize`) | Re-run `npm run build:android:development` once (native config changed) |
+| Tunnel command errors immediately | Not logged into Expo, or port 8081 busy | Look for `PelviPilot Metro launcher` in terminal; run `npx expo login`, retry tunnel |
 | Tunnel mentions ngrok / “remote gone away” | Legacy ngrok path (broken on many machines in 2026) | Pull latest repo — tunnel script uses Expo ws-tunnel; run `npx expo login` first |
 | Metro exits / “crashed” immediately | Port 8081 in use | Script auto-stops stale Metro for tunnel; for LAN, close other Expo terminals or use `--port 8082` |
 | Phone shows nothing / “Unable to load” | Wrong app installed | Install APK from **`development`** profile, not preview/Play |

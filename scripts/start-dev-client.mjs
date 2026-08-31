@@ -105,26 +105,30 @@ async function ensureExpoLogin() {
 }
 
 async function main() {
+  console.log('PelviPilot Metro launcher\n');
+
   const hasCustomPort = passthrough.some((arg, index) => {
     if (arg === '--port') return passthrough[index + 1] != null;
     return arg.startsWith('--port=');
   });
 
   if (tunnel) {
+    console.log('Mode: tunnel (Expo account ws-tunnel, not legacy ngrok)\n');
     await ensureExpoLogin();
     await ensurePort8081();
-  } else if (!hasCustomPort && !(await isPortFree(METRO_PORT))) {
-    console.warn(
-      `Port ${METRO_PORT} is busy — Metro will use port 8082. ` +
-        `For tunnel mode, free port ${METRO_PORT} first.\n`,
-    );
-  }
-
-  if (usb) {
+  } else if (usb) {
     console.log(
-      'USB mode: with the phone connected, run in another terminal:\n' +
+      'Mode: USB localhost — with the phone connected, run in another terminal:\n' +
         '  adb reverse tcp:8081 tcp:8081\n',
     );
+  } else {
+    console.log('Mode: LAN (phone and laptop must be on the same Wi‑Fi)\n');
+    if (!hasCustomPort && !(await isPortFree(METRO_PORT))) {
+      console.warn(
+        `Port ${METRO_PORT} is busy — Metro will use port 8082. ` +
+          `For tunnel mode, free port ${METRO_PORT} first.\n`,
+      );
+    }
   }
 
   const env = { ...process.env };

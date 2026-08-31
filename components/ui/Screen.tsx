@@ -1,6 +1,15 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { ReactNode, useEffect, useState } from 'react';
 import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import {
+  Dimensions,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -14,12 +23,23 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { colors, spacing } from '@/constants/theme';
 
+type ScreenScrollContextValue = {
+  scrollFieldIntoView: (target: View | null) => void;
+};
+
+const ScreenScrollContext = createContext<ScreenScrollContextValue | null>(null);
+
+/** Scroll a form field above the keyboard on native (no-op on web). */
+export function useScreenFieldFocus() {
+  return useContext(ScreenScrollContext)?.scrollFieldIntoView ?? (() => {});
+}
+
 type ScreenProps = {
   children: ReactNode;
   scroll?: boolean;
   style?: StyleProp<ViewStyle>;
   contentStyle?: StyleProp<ViewStyle>;
-  /** Extra offset for stack headers on non-scroll screens (e.g. onboarding). */
+  /** Stack header height + safe area — pass from screens under a Stack header. */
   keyboardVerticalOffset?: number;
 };
 
@@ -54,9 +74,36 @@ export function Screen({
   keyboardVerticalOffset = 0,
 }: ScreenProps) {
   const keyboardInset = useKeyboardBottomInset();
+  const scrollRef = useRef<ScrollView>(null);
+  const scrollY = useRef(0);
+  const isWeb = Platform.OS === 'web';
 
-  const scrollBody = (
+  const scrollFieldIntoView = useCallback(
+    (target: View | null) => {
+      if (isWeb || !target || keyboardInset <= 0) return;
+
+      target.measureInWindow((_x, y, _width, height) => {
+        const windowHeight = Dimensions.get('window').height;
+        const visibleBottom = windowHeight - keyboardInset - keyboardVerticalOffset - spacing.lg;
+        const fieldBottom = y + height;
+
+        if (fieldBottom > visibleBottom) {
+          scrollRef.current?.scrollTo({
+            y: scrollY.current + (fieldBottom - visibleBottom),
+            animated: true,
+          });
+        }
+      });
+    },
+    [isWeb, keyboardInset, keyboardVerticalOffset],
+  );
+
+  const scrollContext = useRef<ScreenScrollContextValue>({ scrollFieldIntoView });
+  scrollContext.current.scrollFieldIntoView = scrollFieldIntoView;
+
+  const scrollView = (
     <ScrollView
+      ref={scrollRef}
       contentContainerStyle={[
         styles.content,
         contentStyle,
@@ -64,11 +111,27 @@ export function Screen({
       ]}
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
-      automaticallyAdjustKeyboardInsets
+      automaticallyAdjustKeyboardInsets={Platform.OS === 'ios'}
       keyboardDismissMode="on-drag"
+      onScroll={(event) => {
+        scrollY.current = event.nativeEvent.contentOffset.y;
+      }}
+      scrollEventThrottle={16}
     >
       {children}
     </ScrollView>
+  );
+
+  const scrollBody = isWeb ? (
+    scrollView
+  ) : (
+    <KeyboardAvoidingView
+      style={styles.flex}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={keyboardVerticalOffset}
+    >
+      {scrollView}
+    </KeyboardAvoidingView>
   );
 
   const staticBody = (
@@ -82,11 +145,13 @@ export function Screen({
   );
 
   return (
-    <LinearGradient colors={[colors.bg, colors.bgDeep]} style={styles.flex}>
-      <SafeAreaView style={[styles.flex, style]} edges={['top', 'left', 'right']}>
-        {scroll ? scrollBody : staticBody}
-      </SafeAreaView>
-    </LinearGradient>
+    <ScreenScrollContext.Provider value={scrollContext.current}>
+      <LinearGradient colors={[colors.bg, colors.bgDeep]} style={styles.flex}>
+        <SafeAreaView style={[styles.flex, style]} edges={['top', 'left', 'right']}>
+          {scroll ? scrollBody : staticBody}
+        </SafeAreaView>
+      </LinearGradient>
+    </ScreenScrollContext.Provider>
   );
 }
 
