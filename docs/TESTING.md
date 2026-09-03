@@ -203,7 +203,7 @@ Expo Go is the generic “scan QR, app loads in seconds” app from the Play Sto
 | Matches store install | No | Yes (preview/Play closer) |
 | SDK 57 + this stack | Described as “fiddly” in README | Supported via EAS |
 
-Onboarding copy still mentions Expo Go historically; for real validation use **web preview**, **dev client**, or **preview APK**.
+For real validation use **web preview**, **dev client**, or **preview APK**.
 
 ---
 

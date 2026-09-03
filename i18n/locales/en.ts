@@ -43,7 +43,7 @@ const en = {
   onboarding: {
     eyebrow: 'Welcome',
     body:
-      'A calm companion for pelvic floor practice. Built so patients can follow a physiotherapist-guided plan at home — and so you can preview the experience in Expo Go before store release.',
+      'A calm companion for pelvic floor practice. Built so you can follow a physiotherapist-guided plan at home.',
     clinicLabel: 'Clinic / physiotherapist name',
     clinicPlaceholder: 'Physiospecialists',
     nameLabel: 'Patient name',
