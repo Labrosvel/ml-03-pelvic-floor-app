@@ -1,6 +1,16 @@
 import { router } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { Alert, Pressable, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
+import { useEffect, useMemo, useState } from 'react';
+import {
+  Alert,
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Switch,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { BrandHeader } from '@/components/BrandHeader';
@@ -9,13 +19,13 @@ import { Panel } from '@/components/ui/Panel';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { SOUND_PACKS, type SoundPackId } from '@/constants/sounds';
-import { colors, fonts, spacing } from '@/constants/theme';
+import { colors, fonts, radii, spacing } from '@/constants/theme';
 import { WEB_BUILD_ID } from '@/constants/buildInfo';
 import { isEmailJsConfigured } from '@/constants/notifications';
 import { useAppState } from '@/context/AppState';
 import { AppLanguage } from '@/i18n/types';
 import { sendPhysioDailyCompleteEmail } from '@/lib/notifyPhysio';
-import { areRemindersSupported, normalizeTimeInput } from '@/lib/reminders';
+import { areRemindersSupported, parseTime } from '@/lib/reminders';
 import { previewSoundPack } from '@/lib/sound';
 
 const LANGUAGE_OPTIONS: {
@@ -34,6 +44,17 @@ const SOUND_PACK_LABEL_KEYS: Record<SoundPackId, 'soundPackGentle' | 'soundPackC
     click: 'soundPackClick',
   };
 
+const HOUR_OPTIONS = Array.from({ length: 24 }, (_, hour) => hour);
+const MINUTE_OPTIONS = Array.from({ length: 12 }, (_, index) => index * 5);
+
+function padTimePart(value: number): string {
+  return String(value).padStart(2, '0');
+}
+
+function formatReminderTime(hour: number, minute: number): string {
+  return `${padTimePart(hour)}:${padTimePart(minute)}`;
+}
+
 function ReminderTimeField({
   label,
   value,
@@ -43,35 +64,126 @@ function ReminderTimeField({
   value: string;
   onCommit: (next: string) => void;
 }) {
-  const [draft, setDraft] = useState(value);
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const initial = parseTime(value) ?? { hour: 9, minute: 0 };
+  const [hour, setHour] = useState(initial.hour);
+  const [minute, setMinute] = useState(initial.minute);
 
   useEffect(() => {
-    setDraft(value);
-  }, [value]);
+    if (!open) return;
+    const next = parseTime(value) ?? { hour: 9, minute: 0 };
+    setHour(next.hour);
+    setMinute(next.minute);
+  }, [open, value]);
+
+  const minuteOptions = useMemo(() => {
+    if (MINUTE_OPTIONS.includes(minute)) return MINUTE_OPTIONS;
+    return [...MINUTE_OPTIONS, minute].sort((a, b) => a - b);
+  }, [minute]);
 
   return (
     <View style={styles.reminderField}>
       <Text style={styles.label}>{label}</Text>
-      <TextInput
-        value={draft}
-        onChangeText={setDraft}
-        onBlur={() => {
-          const normalized = normalizeTimeInput(draft);
-          if (normalized) {
-            setDraft(normalized);
-            if (normalized !== value) onCommit(normalized);
-            return;
-          }
-          setDraft(value);
-        }}
-        placeholder="09:00"
-        placeholderTextColor={colors.inkSoft}
-        keyboardType="numbers-and-punctuation"
-        autoCapitalize="none"
-        autoCorrect={false}
-        maxLength={5}
-        style={styles.input}
-      />
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`${label}, ${value}`}
+        onPress={() => setOpen(true)}
+        style={styles.timeTrigger}
+      >
+        <Text style={styles.timeTriggerValue}>{value}</Text>
+        <Text style={styles.timeTriggerHint}>{t('settings.reminderPickHint')}</Text>
+      </Pressable>
+
+      <Modal
+        visible={open}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setOpen(false)}
+      >
+        <View style={styles.pickerOverlay}>
+          <Pressable style={StyleSheet.absoluteFill} onPress={() => setOpen(false)} />
+          <View style={styles.pickerSheet}>
+            <Text style={styles.pickerTitle}>{label}</Text>
+            <Text style={styles.pickerPreview}>{formatReminderTime(hour, minute)}</Text>
+
+            <View style={styles.pickerColumns}>
+              <View style={styles.pickerColumn}>
+                <Text style={styles.pickerColumnLabel}>{t('settings.reminderHour')}</Text>
+                <ScrollView
+                  style={styles.pickerScroll}
+                  contentContainerStyle={styles.pickerScrollContent}
+                  showsVerticalScrollIndicator
+                >
+                  {HOUR_OPTIONS.map((option) => {
+                    const selected = option === hour;
+                    return (
+                      <Pressable
+                        key={`hour-${option}`}
+                        onPress={() => setHour(option)}
+                        style={[styles.pickerOption, selected && styles.pickerOptionSelected]}
+                      >
+                        <Text
+                          style={[
+                            styles.pickerOptionText,
+                            selected && styles.pickerOptionTextSelected,
+                          ]}
+                        >
+                          {padTimePart(option)}
+                        </Text>
+                      </Pressable>
+                    );
+                  })}
+                </ScrollView>
+              </View>
+
+              <View style={styles.pickerColumn}>
+                <Text style={styles.pickerColumnLabel}>{t('settings.reminderMinute')}</Text>
+                <ScrollView
+                  style={styles.pickerScroll}
+                  contentContainerStyle={styles.pickerScrollContent}
+                  showsVerticalScrollIndicator
+                >
+                  {minuteOptions.map((option) => {
+                    const selected = option === minute;
+                    return (
+                      <Pressable
+                        key={`minute-${option}`}
+                        onPress={() => setMinute(option)}
+                        style={[styles.pickerOption, selected && styles.pickerOptionSelected]}
+                      >
+                        <Text
+                          style={[
+                            styles.pickerOptionText,
+                            selected && styles.pickerOptionTextSelected,
+                          ]}
+                        >
+                          {padTimePart(option)}
+                        </Text>
+                      </Pressable>
+                    );
+                  })}
+                </ScrollView>
+              </View>
+            </View>
+
+            <Button
+              label={t('common.done')}
+              onPress={() => {
+                const next = formatReminderTime(hour, minute);
+                if (next !== value) onCommit(next);
+                setOpen(false);
+              }}
+            />
+            <Button
+              label={t('common.cancel')}
+              variant="ghost"
+              style={styles.pickerCancel}
+              onPress={() => setOpen(false)}
+            />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -421,6 +533,100 @@ const styles = StyleSheet.create({
   },
   reminderField: {
     marginBottom: spacing.xs,
+  },
+  timeTrigger: {
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: 12,
+    paddingHorizontal: spacing.md,
+    paddingVertical: 12,
+    backgroundColor: colors.bg,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: spacing.sm,
+  },
+  timeTriggerValue: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 18,
+    color: colors.ink,
+  },
+  timeTriggerHint: {
+    fontFamily: fonts.body,
+    fontSize: 13,
+    color: colors.teal,
+  },
+  pickerOverlay: {
+    flex: 1,
+    backgroundColor: colors.overlay,
+    justifyContent: 'flex-end',
+  },
+  pickerSheet: {
+    backgroundColor: colors.surface,
+    borderTopLeftRadius: radii.lg,
+    borderTopRightRadius: radii.lg,
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.lg,
+    paddingBottom: spacing.xl,
+    maxHeight: '85%',
+  },
+  pickerTitle: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 18,
+    color: colors.ink,
+  },
+  pickerPreview: {
+    marginTop: spacing.sm,
+    marginBottom: spacing.md,
+    fontFamily: fonts.display,
+    fontSize: 36,
+    color: colors.tealDeep,
+  },
+  pickerColumns: {
+    flexDirection: 'row',
+    gap: spacing.md,
+    marginBottom: spacing.lg,
+  },
+  pickerColumn: {
+    flex: 1,
+  },
+  pickerColumnLabel: {
+    fontFamily: fonts.bodyMedium,
+    fontSize: 13,
+    color: colors.inkMuted,
+    marginBottom: spacing.sm,
+  },
+  pickerScroll: {
+    maxHeight: 220,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: 12,
+    backgroundColor: colors.bg,
+  },
+  pickerScrollContent: {
+    padding: spacing.xs,
+  },
+  pickerOption: {
+    minHeight: 44,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: spacing.sm,
+  },
+  pickerOptionSelected: {
+    backgroundColor: colors.tealSoft,
+  },
+  pickerOptionText: {
+    fontFamily: fonts.bodyMedium,
+    fontSize: 18,
+    color: colors.inkMuted,
+  },
+  pickerOptionTextSelected: {
+    fontFamily: fonts.bodyBold,
+    color: colors.tealDeep,
+  },
+  pickerCancel: {
+    marginTop: spacing.xs,
   },
   spaced: { marginTop: spacing.sm, marginBottom: spacing.sm },
   soundPackBlock: {
