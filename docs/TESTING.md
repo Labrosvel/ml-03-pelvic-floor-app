@@ -87,16 +87,48 @@ Then open the development build on the phone (still connected by USB).
 Then on the phone:
 
 1. Open the **PelviPilot development build** you installed from the **development** EAS profile — **not** Expo Go, **not** the Play Store internal-testing install unless it was built with `--profile development`.
-2. The dev client should list your project or show a QR / URL entry. Connect to the Metro server (scan QR or tap the local project).
+2. Connect to Metro (**QR is optional** — see below if the camera scanner fails).
 3. Edit JS/TS on your laptop → save → the app reloads on the phone.
 
 **Metro must stay running** on your laptop the whole time. Closing the terminal stops the phone from loading new code.
+
+### Connect without QR (recommended if the scanner fails)
+
+The in-app QR camera often fails to open (permission / launcher bug). You do **not** need it.
+
+**Option A — Enter URL manually (works with tunnel or LAN)**
+
+1. On the laptop, wait until Metro prints a line like:
+   ```
+   › Metro: exp+pelvipilot://expo-development-client/?url=https%3A%2F%2F….exp.direct
+   ```
+   or (LAN) `…?url=http%3A%2F%2F192.168.…%3A8081`
+2. Copy that **whole** `exp+pelvipilot://…` URL.
+3. On the phone, open the **development** PelviPilot app.
+4. On the launcher screen, choose **Enter URL manually** (wording varies: “Enter URL”, “Connect”, etc.).
+5. Paste the URL and connect.
+
+**Option B — USB (most reliable on Android)**
+
+```bash
+adb reverse tcp:8081 tcp:8081
+npm run start:dev-client:usb
+```
+
+Then open the development app. It should reach Metro at `localhost:8081` through the USB cable. If asked for a URL, use:
+
+```text
+exp+pelvipilot://expo-development-client/?url=http%3A%2F%2F127.0.0.1%3A8081
+```
+
+**Do not** scan the Metro QR with the phone’s **system Camera** app — that is not how the development client connects. Use Enter URL, USB, or the in-app scanner only.
 
 ### Dev client troubleshooting
 
 | Symptom | Likely cause | Fix |
 | --- | --- | --- |
-| QR loads forever / “Could not connect” | Phone on different network, VPN, or firewall | Same Wi‑Fi; disable VPN; allow Node through OS firewall; or use USB (`start:dev-client:usb`) or tunnel |
+| In-app QR scanner won’t open / black screen | Camera permission or launcher bug | **Skip QR** — paste the Metro `exp+pelvipilot://…` URL (see above) or use USB |
+| QR loads forever / “Could not connect” | Phone on different network, VPN, or firewall | Same Wi‑Fi; disable VPN; or use USB / tunnel + Enter URL |
 | Keyboard covers Quick squeezes (dev client) | Web and native handle keyboards differently | Pull latest — plan screen scrolls fields on focus; shake device → Reload if Metro was already running |
 | Keyboard still bad on dev client after reload | Old development APK (`adjustPan` not `resize`) | Re-run `npm run build:android:development` once (native config changed) |
 | Tunnel command errors immediately | Not logged into Expo, or port 8081 busy | Look for `PelviPilot Metro launcher` in terminal; run `npx expo login`, retry tunnel |

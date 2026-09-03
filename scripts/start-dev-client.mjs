@@ -131,6 +131,13 @@ async function main() {
     }
   }
 
+  console.log(
+    'If the in-app QR camera fails: copy the Metro line that starts with\n' +
+      '  exp+pelvipilot://expo-development-client/?url=…\n' +
+      'and paste it in the development app → Enter URL manually.\n' +
+      'USB tip: after adb reverse, that URL can use 127.0.0.1:8081.\n',
+  );
+
   const env = { ...process.env };
   const args = ['expo', 'start', '--dev-client'];
 
