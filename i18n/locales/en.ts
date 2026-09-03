@@ -98,6 +98,10 @@ const en = {
     testAlertSamplePatient: 'Test Patient',
     reminders: 'Reminders',
     remindersExpoGo: 'Available in a full install (not Expo Go)',
+    remindersHint: '{{count}} reminder times · one per daily session',
+    remindersSyncHint:
+      'The number of reminder times matches sessions per day in your exercise plan. Change the plan to add or remove slots.',
+    reminderTime: 'Reminder {{n}}',
     haptics: 'Haptics',
     sound: 'Sound cues',
     soundHint: 'Prepare, slow squeeze/rest, quick squeeze ticks, and session complete',

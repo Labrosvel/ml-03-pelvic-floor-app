@@ -17,7 +17,7 @@ import {
 } from '@/constants/plans';
 import { applyLanguage } from '@/i18n';
 import { maybeNotifyDailyPlanComplete } from '@/lib/notifyPhysio';
-import { syncReminders } from '@/lib/reminders';
+import { alignReminderTimes, syncReminders } from '@/lib/reminders';
 import {
   clearAllData,
   loadPlan,
@@ -27,6 +27,23 @@ import {
   saveSessions,
   saveSettings,
 } from '@/lib/storage';
+
+function withAlignedReminders(settings: AppSettings, sessionsPerDay: number): AppSettings {
+  const times = alignReminderTimes(settings.reminders.times, sessionsPerDay);
+  if (
+    times.length === settings.reminders.times.length &&
+    times.every((time, index) => time === settings.reminders.times[index])
+  ) {
+    return settings;
+  }
+  return {
+    ...settings,
+    reminders: {
+      ...settings.reminders,
+      times,
+    },
+  };
+}
 
 type AppStateValue = {
   ready: boolean;
@@ -70,17 +87,24 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     let cancelled = false;
 
     (async () => {
-      const [nextSettings, nextPlan, nextSessions] = await Promise.all([
+      const [loadedSettings, nextPlan, nextSessions] = await Promise.all([
         loadSettings(),
         loadPlan(),
         loadSessions(),
       ]);
       if (cancelled) return;
+      const nextSettings = withAlignedReminders(loadedSettings, nextPlan.sessionsPerDay);
       await applyLanguage(nextSettings.language);
       setSettings(nextSettings);
       setPlan(nextPlan);
       setSessions(nextSessions);
       setReady(true);
+      if (nextSettings !== loadedSettings) {
+        await saveSettings(nextSettings);
+        if (nextSettings.reminders.enabled) {
+          await syncReminders(nextSettings.reminders);
+        }
+      }
     })();
 
     return () => {
@@ -90,10 +114,20 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
 
   const updateSettings = useCallback(async (patch: Partial<AppSettings>) => {
     const current = settings;
+    const remindersPatch = patch.reminders
+      ? {
+          ...current.reminders,
+          ...patch.reminders,
+          times: alignReminderTimes(
+            patch.reminders.times ?? current.reminders.times,
+            plan.sessionsPerDay,
+          ),
+        }
+      : current.reminders;
     const next: AppSettings = {
       ...current,
       ...patch,
-      reminders: patch.reminders ?? current.reminders,
+      reminders: remindersPatch,
     };
 
     setSettings(next);
@@ -107,12 +141,24 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     } else if (patch.reminders) {
       await syncReminders(next.reminders);
     }
-  }, [settings]);
+  }, [settings, plan.sessionsPerDay]);
 
-  const updatePlan = useCallback(async (nextPlan: ExercisePlan) => {
-    setPlan(nextPlan);
-    await savePlan(nextPlan);
-  }, []);
+  const updatePlan = useCallback(
+    async (nextPlan: ExercisePlan) => {
+      setPlan(nextPlan);
+      await savePlan(nextPlan);
+
+      const aligned = withAlignedReminders(settings, nextPlan.sessionsPerDay);
+      if (aligned === settings) return;
+
+      setSettings(aligned);
+      await saveSettings(aligned);
+      if (aligned.reminders.enabled) {
+        await syncReminders(aligned.reminders);
+      }
+    },
+    [settings],
+  );
 
   const addSession = useCallback(
     async (session: CompletedSession) => {
