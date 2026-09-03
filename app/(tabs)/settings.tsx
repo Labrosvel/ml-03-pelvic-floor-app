@@ -1,4 +1,5 @@
 import { router } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { Alert, Pressable, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
@@ -14,7 +15,7 @@ import { isEmailJsConfigured } from '@/constants/notifications';
 import { useAppState } from '@/context/AppState';
 import { AppLanguage } from '@/i18n/types';
 import { sendPhysioDailyCompleteEmail } from '@/lib/notifyPhysio';
-import { areRemindersSupported } from '@/lib/reminders';
+import { areRemindersSupported, normalizeTimeInput } from '@/lib/reminders';
 import { previewSoundPack } from '@/lib/sound';
 
 const LANGUAGE_OPTIONS: {
@@ -33,10 +34,53 @@ const SOUND_PACK_LABEL_KEYS: Record<SoundPackId, 'soundPackGentle' | 'soundPackC
     click: 'soundPackClick',
   };
 
+function ReminderTimeField({
+  label,
+  value,
+  onCommit,
+}: {
+  label: string;
+  value: string;
+  onCommit: (next: string) => void;
+}) {
+  const [draft, setDraft] = useState(value);
+
+  useEffect(() => {
+    setDraft(value);
+  }, [value]);
+
+  return (
+    <View style={styles.reminderField}>
+      <Text style={styles.label}>{label}</Text>
+      <TextInput
+        value={draft}
+        onChangeText={setDraft}
+        onBlur={() => {
+          const normalized = normalizeTimeInput(draft);
+          if (normalized) {
+            setDraft(normalized);
+            if (normalized !== value) onCommit(normalized);
+            return;
+          }
+          setDraft(value);
+        }}
+        placeholder="09:00"
+        placeholderTextColor={colors.inkSoft}
+        keyboardType="numbers-and-punctuation"
+        autoCapitalize="none"
+        autoCorrect={false}
+        maxLength={5}
+        style={styles.input}
+      />
+    </View>
+  );
+}
+
 export default function SettingsScreen() {
   const { t } = useTranslation();
   const { settings, plan, updateSettings, resetAll } = useAppState();
   const emailConfigured = isEmailJsConfigured();
+  const reminderTimes = settings.reminders.times;
 
   async function sendTestAlert() {
     if (!emailConfigured) {
@@ -79,6 +123,16 @@ export default function SettingsScreen() {
           : t('settings.testAlertFailedBody'),
       );
     }
+  }
+
+  function updateReminderTime(index: number, nextTime: string) {
+    const times = reminderTimes.map((time, timeIndex) => (timeIndex === index ? nextTime : time));
+    void updateSettings({
+      reminders: {
+        ...settings.reminders,
+        times,
+      },
+    });
   }
 
   return (
@@ -162,7 +216,7 @@ export default function SettingsScreen() {
             <Text style={styles.rowTitle}>{t('settings.reminders')}</Text>
             <Text style={styles.rowBody}>
               {areRemindersSupported()
-                ? settings.reminders.times.join(' · ')
+                ? t('settings.remindersHint', { count: plan.sessionsPerDay })
                 : t('settings.remindersExpoGo')}
             </Text>
           </View>
@@ -176,6 +230,18 @@ export default function SettingsScreen() {
             }}
             trackColor={{ true: colors.teal, false: colors.border }}
           />
+        </View>
+
+        <View style={styles.reminderTimes}>
+          {reminderTimes.map((time, index) => (
+            <ReminderTimeField
+              key={`reminder-${index}`}
+              label={t('settings.reminderTime', { n: index + 1 })}
+              value={time}
+              onCommit={(next) => updateReminderTime(index, next)}
+            />
+          ))}
+          <Text style={styles.hint}>{t('settings.remindersSyncHint')}</Text>
         </View>
 
         <View style={styles.row}>
@@ -346,6 +412,15 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: colors.inkMuted,
     marginTop: 2,
+  },
+  reminderTimes: {
+    paddingBottom: spacing.sm,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: colors.border,
+    marginBottom: spacing.xs,
+  },
+  reminderField: {
+    marginBottom: spacing.xs,
   },
   spaced: { marginTop: spacing.sm, marginBottom: spacing.sm },
   soundPackBlock: {

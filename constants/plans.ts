@@ -142,6 +142,12 @@ export const DEFAULT_SETTINGS: AppSettings = {
 };
 
 export function normalizeSettings(raw: Partial<AppSettings> | null | undefined): AppSettings {
+  const remindersRaw = raw?.reminders;
+  const times =
+    remindersRaw?.times?.length && Array.isArray(remindersRaw.times)
+      ? remindersRaw.times.filter((time): time is string => typeof time === 'string')
+      : DEFAULT_SETTINGS.reminders.times;
+
   return {
     ...DEFAULT_SETTINGS,
     ...raw,
@@ -151,8 +157,9 @@ export function normalizeSettings(raw: Partial<AppSettings> | null | undefined):
     soundPack: isSoundPackId(raw?.soundPack) ? raw.soundPack : DEFAULT_SETTINGS.soundPack,
     reminders: {
       ...DEFAULT_SETTINGS.reminders,
-      ...raw?.reminders,
-      times: raw?.reminders?.times?.length ? raw.reminders.times : DEFAULT_SETTINGS.reminders.times,
+      ...remindersRaw,
+      enabled: typeof remindersRaw?.enabled === 'boolean' ? remindersRaw.enabled : DEFAULT_SETTINGS.reminders.enabled,
+      times,
     },
   };
 }
