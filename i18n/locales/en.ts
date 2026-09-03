@@ -102,6 +102,9 @@ const en = {
     remindersSyncHint:
       'The number of reminder times matches sessions per day in your exercise plan. Change the plan to add or remove slots.',
     reminderTime: 'Reminder {{n}}',
+    reminderPickHint: 'Choose',
+    reminderHour: 'Hour',
+    reminderMinute: 'Minute',
     haptics: 'Haptics',
     sound: 'Sound cues',
     soundHint: 'Prepare, slow squeeze/rest, quick squeeze ticks, and session complete',
