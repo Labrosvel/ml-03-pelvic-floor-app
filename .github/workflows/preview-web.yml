@@ -18,8 +18,8 @@ jobs:
       contents: write
       pull-requests: write
     steps:
+      # Always checkout: PR-close cleanup still needs a git working tree.
       - name: Checkout repository
-        if: github.event.action != 'closed'
         uses: actions/checkout@v5
 
       - name: Setup Node

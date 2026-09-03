@@ -1,6 +1,9 @@
 # Stable public web preview of GitHub `main`.
 # URL: https://labrosvel.github.io/ml-03-pelvic-floor-app/
 #
+# Publishing source is the `gh-pages` branch. Deleting that branch unpublishes
+# the site. This workflow recreates it when missing.
+#
 # This is a convenience preview of the same Expo app (not a pivot away from mobile).
 # Mobile EAS previews remain optional once EXPO_TOKEN is configured.
 name: deploy-web
@@ -20,6 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pages: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -50,20 +54,46 @@ jobs:
           set -euo pipefail
           WORK=/tmp/gh-pages-main
           rm -rf "$WORK"
-          git clone --branch gh-pages --single-branch \
-            "https://x-access-token:${GIT_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
-            "$WORK"
+          REPO_URL="https://x-access-token:${GIT_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          if git ls-remote --heads "$REPO_URL" gh-pages | grep -q 'refs/heads/gh-pages'; then
+            git clone --branch gh-pages --single-branch "$REPO_URL" "$WORK"
+          else
+            echo "gh-pages branch is missing — creating it as the GitHub Pages source."
+            git init -b gh-pages "$WORK"
+            git -C "$WORK" remote add origin "$REPO_URL"
+          fi
+
           cd "$WORK"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # Keep only PR preview folders; replace everything else with the new main build.
           find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name 'pr-preview' -exec rm -rf {} +
           cp -a "$GITHUB_WORKSPACE/dist/." .
           touch .nojekyll
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then
             echo "No changes to publish."
           else
             git commit -m "Deploy main web preview ${GITHUB_SHA}"
-            git push origin gh-pages
+            git push origin HEAD:gh-pages
+          fi
+
+      - name: Enable GitHub Pages from gh-pages if unpublished
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if gh api "repos/${GITHUB_REPOSITORY}/pages" >/dev/null 2>&1; then
+            echo "GitHub Pages is already enabled."
+            exit 0
+          fi
+          echo "GitHub Pages is off — trying to publish from gh-pages / (root)."
+          if gh api --method POST "repos/${GITHUB_REPOSITORY}/pages" \
+            -f build_type=legacy \
+            -f source[branch]=gh-pages \
+            -f source[path]='/'; then
+            echo "GitHub Pages enabled."
+          else
+            echo "::warning::Could not enable GitHub Pages automatically. In the repo: Settings → Pages → Deploy from a branch → gh-pages / (root)."
           fi
