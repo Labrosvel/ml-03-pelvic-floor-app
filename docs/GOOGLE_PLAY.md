@@ -91,6 +91,19 @@ Or download the `.aab` from the Expo build page and upload manually in Play Cons
 
 **Recommended first track:** **Internal testing** or **Closed testing**, then promote to Production after you and your mother verify.
 
+## Store listing graphics
+
+Ready-to-upload files in **`assets/store/`** (exact Play sizes):
+
+| Asset | File | Spec |
+| --- | --- | --- |
+| Feature graphic (English / default) | `assets/store/feature-graphic.png` | 1024 × 500 PNG |
+| Feature graphic (Greek) | `assets/store/feature-graphic-el.png` | 1024 × 500 PNG |
+
+Upload the English file under the default listing language, or the Greek file if your default store language is Greek. You can replace either later; localised graphics are optional per language.
+
+App icon for Play (512 × 512) can be exported from `assets/images/icon.png` (resize if needed). Phone screenshots still need to be captured from a device or emulator.
+
 ## Play Console listing (copy starters)
 
 Use careful, non-diagnostic language.
