@@ -1,0 +1,14 @@
+{
+  "name": "PelviPilot",
+  "install": "npm ci",
+  "ports": [
+    { "name": "expo-web", "port": 8081 }
+  ],
+  "terminals": [
+    {
+      "name": "expo-web",
+      "command": "CI=1 BROWSER=none npx expo start --web --port 8081",
+      "description": "Expo web dev server (Metro) for the PelviPilot React Native app. Serves the web preview at http://localhost:8081. Use it to exercise the patient loop (configure plan -> guided session -> local progress). Native (iOS/Android) builds require EAS and a device/emulator and are out of scope for the Cloud Agent VM."
+    }
+  ]
+}
