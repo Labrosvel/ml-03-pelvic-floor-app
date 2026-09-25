@@ -106,12 +106,35 @@ App icon for Play (512 × 512) can be exported from `assets/images/icon.png` (re
 
 ## Play Console listing (copy starters)
 
-Use careful, non-diagnostic language.
+Use careful, non-diagnostic language. For the first Greek clinic rollout, set the **default store listing language to Greek** and paste the Greek copy below. Keep English ready when you add a global / English listing later.
+
+### Greek (recommended default now)
+
+**Short description (≤80 chars):**  
+`Συνοδός ασκήσεων πυελικού εδάφους για εξάσκηση στο σπίτι ανάμεσα στα ραντεβού.`  
+(78 characters)
+
+**Full description:**  
+```
+Το PelviPilot βοηθά να ακολουθείτε στο σπίτι ένα πρόγραμμα ασκήσεων πυελικού εδάφους που έχει συμφωνηθεί με τον φυσικοθεραπευτή. Προσφέρει χρονισμένα σήματα σύσφιξης/χαλάρωσης, απλό ιστορικό προόδου στη συσκευή, προαιρετικές υπενθυμίσεις και σύντομα ενημερωτικά άρθρα.
+
+Το PelviPilot είναι συνοδός εξάσκησης. Δεν διαγιγνώσκει παθήσεις, δεν υποκαθιστά την κλινική αξιολόγηση και δεν είναι ιατροτεχνολογικό προϊόν.
+
+Δυνατότητες:
+- Καθοδηγούμενες συνεδρίες σύσφιξης και χαλάρωσης
+- Προσαρμόσιμοι χρόνοι προγράμματος
+- Τοπικό ιστορικό προόδου στη συσκευή
+- Προαιρετικές ημερήσιες υπενθυμίσεις
+- Ελληνικά και Αγγλικά
+```
+
+### English (for a later global listing)
 
 **Short description (≤80 chars):**  
 `Guided pelvic floor exercise companion for home practice between physio visits.`
 
-**Full description (draft):**  
+**Full description:**  
+```
 PelviPilot helps people follow a physiotherapist-agreed pelvic floor exercise plan at home. It provides timed squeeze/rest cues, a simple progress log on the device, optional reminders, and short education articles.
 
 PelviPilot is an exercise companion. It does not diagnose conditions, does not replace clinical assessment, and is not a medical device.
@@ -122,6 +145,7 @@ Features:
 - Local progress history on the device
 - Optional daily reminders
 - English and Greek
+```
 
 **Category:** Health & Fitness  
 **Tags:** exercise, physiotherapy support, women's health / pelvic health (as appropriate)
