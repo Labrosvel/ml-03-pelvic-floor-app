@@ -2,9 +2,13 @@ import * as Localization from 'expo-localization';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
+import {
+  isResolvedLanguage,
+  type AppLanguage,
+  type ResolvedLanguage,
+} from '@/i18n/languages';
 import el from '@/i18n/locales/el';
 import en from '@/i18n/locales/en';
-import { AppLanguage, ResolvedLanguage } from '@/i18n/types';
 
 export const resources = {
   en: { translation: en },
@@ -12,12 +16,12 @@ export const resources = {
 } as const;
 
 export function resolveLanguage(preference: AppLanguage): ResolvedLanguage {
-  if (preference === 'en' || preference === 'el') {
+  if (isResolvedLanguage(preference)) {
     return preference;
   }
 
   const deviceCode = Localization.getLocales()[0]?.languageCode?.toLowerCase();
-  return deviceCode === 'el' ? 'el' : 'en';
+  return isResolvedLanguage(deviceCode) ? deviceCode : 'en';
 }
 
 if (!i18n.isInitialized) {

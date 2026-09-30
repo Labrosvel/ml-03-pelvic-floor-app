@@ -23,19 +23,14 @@ import { colors, fonts, radii, spacing } from '@/constants/theme';
 import { WEB_BUILD_ID } from '@/constants/buildInfo';
 import { isEmailJsConfigured } from '@/constants/notifications';
 import { useAppState } from '@/context/AppState';
-import { AppLanguage } from '@/i18n/types';
+import {
+  APP_LANGUAGES,
+  languagePreferenceLabel,
+  type AppLanguage,
+} from '@/i18n/languages';
 import { sendPhysioDailyCompleteEmail } from '@/lib/notifyPhysio';
 import { areRemindersSupported, parseTime } from '@/lib/reminders';
 import { previewSoundPack } from '@/lib/sound';
-
-const LANGUAGE_OPTIONS: {
-  value: AppLanguage;
-  labelKey: 'languageSystem' | 'languageEn' | 'languageEl';
-}[] = [
-  { value: 'system', labelKey: 'languageSystem' },
-  { value: 'en', labelKey: 'languageEn' },
-  { value: 'el', labelKey: 'languageEl' },
-];
 
 const SOUND_PACK_LABEL_KEYS: Record<SoundPackId, 'soundPackGentle' | 'soundPackChime' | 'soundPackClick'> =
   {
@@ -53,6 +48,83 @@ function padTimePart(value: number): string {
 
 function formatReminderTime(hour: number, minute: number): string {
   return `${padTimePart(hour)}:${padTimePart(minute)}`;
+}
+
+function LanguageField({
+  value,
+  onChange,
+}: {
+  value: AppLanguage;
+  onChange: (next: AppLanguage) => void;
+}) {
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const systemLabel = t('settings.languageSystem');
+  const selectedLabel = languagePreferenceLabel(value, systemLabel);
+
+  return (
+    <View>
+      <Text style={styles.rowTitle}>{t('settings.language')}</Text>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`${t('settings.language')}, ${selectedLabel}`}
+        onPress={() => setOpen(true)}
+        style={styles.timeTrigger}
+      >
+        <Text style={styles.languageTriggerValue}>{selectedLabel}</Text>
+        <Text style={styles.timeTriggerHint}>{t('settings.languageChoose')}</Text>
+      </Pressable>
+
+      <Modal
+        visible={open}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setOpen(false)}
+      >
+        <View style={styles.pickerOverlay}>
+          <Pressable style={StyleSheet.absoluteFill} onPress={() => setOpen(false)} />
+          <View style={styles.pickerSheet}>
+            <Text style={styles.pickerTitle}>{t('settings.language')}</Text>
+            <ScrollView
+              style={styles.languagePickerScroll}
+              contentContainerStyle={styles.pickerScrollContent}
+              showsVerticalScrollIndicator
+            >
+              {APP_LANGUAGES.map((option) => {
+                const selected = option === value;
+                const label = languagePreferenceLabel(option, systemLabel);
+                return (
+                  <Pressable
+                    key={option}
+                    onPress={() => {
+                      onChange(option);
+                      setOpen(false);
+                    }}
+                    style={[styles.languageOption, selected && styles.pickerOptionSelected]}
+                  >
+                    <Text
+                      style={[
+                        styles.languageOptionText,
+                        selected && styles.pickerOptionTextSelected,
+                      ]}
+                    >
+                      {label}
+                    </Text>
+                  </Pressable>
+                );
+              })}
+            </ScrollView>
+            <Button
+              label={t('common.cancel')}
+              variant="ghost"
+              style={styles.pickerCancel}
+              onPress={() => setOpen(false)}
+            />
+          </View>
+        </View>
+      </Modal>
+    </View>
+  );
 }
 
 function ReminderTimeField({
@@ -301,25 +373,12 @@ export default function SettingsScreen() {
       </Panel>
 
       <Panel style={styles.block}>
-        <Text style={styles.rowTitle}>{t('settings.language')}</Text>
-        <View style={styles.languageRow}>
-          {LANGUAGE_OPTIONS.map((option) => {
-            const selected = settings.language === option.value;
-            return (
-              <Pressable
-                key={option.value}
-                onPress={() => void updateSettings({ language: option.value })}
-                style={[styles.languageChip, selected && styles.languageChipSelected]}
-              >
-                <Text
-                  style={[styles.languageChipText, selected && styles.languageChipTextSelected]}
-                >
-                  {t(`settings.${option.labelKey}`)}
-                </Text>
-              </Pressable>
-            );
-          })}
-        </View>
+        <LanguageField
+          value={settings.language}
+          onChange={(language) => {
+            void updateSettings({ language });
+          }}
+        />
       </Panel>
 
       <Panel style={styles.block}>
@@ -506,6 +565,31 @@ const styles = StyleSheet.create({
   languageChipTextSelected: {
     color: colors.tealDeep,
     fontFamily: fonts.bodyBold,
+  },
+  languageTriggerValue: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 16,
+    color: colors.ink,
+    flex: 1,
+  },
+  languagePickerScroll: {
+    marginTop: spacing.md,
+    maxHeight: 320,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: 12,
+    backgroundColor: colors.bg,
+  },
+  languageOption: {
+    minHeight: 48,
+    borderRadius: 10,
+    justifyContent: 'center',
+    paddingHorizontal: spacing.md,
+  },
+  languageOptionText: {
+    fontFamily: fonts.bodyMedium,
+    fontSize: 16,
+    color: colors.inkMuted,
   },
   row: {
     flexDirection: 'row',
