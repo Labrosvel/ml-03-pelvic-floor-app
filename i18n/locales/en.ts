@@ -38,7 +38,7 @@ const en = {
     adjustPlan: 'Adjust plan',
     beforeTitle: 'Before you begin',
     beforeBody:
-      'Soften your jaw and shoulders. Breathe normally. Squeeze upward and inward, then fully release during rest.',
+      'Soften your jaw and shoulders. Breathe normally. Squeeze upward and inward, then fully release during rest. If you feel pain, stop immediately and contact your physiotherapist.',
   },
   onboarding: {
     eyebrow: 'Welcome',
@@ -124,13 +124,13 @@ const en = {
     resetBody:
       'This clears plan customisations, settings, and session history on this device.',
     disclaimer:
-      'PelviPilot supports home practice between physiotherapy appointments. It is not a substitute for clinical assessment and is not affiliated with Squeezy or any other commercial pelvic health app.',
+      'PelviPilot supports home practice between physiotherapy appointments under your physiotherapist’s guidance. It is not a substitute for clinical assessment and is not affiliated with Squeezy or any other commercial pelvic health app. Use only as directed by a qualified professional; the publisher accepts no responsibility for injury from use without that guidance. If you feel pain, stop immediately.',
     privacyPolicy: 'Privacy policy',
     webBuild: 'Web build {{id}}',
   },
   privacy: {
     title: 'Privacy policy',
-    updated: 'Last updated: 30 August 2026',
+    updated: 'Last updated: 30 September 2026',
     introTitle: 'Overview',
     introBody:
       'PelviPilot (“the app”) is a pelvic floor exercise companion. This policy explains what information the app handles on your device and what may be sent to your physiotherapist when you complete your daily plan.',
@@ -151,7 +151,7 @@ const en = {
       'PelviPilot is intended for adults using a physiotherapist-agreed exercise plan. It is not directed at children.',
     healthTitle: 'Health information',
     healthBody:
-      'PelviPilot supports home practice between physiotherapy appointments. It is not a medical device, does not diagnose conditions, and does not replace clinical assessment. Do not use it for emergency care.',
+      'PelviPilot supports home practice between physiotherapy appointments under your physiotherapist’s guidance. It is not a medical device, does not diagnose conditions, and does not replace clinical assessment. The publisher accepts no responsibility for injury from use without professional guidance. If you feel pain, stop immediately and seek advice from your physiotherapist or GP. Do not use it for emergency care.',
     contactTitle: 'Contact',
     contactBody:
       'For privacy questions about this app, contact the publisher via the Google Play store listing contact details for PelviPilot (or the email shown there once the listing is published).',
