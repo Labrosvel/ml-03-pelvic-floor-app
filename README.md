@@ -207,4 +207,4 @@ For **phone testing** (dev client, preview APK vs Play, why not Expo Go): **[doc
 
 ## Disclaimer
 
-PelviPilot supports home practice between physiotherapy appointments. It is not a medical device, does not diagnose conditions, and does not replace clinical assessment.
+PelviPilot supports home practice between physiotherapy appointments under a physiotherapist’s guidance. It is not a medical device, does not diagnose conditions, and does not replace clinical assessment. The publisher accepts no responsibility for injury from use without that guidance. If you feel pain, stop immediately and seek professional advice.
