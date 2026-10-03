@@ -35,7 +35,14 @@ export default function ArticleScreen() {
             Wrap Image in an aspect-ratio box. On web, Image with width:'100%' can
             expand to intrinsic height (letterboxing with resizeMode contain).
           */}
-          <View style={styles.imageFrame}>
+          <View
+            style={[
+              styles.imageFrame,
+              article.imageAspectRatio
+                ? { aspectRatio: article.imageAspectRatio }
+                : styles.imageFrameFallback,
+            ]}
+          >
             <Image
               source={article.image}
               style={styles.image}
@@ -78,10 +85,12 @@ const styles = StyleSheet.create({
   },
   imageFrame: {
     width: '100%',
-    aspectRatio: 1272 / 912,
     borderRadius: radii.md,
     backgroundColor: colors.surface,
     overflow: 'hidden',
+  },
+  imageFrameFallback: {
+    aspectRatio: 4 / 3,
   },
   image: {
     width: '100%',
