@@ -218,6 +218,9 @@ const en = {
     'what-is-pelvic-floor': {
       title: 'What is the pelvic floor?',
       summary: 'The muscles that support bladder, bowel, and reproductive organs.',
+      imageLabel: 'Diagram of the muscles of the pelvic floor',
+      imageCredit:
+        'Illustration: OpenStax Anatomy & Physiology (CC BY 4.0). Resized for display.',
       body: [
         'Your pelvic floor is a group of muscles and connective tissue that sit like a hammock at the base of your pelvis.',
         'These muscles help control bladder and bowel, support pelvic organs, and contribute to sexual function and core stability.',

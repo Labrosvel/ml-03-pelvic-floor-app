@@ -1,10 +1,10 @@
 import { useLocalSearchParams } from 'expo-router';
-import { StyleSheet, Text } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { Screen } from '@/components/ui/Screen';
 import { getArticleMeta } from '@/constants/education';
-import { colors, fonts, spacing } from '@/constants/theme';
+import { colors, fonts, radii, spacing } from '@/constants/theme';
 
 export default function ArticleScreen() {
   const { t } = useTranslation();
@@ -22,11 +22,31 @@ export default function ArticleScreen() {
 
   const body = t(`articles.${article.id}.body`, { returnObjects: true });
   const paragraphs = Array.isArray(body) ? body : [String(body)];
+  const imageLabel = t(`articles.${article.id}.imageLabel`, { defaultValue: '' });
+  const imageCredit = t(`articles.${article.id}.imageCredit`, { defaultValue: '' });
 
   return (
     <Screen>
       <Text style={styles.minutes}>{t('learn.minutesRead', { count: article.minutes })}</Text>
       <Text style={styles.title}>{t(`articles.${article.id}.title`)}</Text>
+      {article.image ? (
+        <View style={styles.figure}>
+          {/*
+            Wrap Image in an aspect-ratio box. On web, Image with width:'100%' can
+            expand to intrinsic height (letterboxing with resizeMode contain).
+          */}
+          <View style={styles.imageFrame}>
+            <Image
+              source={article.image}
+              style={styles.image}
+              resizeMode="contain"
+              accessibilityRole="image"
+              accessibilityLabel={imageLabel || undefined}
+            />
+          </View>
+          {imageCredit ? <Text style={styles.credit}>{imageCredit}</Text> : null}
+        </View>
+      ) : null}
       {paragraphs.map((paragraph) => (
         <Text key={String(paragraph)} style={styles.paragraph}>
           {String(paragraph)}
@@ -51,6 +71,27 @@ const styles = StyleSheet.create({
     lineHeight: 38,
     color: colors.ink,
     marginBottom: spacing.lg,
+  },
+  figure: {
+    marginBottom: spacing.lg,
+    gap: spacing.sm,
+  },
+  imageFrame: {
+    width: '100%',
+    aspectRatio: 1400 / 1020,
+    borderRadius: radii.md,
+    backgroundColor: colors.surface,
+    overflow: 'hidden',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+  },
+  credit: {
+    fontFamily: fonts.body,
+    fontSize: 12,
+    lineHeight: 18,
+    color: colors.inkSoft,
   },
   paragraph: {
     fontFamily: fonts.body,
