@@ -31,13 +31,19 @@ export default function ArticleScreen() {
       <Text style={styles.title}>{t(`articles.${article.id}.title`)}</Text>
       {article.image ? (
         <View style={styles.figure}>
-          <Image
-            source={article.image}
-            style={styles.image}
-            resizeMode="contain"
-            accessibilityRole="image"
-            accessibilityLabel={imageLabel || undefined}
-          />
+          {/*
+            Wrap Image in an aspect-ratio box. On web, Image with width:'100%' can
+            expand to intrinsic height (letterboxing with resizeMode contain).
+          */}
+          <View style={styles.imageFrame}>
+            <Image
+              source={article.image}
+              style={styles.image}
+              resizeMode="contain"
+              accessibilityRole="image"
+              accessibilityLabel={imageLabel || undefined}
+            />
+          </View>
           {imageCredit ? <Text style={styles.credit}>{imageCredit}</Text> : null}
         </View>
       ) : null}
@@ -70,11 +76,16 @@ const styles = StyleSheet.create({
     marginBottom: spacing.lg,
     gap: spacing.sm,
   },
-  image: {
+  imageFrame: {
     width: '100%',
     aspectRatio: 1400 / 1020,
     borderRadius: radii.md,
     backgroundColor: colors.surface,
+    overflow: 'hidden',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
   },
   credit: {
     fontFamily: fonts.body,
