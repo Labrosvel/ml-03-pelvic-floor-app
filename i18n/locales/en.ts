@@ -124,7 +124,7 @@ const en = {
     resetBody:
       'This clears plan customisations, settings, and session history on this device.',
     disclaimer:
-      'PelviPilot supports home practice between physiotherapy appointments under your physiotherapist’s guidance. It is not a substitute for clinical assessment and is not affiliated with Squeezy or any other commercial pelvic health app. Use only as directed by a qualified professional; the publisher accepts no responsibility for injury from use without that guidance. If you feel pain, stop immediately.',
+      'PelviPilot supports home practice between physiotherapy appointments under your physiotherapist’s guidance. Not everyone needs pelvic floor squeezes (Kegels) — only practise the plan advised for you. It is not a substitute for clinical assessment and is not affiliated with Squeezy or any other commercial pelvic health app. Use only as directed by a qualified professional; the publisher accepts no responsibility for injury from use without that guidance. If you feel pain, stop immediately.',
     privacyPolicy: 'Privacy policy',
     webBuild: 'Web build {{id}}',
   },
@@ -222,6 +222,7 @@ const en = {
         'Your pelvic floor is a group of muscles and connective tissue that sit like a hammock at the base of your pelvis.',
         'These muscles help control bladder and bowel, support pelvic organs, and contribute to sexual function and core stability.',
         'Like any muscle group, they can become weak, tight, or poorly coordinated. Guided practice helps you regain awareness and strength.',
+        'Not everyone needs pelvic floor squeezes (Kegels). Only practise the plan your physiotherapist has advised for you.',
       ],
     },
     'how-to-squeeze': {
