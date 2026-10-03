@@ -230,6 +230,10 @@ const en = {
     'how-to-squeeze': {
       title: 'How to do a pelvic floor squeeze',
       summary: 'A clear cue for contracting and relaxing without holding your breath.',
+      imageLabel:
+        'Diagram showing pelvic organs and lifting the pelvic floor while breathing normally',
+      imageCredit:
+        'Illustration: U.S. Department of Veterans Affairs / Department of Defense (public domain).',
       body: [
         'Imagine gently stopping the flow of urine, or holding in wind. Lift and close the pelvic floor upward and inward.',
         'Keep your buttocks, thighs, and tummy as relaxed as you can. Breathe normally — do not hold your breath.',
