@@ -11,7 +11,7 @@ export const ARTICLE_METAS: ArticleMeta[] = [
   {
     id: 'what-is-pelvic-floor',
     minutes: 2,
-    image: require('../assets/images/education/what-is-pelvic-floor.jpg'),
+    image: require('../assets/images/education/what-is-pelvic-floor.png'),
   },
   { id: 'how-to-squeeze', minutes: 3 },
   { id: 'when-to-practice', minutes: 2 },

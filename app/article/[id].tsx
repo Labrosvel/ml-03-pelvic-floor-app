@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
   imageFrame: {
     width: '100%',
-    aspectRatio: 1400 / 1020,
+    aspectRatio: 1272 / 912,
     borderRadius: radii.md,
     backgroundColor: colors.surface,
     overflow: 'hidden',
