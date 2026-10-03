@@ -239,6 +239,7 @@ const en = {
       summary: 'Consistency matters more than long sessions.',
       body: [
         'Short, regular sessions usually work better than occasional long ones. Many plans suggest a few sessions each day.',
+        'Before each session, empty your bladder and settle into a relaxed, comfortable position.',
         'Practice in a comfortable position first — lying down or sitting — then progress to standing when ready.',
         'Use reminders so the habit sticks. Track sessions so you and your physiotherapist can see progress over time.',
       ],
