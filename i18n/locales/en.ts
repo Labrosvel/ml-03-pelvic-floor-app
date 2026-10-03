@@ -38,7 +38,7 @@ const en = {
     adjustPlan: 'Adjust plan',
     beforeTitle: 'Before you begin',
     beforeBody:
-      'Soften your jaw and shoulders. Breathe normally. Squeeze upward and inward, then fully release during rest. If you feel pain, stop immediately and contact your physiotherapist.',
+      'Empty your bladder first, then get comfortable and relaxed. Soften your jaw and shoulders. Breathe normally. Squeeze upward and inward, then fully release during rest. If you feel pain, stop immediately and contact your physiotherapist.',
   },
   onboarding: {
     eyebrow: 'Welcome',
@@ -193,7 +193,8 @@ const en = {
     finishBody:
       'Your practice is saved on this device. Consistency over intensity is the goal.',
     prepare: 'Prepare',
-    cuePrepare: 'Find a comfortable position. Soften your shoulders and breathe normally.',
+    cuePrepare:
+      'Empty your bladder beforehand. Find a comfortable position, relax, soften your shoulders, and breathe normally.',
     cueSlowSqueeze: 'Lift and close gently upward. Keep breathing.',
     cueQuickSqueeze: 'Quick lift and close — then let go fully.',
     cueRest: 'Fully release. Soften the pelvic floor and wait for the next cue.',
