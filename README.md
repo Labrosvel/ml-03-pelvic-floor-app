@@ -33,34 +33,59 @@ Merging to `main` updates the **web URL**. It does **not** update phones that in
 
 ## Versioning & git tags
 
-Use [semver](https://semver.org/) in `app.json` → `expo.version` (e.g. `1.0.0`, `1.0.1`, `1.1.0`).
+Use [semver](https://semver.org/) in `app.json` → `expo.version` (e.g. `1.0.0`, `1.0.1`, `1.1.0`). Keep `package.json` version in sync (the bump script does both).
 
-The same version name appears at the bottom of **Settings** (and on native builds includes the Play version code in parentheses). That is the quick check for “am I on the latest install?”.
+The same version name appears at the bottom of **Settings** (and on native builds includes the Play version code in parentheses). That is the quick check for “am I on the latest install?”
 
-| Field | File | Who changes it |
+### What each number means
+
+| Digit | Example bump | Meaning for PelviPilot |
 | --- | --- | --- |
-| **Version name** (what users see) | `app.json` → `version` | You, before each Play release |
-| **Version code** (integer Play requires) | EAS production profile | Auto-incremented (`eas.json` → `autoIncrement: true`) |
+| **MAJOR** | `1.0.0` → `2.0.0` | Rare product reset / breaking change |
+| **MINOR** | `1.0.0` → `1.1.0` | New user-facing feature (default for feature PRs) |
+| **PATCH** | `1.0.0` → `1.0.1` | Bug fix / small correction |
+
+### Two different “versions” (don’t mix them up)
+
+| Field | What it is | Who changes it |
+| --- | --- | --- |
+| **Version name** (`1.1.0`) | What you see in Settings | Bumped in **every product PR** (see below) |
+| **Version code** (integer) | What Google Play requires to increase on each AAB upload | Auto-incremented by EAS production builds (`eas.json` → `autoIncrement: true`) |
+
+The version **name** lives in git and ships inside the next AAB/APK/web build. The Play **version code** only moves when you run a production Android build — already automatic.
+
+### Bump on every product PR (no manual editing)
+
+Do **not** hand-edit `app.json`. In the feature/fix PR itself:
+
+```bash
+npm run version:minor   # new feature
+npm run version:patch   # bug fix
+npm run version:major   # rare
+```
+
+CI (`version-check` workflow) fails the PR if product code changed but the version name did not increase. Docs-only / rules-only / CI-only PRs do not need a bump.
+
+Cursor agents are instructed to run the bump as part of product PRs.
 
 ### Tag every Play release on `main`
 
-After merging the release PR, tag the merge commit so you can see what shipped:
+After you build/upload an internal-testing AAB from `main`, tag that commit:
 
 ```bash
 git checkout main
 git pull
-git tag -a v1.0.1 -m "Internal testing: short description of changes"
-git push origin v1.0.1
+git tag -a v1.1.0 -m "Internal testing: short description of changes"
+git push origin v1.1.0
 ```
 
 **Convention**
 
-- Tag format: `v1.0.0`, `v1.0.1`, …
+- Tag format: `v1.0.0`, `v1.1.0`, …
 - Tag **on `main`**, on the commit that was built — not on feature branches.
-- In the release PR title or description, note the target version (e.g. `Release v1.0.1`).
 - List tags anytime: `git tag -l 'v*'` or GitHub → **Releases / Tags**.
 
-Example history: `v1.0.0` (first internal test) → `v1.0.1` (bugfix) → `1.1.0` (new feature).
+Example history: `v1.0.0` (first internal test) → `v1.0.1` (bug fix) → `v1.1.0` (new feature).
 
 ---
 
@@ -70,24 +95,16 @@ Do this whenever you want testers’ phones to get new native code.
 
 ### 1. Develop on a branch → PR → merge to `main`
 
-Same as today. Validate on the web preview if useful (see below).
+Same as today. The PR should already include a version bump (`version:minor` / `version:patch`). Validate on the web preview if useful (see below).
 
-### 2. Bump the version name (if this release is user-visible)
-
-Edit `app.json`:
-
-```json
-"version": "1.0.1"
-```
-
-Commit on `main` (or include in the release PR). EAS bumps the **version code** automatically on production builds.
-
-### 3. Build a new app bundle
+### 2. Build a new app bundle
 
 ```bash
 npm run build:android:production
 # or: npx eas-cli build -p android --profile production
 ```
+
+EAS bumps the Play **version code** automatically on production builds. The **version name** comes from the merged `app.json`.
 
 Optional sanity check on your phone first (direct install, not Play Store):
 
@@ -95,7 +112,7 @@ Optional sanity check on your phone first (direct install, not Play Store):
 npm run build:android:preview
 ```
 
-### 4. Upload to Play Console
+### 3. Upload to Play Console
 
 **Manual:** expo.dev → download `.aab` → Play Console → **Internal testing** → **Create new release** → upload → add release notes → **Start rollout**.
 
@@ -107,14 +124,14 @@ npm run submit:android
 
 Then open Play Console and roll out the draft if needed.
 
-### 5. Tag `main`
+### 4. Tag `main`
 
 ```bash
-git tag -a v1.0.1 -m "Internal testing: …"
-git push origin v1.0.1
+git tag -a v1.1.0 -m "Internal testing: …"
+git push origin v1.1.0
 ```
 
-### 6. Tell testers (optional)
+### 5. Tell testers (optional)
 
 Play Store usually handles updates without you doing anything. Testers with **auto-update** enabled get the new version in the background. Others see an **Update** button on the PelviPilot Play Store page. There is no custom push notification from you — same as most Play Store apps.
 

@@ -1,7 +1,7 @@
 {
   "name": "pelvipilot",
   "main": "expo-router/entry",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "dependencies": {
     "@expo-google-fonts/dm-sans": "^0.4.2",
     "@expo-google-fonts/fraunces": "^0.4.1",
@@ -51,6 +51,10 @@
     "web": "expo start --web",
     "export:web": "expo export -p web",
     "typecheck": "tsc --noEmit",
+    "version:patch": "node scripts/bump-version.mjs patch",
+    "version:minor": "node scripts/bump-version.mjs minor",
+    "version:major": "node scripts/bump-version.mjs major",
+    "version:check": "node scripts/check-version-bump.mjs",
     "update:production": "eas update --channel production --environment production",
     "update:preview": "eas update --channel preview --environment preview",
     "build:android:development": "eas build -p android --profile development",
