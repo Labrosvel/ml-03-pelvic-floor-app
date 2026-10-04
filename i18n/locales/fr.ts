@@ -1,0 +1,272 @@
+const fr = {
+  brand: {
+    appName: 'PelviPilot',
+    clinicName: 'Physiospecialists',
+    tagline: 'Pratique du plancher pelvien, guidée en douceur',
+    defaultClinicName: 'Physiospecialists',
+  },
+  common: {
+    cancel: 'Annuler',
+    reset: 'Réinitialiser',
+    done: 'Terminé',
+    close: 'Fermer',
+    pause: 'Pause',
+    resume: 'Reprendre',
+    save: 'Enregistrer',
+    min: 'min',
+    sec: 's',
+    reps: 'rép.',
+  },
+  tabs: {
+    home: 'Accueil',
+    progress: 'Progrès',
+    learn: 'Apprendre',
+    settings: 'Réglages',
+  },
+  navigation: {
+    session: 'Séance',
+    exercisePlan: 'Programme d’exercices',
+    learn: 'Apprendre',
+  },
+  home: {
+    loading: 'Chargement de {{appName}}…',
+    welcomeBack: 'Bon retour, {{name}}. Prêt(e) pour la pratique d’aujourd’hui ?',
+    today: 'Aujourd’hui',
+    sessionsComplete: '{{done}}/{{total}} séances terminées',
+    sessionMeta: 'Environ {{minutes}} min · {{squeezes}} contractions · {{plan}}',
+    startSession: 'Commencer la séance',
+    adjustPlan: 'Ajuster le programme',
+    beforeTitle: 'Avant de commencer',
+    beforeBody:
+      'Videz d’abord votre vessie, puis installez-vous confortablement et détendez-vous. Relâchez la mâchoire et les épaules. Respirez normalement. Contractez vers le haut et vers l’intérieur, puis relâchez complètement pendant le repos. En cas de douleur, arrêtez immédiatement et contactez votre kinésithérapeute.',
+  },
+  onboarding: {
+    eyebrow: 'Bienvenue',
+    body:
+      'Un compagnon calme pour la pratique du plancher pelvien. Conçu pour suivre à domicile un programme guidé par le kinésithérapeute.',
+    clinicLabel: 'Nom du cabinet / kinésithérapeute',
+    clinicPlaceholder: 'Physiospecialists',
+    nameLabel: 'Nom du patient',
+    namePlaceholder: 'ex. Marie Dupont',
+    nameHint: 'Le kinésithérapeute le renseigne pour savoir qui a terminé le programme.',
+    physioNotifyEmail: 'E-mail d’alerte du kinésithérapeute',
+    physioNotifyEmailPlaceholder: 'ex. clinic@example.com',
+    physioNotifyEmailHint:
+      'Saisissez l’e-mail du cabinet qui doit recevoir les alertes de fin de journée.',
+    continue: 'Continuer',
+  },
+  progress: {
+    eyebrow: 'Historique',
+    title: 'Progrès',
+    subtitle: 'Un relevé simple à partager avec votre kinésithérapeute.',
+    today: 'Aujourd’hui',
+    last7Days: '7 derniers jours',
+    allTime: 'Total',
+    recentSessions: 'Séances récentes',
+    empty: 'Aucune séance pour l’instant. Terminez votre première séance {{plan}} depuis l’Accueil.',
+    sessionMeta: '{{completed}}/{{target}} rép. · {{minutes}} min',
+  },
+  learn: {
+    eyebrow: 'Éducation',
+    title: 'Apprendre',
+    subtitle: 'Courts guides pour soutenir la technique et la confiance.',
+    minutes: '{{count}} min',
+    minutesRead: '{{count}} min de lecture',
+    missing: 'Article introuvable.',
+  },
+  settings: {
+    title: 'Réglages',
+    subtitle:
+      'Configurez l’appareil de chaque patient. Saisissez l’e-mail du cabinet qui doit recevoir les alertes de fin de journée.',
+    clinicName: 'Nom du cabinet',
+    clinicPlaceholder: 'Physiospecialists',
+    yourName: 'Nom du patient',
+    yourNamePlaceholder: 'ex. Marie Dupont',
+    yourNameHint: 'Nécessaire pour que les alertes quotidiennes identifient le patient.',
+    physioNotifyEmail: 'E-mail d’alerte du kinésithérapeute',
+    physioNotifyEmailPlaceholder: 'ex. clinic@example.com',
+    physioNotifyEmailHint:
+      'Saisissez l’e-mail du kinésithérapeute pour ce cabinet. Laissez vide jusqu’à la configuration — aucune valeur par défaut n’est renseignée.',
+    emailNotConfigured:
+      'L’envoi d’e-mails n’est pas encore configuré dans cette version. Ajoutez les IDs EmailJS dans constants/notifications.ts et recompilez.',
+    testAlert: 'Envoyer un e-mail de test',
+    testAlertSentTitle: 'Test envoyé',
+    testAlertSentBody: 'Vérifiez la boîte de réception de l’e-mail d’alerte du kinésithérapeute ci-dessus.',
+    testAlertFailedTitle: 'Envoi impossible',
+    testAlertFailedBody:
+      'Vérifiez EmailJS → Email History pour les erreurs. Dans Account → Security, autorisez l’accès API navigateur. Vérifiez aussi les indésirables.',
+    testAlertFailedDetail: 'EmailJS a répondu : {{detail}}',
+    testAlertMissingEmail: 'Saisissez d’abord un e-mail d’alerte du kinésithérapeute.',
+    testAlertSamplePatient: 'Patient de test',
+    reminders: 'Rappels',
+    remindersExpoGo: 'Disponible dans une installation complète (pas Expo Go)',
+    remindersHint: '{{count}} horaires de rappel · un par séance quotidienne',
+    remindersSyncHint:
+      'Le nombre d’horaires de rappel correspond aux séances par jour de votre programme. Modifiez le programme pour ajouter ou retirer des créneaux.',
+    reminderTime: 'Rappel {{n}}',
+    reminderPickHint: 'Choisir',
+    reminderHour: 'Heure',
+    reminderMinute: 'Minute',
+    haptics: 'Vibrations',
+    sound: 'Signaux sonores',
+    soundHint: 'Préparation, contraction/repos lent, tics rapides et fin de séance',
+    soundPack: 'Style sonore',
+    soundPackHint: 'Touchez un style pour l’aperçu',
+    soundPackGentle: 'Doux',
+    soundPackChime: 'Carillon',
+    soundPackClick: 'Clic',
+    language: 'Langue',
+    languageSystem: 'Langue de l’appareil',
+    languageEn: 'Anglais',
+    languageEl: 'Grec',
+    languageIt: 'Italien',
+    languageEs: 'Espagnol',
+    languageFr: 'Français',
+    editPlan: 'Modifier le programme d’exercices',
+    replayWelcome: 'Revoir l’accueil',
+    resetData: 'Réinitialiser les données locales',
+    resetTitle: 'Réinitialiser toutes les données ?',
+    resetBody:
+      'Cela efface les personnalisations du programme, les réglages et l’historique des séances sur cet appareil.',
+    disclaimer:
+      'PelviPilot accompagne la pratique à domicile entre les rendez-vous de kinésithérapie sous la guidance de votre kinésithérapeute. Tout le monde n’a pas besoin de contractions du plancher pelvien (Kegel) — ne pratiquez que le programme conseillé pour vous. Ce n’est pas un substitut à l’évaluation clinique et il n’est pas affilié à Squeezy ni à aucune autre application commerciale de santé pelvienne. Utilisez-le uniquement selon les indications d’un professionnel qualifié ; l’éditeur décline toute responsabilité en cas de blessure liée à une utilisation sans cette guidance. En cas de douleur, arrêtez immédiatement.',
+    privacyPolicy: 'Politique de confidentialité',
+    webBuild: 'Version web {{id}}',
+  },
+  privacy: {
+    title: 'Politique de confidentialité',
+    updated: 'Dernière mise à jour : 30 septembre 2026',
+    introTitle: 'Vue d’ensemble',
+    introBody:
+      'PelviPilot (« l’application ») est un compagnon d’exercices du plancher pelvien. Cette politique explique quelles informations l’application traite sur votre appareil et ce qui peut être envoyé à votre kinésithérapeute lorsque vous terminez votre programme quotidien.',
+    dataTitle: 'Informations stockées sur votre appareil',
+    dataBody:
+      'Selon ce que vous saisissez, l’application peut stocker localement : libellé du nom du cabinet, nom d’affichage facultatif, préférence de langue, préférences son/vibrations, préférences de rappels, horaires personnalisés du programme et historique des séances terminées. Ces informations restent dans le stockage de l’appareil, sauf si vous utilisez des sauvegardes système qui copient les données des applications.',
+    permissionsTitle: 'Autorisations',
+    permissionsBody:
+      'Des notifications peuvent être demandées si vous activez les rappels, afin que l’application affiche des alertes locales. L’application diffuse des signaux sonores pour le timing des exercices ; elle n’enregistre pas le microphone. Les vibrations peuvent s’activer lorsqu’elles sont activées.',
+    sharingTitle: 'Partage',
+    sharingBody:
+      'Lorsque vous terminez toutes les séances requises de la journée, l’application peut envoyer un seul e-mail à l’adresse du kinésithérapeute configurée sur cet appareil. Cet e-mail comprend le nom du patient, le nom du cabinet, le nom du programme, le nombre de séances et la date — pour que votre kinésithérapeute sache qui a terminé son programme quotidien. Nous ne vendons pas d’informations personnelles. L’historique des exercices au-delà de cette alerte quotidienne n’est pas téléversé vers les serveurs de PelviPilot.',
+    retentionTitle: 'Conservation et suppression',
+    retentionBody:
+      'Les données restent sur l’appareil jusqu’à ce que vous les effaciez. Utilisez Réglages → Réinitialiser les données locales pour supprimer les réglages, les personnalisations du programme et l’historique. Désinstaller l’application supprime aussi son stockage local.',
+    childrenTitle: 'Enfants',
+    childrenBody:
+      'PelviPilot est destiné aux adultes suivant un programme convenu avec un kinésithérapeute. Il ne s’adresse pas aux enfants.',
+    healthTitle: 'Informations de santé',
+    healthBody:
+      'PelviPilot accompagne la pratique à domicile entre les rendez-vous sous la guidance de votre kinésithérapeute. Ce n’est pas un dispositif médical, il ne diagnostique pas de pathologies et ne remplace pas l’évaluation clinique. L’éditeur décline toute responsabilité en cas de blessure liée à une utilisation sans guidance professionnelle. En cas de douleur, arrêtez immédiatement et demandez conseil à votre kinésithérapeute ou médecin. Ne l’utilisez pas pour des soins d’urgence.',
+    contactTitle: 'Contact',
+    contactBody:
+      'Pour les questions de confidentialité concernant cette application, contactez l’éditeur via les coordonnées de la fiche Google Play de PelviPilot (ou l’e-mail qui y figure une fois la fiche publiée).',
+    changesTitle: 'Modifications',
+    changesBody:
+      'Nous pouvons mettre à jour cette politique à mesure que le produit évolue. La date « Dernière mise à jour » en haut changera lorsque nous le ferons.',
+  },
+  plan: {
+    intro:
+      'Mode kinésithérapeute : adaptez les temps de contraction et les répétitions pour chaque patient.',
+    planName: 'Nom du programme',
+    sessionsPerDay: 'Séances par jour',
+    slowSqueezes: 'Contractions lentes',
+    quickSqueezes: 'Contractions rapides',
+    squeezeSec: 'Contraction (s)',
+    restSec: 'Repos (s)',
+    repetitions: 'Répétitions',
+    savePlan: 'Enregistrer le programme',
+    restoreStarter: 'Restaurer le programme de départ',
+    savedTitle: 'Enregistré',
+    savedBody: 'Programme d’exercices mis à jour sur cet appareil.',
+    missingTitle: 'Valeur manquante',
+    missingBody: 'Veuillez saisir un nombre pour {{label}}.',
+    invalidTitle: 'Valeur non valide',
+    invalidBody: '{{label}} doit être un nombre entier supérieur à 0.',
+    defaultName: 'Programme de départ',
+    defaultNotes:
+      'Une routine de départ douce. Votre kinésithérapeute peut ajuster le temps de contraction, le repos et les répétitions.',
+    fieldSessionsPerDay: 'Séances par jour',
+    fieldSlowSqueeze: 'Contraction lente (s)',
+    fieldSlowRest: 'Repos lent (s)',
+    fieldSlowReps: 'Répétitions lentes',
+    fieldQuickSqueeze: 'Contraction rapide (s)',
+    fieldQuickRest: 'Repos rapide (s)',
+    fieldQuickReps: 'Répétitions rapides',
+  },
+  exercise: {
+    niceWork: 'Bravo',
+    sessionComplete: 'Séance terminée',
+    finishBody:
+      'Votre pratique est enregistrée sur cet appareil. La régularité compte plus que l’intensité.',
+    prepare: 'Préparation',
+    cuePrepare:
+      'Videz votre vessie avant. Trouvez une position confortable, détendez-vous, relâchez les épaules et respirez normalement.',
+    cueSlowSqueeze: 'Soulevez et fermez doucement vers le haut. Continuez à respirer.',
+    cueQuickSqueeze: 'Soulever et fermer rapidement — puis relâchez complètement.',
+    cueRest: 'Relâchez complètement. Assouplissez le plancher pelvien et attendez le prochain signal.',
+  },
+  phase: {
+    squeeze: 'Contraction',
+    rest: 'Repos',
+    prepare: 'Préparez-vous',
+    done: 'Terminé',
+  },
+  reminders: {
+    title: 'Rappel PelviPilot',
+    body: 'C’est l’heure de votre séance de plancher pelvien.',
+  },
+  notFound: {
+    title: 'Oups !',
+    body: 'Cet écran n’existe pas.',
+    goHome: 'Aller à l’accueil',
+  },
+  articles: {
+    'what-is-pelvic-floor': {
+      title: 'Qu’est-ce que le plancher pelvien ?',
+      summary: 'Les muscles qui soutiennent la vessie, l’intestin et les organes reproducteurs.',
+      imageLabel: 'Schéma des muscles du plancher pelvien',
+      imageCredit: 'Illustration : OpenStax Anatomy & Physiology (CC BY 4.0).',
+      body: [
+        'Le plancher pelvien est un groupe de muscles et de tissu conjonctif qui forme comme un hamac à la base du bassin.',
+        'Ces muscles aident à contrôler la vessie et l’intestin, soutiennent les organes pelviens et contribuent à la fonction sexuelle et à la stabilité du tronc.',
+        'Comme tout groupe musculaire, ils peuvent s’affaiblir, se tendre ou se coordonner mal. La pratique guidée aide à retrouver conscience et force.',
+        'Tout le monde n’a pas besoin de contractions du plancher pelvien (Kegel). Ne pratiquez que le programme conseillé par votre kinésithérapeute.',
+      ],
+    },
+    'how-to-squeeze': {
+      title: 'Comment faire une contraction du plancher pelvien',
+      summary: 'Un signal clair pour contracter et relâcher sans retenir sa respiration.',
+      imageLabel:
+        'Schéma montrant les organes pelviens et le soulèvement du plancher pelvien en respirant normalement',
+      imageCredit:
+        'Illustration : Département des Anciens Combattants / Département de la Défense des États-Unis (domaine public).',
+      body: [
+        'Imaginez d’arrêter doucement le flux d’urine, ou de retenir un gaz. Soulevez et fermez le plancher pelvien vers le haut et vers l’intérieur.',
+        'Gardez les fesses, les cuisses et le ventre aussi détendus que possible. Respirez normalement — ne retenez pas votre souffle.',
+        'Contractez selon le compte affiché dans l’application, puis relâchez complètement et reposez-vous. La phase de repos est aussi importante que la contraction.',
+        'Si vous n’êtes pas sûr(e) de le faire correctement, demandez à votre kinésithérapeute de vérifier votre technique.',
+      ],
+    },
+    'when-to-practice': {
+      title: 'Quand et à quelle fréquence pratiquer',
+      summary: 'La régularité compte plus que les longues séances.',
+      body: [
+        'Des séances courtes et régulières fonctionnent généralement mieux que de longues séances occasionnelles. De nombreux programmes suggèrent plusieurs séances par jour.',
+        'Avant chaque séance, videz votre vessie et installez-vous dans une position détendue et confortable.',
+        'Pratiquez d’abord dans une position confortable — allongé(e) ou assis(e) — puis passez à la position debout quand vous êtes prêt(e).',
+        'Utilisez les rappels pour ancrer l’habitude. Enregistrez les séances pour que vous et votre kinésithérapeute puissiez voir les progrès dans le temps.',
+      ],
+    },
+    'when-to-seek-help': {
+      title: 'Quand demander de l’aide',
+      summary: 'Cette application soutient la pratique — elle ne remplace pas les soins cliniques.',
+      body: [
+        'Contactez votre kinésithérapeute ou médecin si les symptômes s’aggravent, si vous avez mal pendant les exercices, ou si vous n’êtes pas sûr(e) de la technique.',
+        'Demandez un avis médical urgent en cas de douleur soudaine inexpliquée, de saignement, de fièvre ou de nouveaux symptômes neurologiques.',
+        'PelviPilot est un compagnon d’exercices pour votre plan de soins. Ce n’est pas un outil de diagnostic de dispositif médical.',
+      ],
+    },
+  },
+} as const;
+
+export default fr;

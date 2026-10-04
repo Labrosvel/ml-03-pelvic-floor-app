@@ -121,7 +121,7 @@ Features:
 - Customisable plan timings
 - Local progress history on the device
 - Optional daily reminders
-- English and Greek
+- English, Greek, Italian, Spanish, and French
 
 **Category:** Health & Fitness  
 **Tags:** exercise, physiotherapy support, women's health / pelvic health (as appropriate)
