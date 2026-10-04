@@ -1,0 +1,18 @@
+---
+description: Do not hang waiting on unreachable subagents or long idle waits
+alwaysApply: true
+---
+
+# Do not hang on subagents
+
+If a subagent, browser/computer-use helper, or similar side worker is **unreachable, stuck, or not responding within a short reasonable window**, **stop waiting and move on**. Do not idle for long stretches hoping it comes back.
+
+## Rules
+
+1. Prefer finishing the core code change and PR without blocking on UI helpers.
+2. If a helper does not start, connect, or return promptly, **terminate that path** and continue with the next useful step (typecheck, commit, push, PR update, concise summary).
+3. Do not use long sleeps / polling loops while waiting on a subagent. One short check is enough; then abandon that verification path if it is stuck.
+4. Manual/browser verification is optional evidence, not a gate, when the implementation is already complete and typechecks.
+5. In the final summary, briefly note skipped verification if a helper could not be reached.
+
+This has been a repeated failure mode. Treat prompt termination as mandatory.
