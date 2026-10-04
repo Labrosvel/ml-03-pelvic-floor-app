@@ -8,6 +8,7 @@ import { SectionHeader } from '@/components/ui/SectionHeader';
 import { displayPlanName } from '@/constants/plans';
 import { colors, fonts, spacing } from '@/constants/theme';
 import { useAppState } from '@/context/AppState';
+import { dateLocaleForLanguage } from '@/i18n';
 
 function formatDate(iso: string, locale: string): string {
   return new Date(iso).toLocaleString(locale, {
@@ -26,7 +27,7 @@ export default function ProgressScreen() {
     const age = Date.now() - new Date(session.completedAt).getTime();
     return age <= 7 * 24 * 60 * 60 * 1000;
   }).length;
-  const locale = i18n.language === 'el' ? 'el-GR' : 'en-GB';
+  const locale = dateLocaleForLanguage(i18n.language);
   const planName = displayPlanName(plan, t);
 
   return (

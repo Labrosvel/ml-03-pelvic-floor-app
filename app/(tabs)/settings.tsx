@@ -34,11 +34,20 @@ import { previewSoundPack } from '@/lib/sound';
 
 const LANGUAGE_OPTIONS: {
   value: AppLanguage;
-  labelKey: 'languageSystem' | 'languageEn' | 'languageEl';
+  labelKey:
+    | 'languageSystem'
+    | 'languageEn'
+    | 'languageEl'
+    | 'languageIt'
+    | 'languageEs'
+    | 'languageFr';
 }[] = [
   { value: 'system', labelKey: 'languageSystem' },
   { value: 'en', labelKey: 'languageEn' },
   { value: 'el', labelKey: 'languageEl' },
+  { value: 'it', labelKey: 'languageIt' },
+  { value: 'es', labelKey: 'languageEs' },
+  { value: 'fr', labelKey: 'languageFr' },
 ];
 
 const SOUND_PACK_LABEL_KEYS: Record<SoundPackId, 'soundPackGentle' | 'soundPackChime' | 'soundPackClick'> =

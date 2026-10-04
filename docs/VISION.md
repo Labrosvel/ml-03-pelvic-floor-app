@@ -32,7 +32,7 @@ PelviPilot is a calm home-practice companion: the **physiotherapist sets the pla
 - **Guided sessions** with visual and optional audio/haptic cues.
 - **Local progress history** on device (no cloud sync yet).
 - **Education articles** for gentle context between appointments.
-- **English and Greek** for patient-facing copy.
+- **English, Greek, Italian, Spanish, and French** for patient-facing copy.
 
 ### Explicitly not decided yet
 
@@ -90,3 +90,4 @@ Before proposing solutions or editing code:
 | Date | Change |
 | --- | --- |
 | 2026-08-30 | Initial vision captured from product discussion. |
+| 2026-10-04 | Patient-facing languages expanded to include Italian, Spanish, and French. |
