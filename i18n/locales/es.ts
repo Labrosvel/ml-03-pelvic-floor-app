@@ -130,6 +130,7 @@ const es = {
     disclaimer:
       'PelviPilot apoya la práctica en casa entre citas de fisioterapia bajo la guía de tu fisioterapeuta. No todo el mundo necesita contracciones del suelo pélvico (Kegel): practica solo el plan aconsejado para ti. No sustituye la evaluación clínica y no está afiliado a Squeezy ni a ninguna otra app comercial de salud pélvica. Úsalo solo según indiquen profesionales cualificados; el editor no acepta responsabilidad por lesiones por uso sin esa guía. Si sientes dolor, detente de inmediato.',
     privacyPolicy: 'Política de privacidad',
+    appVersion: 'Versión {{version}}',
     webBuild: 'Build web {{id}}',
   },
   privacy: {

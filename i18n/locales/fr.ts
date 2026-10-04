@@ -131,6 +131,7 @@ const fr = {
     disclaimer:
       'PelviPilot accompagne la pratique à domicile entre les rendez-vous de kinésithérapie sous la guidance de votre kinésithérapeute. Tout le monde n’a pas besoin de contractions du plancher pelvien (Kegel) — ne pratiquez que le programme conseillé pour vous. Ce n’est pas un substitut à l’évaluation clinique et il n’est pas affilié à Squeezy ni à aucune autre application commerciale de santé pelvienne. Utilisez-le uniquement selon les indications d’un professionnel qualifié ; l’éditeur décline toute responsabilité en cas de blessure liée à une utilisation sans cette guidance. En cas de douleur, arrêtez immédiatement.',
     privacyPolicy: 'Politique de confidentialité',
+    appVersion: 'Version {{version}}',
     webBuild: 'Version web {{id}}',
   },
   privacy: {
