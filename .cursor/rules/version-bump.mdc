@@ -1,0 +1,40 @@
+---
+description: Bump app semver on every product PR (feature=minor, fix=patch)
+alwaysApply: true
+---
+
+# Version bump on every product PR
+
+When a pull request changes **product code** (app UI/logic, i18n, assets, native config), **bump the user-facing app version in the same PR**. Do not leave version updates to a manual human step.
+
+## Semver (`app.json` → `expo.version`, keep `package.json` in sync)
+
+| Digit | Meaning | When to bump |
+| --- | --- | --- |
+| **MAJOR** (`1.0.0` → `2.0.0`) | Rare breaking / major product reset | Almost never for now |
+| **MINOR** (`1.0.0` → `1.1.0`) | New user-facing feature | Default for feature work |
+| **PATCH** (`1.0.0` → `1.0.1`) | Bug fix / small correction | Fixes only |
+
+## How
+
+Run one of:
+
+```bash
+npm run version:minor
+npm run version:patch
+npm run version:major
+```
+
+That updates `app.json` and `package.json` together.
+
+## Scope
+
+- **Required** when changing: `app/`, `components/`, `constants/`, `context/`, `i18n/`, `lib/`, `assets/`, `app.json`, `app.config.js`
+- **Not required** for docs-only, `.cursor/` rules-only, or CI-only changes
+
+## Important distinction
+
+- **Version name** (`1.x.y`) — what Settings shows; bump in git on feature/fix PRs.
+- **Version code** (Play integer) — already auto-incremented by EAS on production AAB builds; do not manage by hand.
+
+The name only appears on device after a new AAB/APK/web build that includes the bumped commit.

@@ -1,0 +1,28 @@
+# Require a semver bump in app.json when product code changes in a PR.
+name: version-check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  check:
+    name: Require version bump for product changes
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Check version bump
+        env:
+          BASE_REF: origin/${{ github.base_ref }}
+        run: node scripts/check-version-bump.mjs
