@@ -38,7 +38,7 @@ jobs:
         env:
           BASE_PATH: /ml-03-pelvic-floor-app/pr-preview/pr-${{ github.event.number }}
         run: |
-          echo "export const WEB_BUILD_ID = 'pr-${{ github.event.number }}-${GITHUB_SHA::7}';" > constants/buildInfo.ts
+          echo "export const WEB_BUILD_ID = 'pr-${{ github.event.number }}-${GITHUB_SHA::7}';" > constants/webBuildId.ts
           npx expo export -p web
 
       - name: Patch HTML cache headers

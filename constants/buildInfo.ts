@@ -1,8 +1,7 @@
 import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 
-/** Set by CI during web export; falls back for local/dev. */
-export const WEB_BUILD_ID = 'local';
+export { WEB_BUILD_ID } from '@/constants/webBuildId';
 
 /** User-facing version name from app.json → expo.version (baked into the build). */
 export function getAppVersion(): string {

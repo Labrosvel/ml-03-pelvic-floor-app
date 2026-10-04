@@ -41,7 +41,7 @@ jobs:
         env:
           BASE_PATH: /ml-03-pelvic-floor-app
         run: |
-          echo "export const WEB_BUILD_ID = '${GITHUB_SHA::7}';" > constants/buildInfo.ts
+          echo "export const WEB_BUILD_ID = '${GITHUB_SHA::7}';" > constants/webBuildId.ts
           npx expo export -p web
 
       - name: Patch HTML cache headers
