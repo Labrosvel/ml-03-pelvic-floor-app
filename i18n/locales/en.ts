@@ -126,6 +126,7 @@ const en = {
     disclaimer:
       'PelviPilot supports home practice between physiotherapy appointments under your physiotherapist’s guidance. Not everyone needs pelvic floor squeezes (Kegels) — only practise the plan advised for you. It is not a substitute for clinical assessment and is not affiliated with Squeezy or any other commercial pelvic health app. Use only as directed by a qualified professional; the publisher accepts no responsibility for injury from use without that guidance. If you feel pain, stop immediately.',
     privacyPolicy: 'Privacy policy',
+    appVersion: 'Version {{version}}',
     webBuild: 'Web build {{id}}',
   },
   privacy: {

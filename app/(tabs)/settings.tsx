@@ -20,7 +20,11 @@ import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { SOUND_PACKS, type SoundPackId } from '@/constants/sounds';
 import { colors, fonts, radii, spacing } from '@/constants/theme';
-import { WEB_BUILD_ID } from '@/constants/buildInfo';
+import {
+  WEB_BUILD_ID,
+  getAppVersionLabel,
+  shouldShowWebBuildId,
+} from '@/constants/buildInfo';
 import { isEmailJsConfigured } from '@/constants/notifications';
 import { useAppState } from '@/context/AppState';
 import { AppLanguage } from '@/i18n/types';
@@ -193,6 +197,8 @@ export default function SettingsScreen() {
   const { settings, plan, updateSettings, resetAll } = useAppState();
   const emailConfigured = isEmailJsConfigured();
   const reminderTimes = settings.reminders.times;
+  const appVersionLabel = getAppVersionLabel();
+  const showWebBuild = shouldShowWebBuildId();
 
   async function sendTestAlert() {
     if (!emailConfigured) {
@@ -438,7 +444,12 @@ export default function SettingsScreen() {
       />
 
       <Text style={styles.disclaimer}>{t('settings.disclaimer')}</Text>
-      <Text style={styles.buildId}>{t('settings.webBuild', { id: WEB_BUILD_ID })}</Text>
+      <Text style={styles.buildId} accessibilityLabel={t('settings.appVersion', { version: appVersionLabel })}>
+        {t('settings.appVersion', { version: appVersionLabel })}
+      </Text>
+      {showWebBuild ? (
+        <Text style={styles.buildId}>{t('settings.webBuild', { id: WEB_BUILD_ID })}</Text>
+      ) : null}
     </Screen>
   );
 }

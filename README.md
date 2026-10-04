@@ -35,6 +35,8 @@ Merging to `main` updates the **web URL**. It does **not** update phones that in
 
 Use [semver](https://semver.org/) in `app.json` → `expo.version` (e.g. `1.0.0`, `1.0.1`, `1.1.0`).
 
+The same version name appears at the bottom of **Settings** (and on native builds includes the Play version code in parentheses). That is the quick check for “am I on the latest install?”.
+
 | Field | File | Who changes it |
 | --- | --- | --- |
 | **Version name** (what users see) | `app.json` → `version` | You, before each Play release |
