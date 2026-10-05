@@ -203,6 +203,7 @@ const es = {
     cueSlowSqueeze: 'Eleva y cierra con suavidad hacia arriba. Sigue respirando.',
     cueQuickSqueeze: 'Elevación y cierre rápidos — luego suelta por completo.',
     cueRest: 'Suelta por completo. Suaviza el suelo pélvico y espera la siguiente señal.',
+    repOf: '{{current}} de {{total}}',
   },
   phase: {
     squeeze: 'Contracción',
