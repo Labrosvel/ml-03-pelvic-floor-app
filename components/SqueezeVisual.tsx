@@ -174,15 +174,14 @@ export function SqueezeVisual({
   const pausedRef = useRef(paused);
   pausedRef.current = paused;
 
-  // One continuous 0→1 sweep for the whole phase (not per-second steps).
+  // One continuous 0→1 sweep for the whole phase — including prepare.
+  // (Prepare used to ease only to 22% over 500ms, then freeze for the rest.)
   useEffect(() => {
     cancelAnimation(progress);
     progress.value = 0;
     wasPaused.current = pausedRef.current;
 
-    if (phase === 'prepare') {
-      progress.value = withTiming(0.22, { duration: 500 });
-    } else if (phase === 'done') {
+    if (phase === 'done') {
       progress.value = withTiming(1, { duration: 500 });
     } else if (!pausedRef.current) {
       runPhaseSweep(progress, 0, durationSeconds);
@@ -199,14 +198,9 @@ export function SqueezeVisual({
 
   // Pause freezes the wheel; resume continues the remaining sweep smoothly.
   useEffect(() => {
-    if (phase !== 'squeeze' && phase !== 'rest') {
-      wasPaused.current = paused;
-      return;
-    }
-
     if (paused) {
       cancelAnimation(progress);
-    } else if (wasPaused.current) {
+    } else if (wasPaused.current && phase !== 'done') {
       runPhaseSweep(progress, progress.value, durationSeconds);
     }
 

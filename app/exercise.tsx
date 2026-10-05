@@ -23,77 +23,74 @@ export default function ExerciseScreen() {
   const [paused, setPaused] = useState(false);
   const [finished, setFinished] = useState(false);
   const startedAt = useRef(Date.now());
+  const stepsRef = useRef(steps);
+  const indexRef = useRef(index);
+  const planRef = useRef(plan);
+  const settingsRef = useRef(settings);
+  const addSessionRef = useRef(addSession);
+  stepsRef.current = steps;
+  indexRef.current = index;
+  planRef.current = plan;
+  settingsRef.current = settings;
+  addSessionRef.current = addSession;
   const step = steps[index];
 
+  // Reset countdown + play cues only when the step index changes — never on
+  // pause/resume or when settings/plan object identity refreshes mid-phase.
   useEffect(() => {
-    if (!step || finished || paused) return;
+    const current = stepsRef.current[index];
+    if (!current || finished) return;
 
-    setSecondsLeft(step.seconds);
+    setSecondsLeft(current.seconds);
 
-    if (settings.hapticsEnabled && step.phase === 'squeeze') {
+    const currentSettings = settingsRef.current;
+    if (currentSettings.hapticsEnabled && current.phase === 'squeeze') {
       void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     }
-
-    if (settings.soundEnabled) {
-      playStepCue(settings.soundPack, step);
+    if (currentSettings.soundEnabled) {
+      playStepCue(currentSettings.soundPack, current);
     }
-  }, [
-    index,
-    step,
-    finished,
-    paused,
-    settings.hapticsEnabled,
-    settings.soundEnabled,
-    settings.soundPack,
-  ]);
+  }, [index, finished]);
 
   useEffect(() => {
-    if (!step || finished || paused) return;
+    if (finished || paused) return;
 
     const timer = setInterval(() => {
       setSecondsLeft((current) => {
         if (current <= 1) {
           clearInterval(timer);
-          const next = index + 1;
-          if (next >= steps.length) {
+          const next = indexRef.current + 1;
+          const nextSteps = stepsRef.current;
+          if (next >= nextSteps.length) {
             setFinished(true);
+            const currentPlan = planRef.current;
+            const currentSettings = settingsRef.current;
             const durationSeconds = Math.round((Date.now() - startedAt.current) / 1000);
-            void addSession({
+            void addSessionRef.current({
               id: `session-${Date.now()}`,
-              planId: plan.id,
+              planId: currentPlan.id,
               completedAt: new Date().toISOString(),
               durationSeconds,
-              completedReps: totalTargetReps(plan),
-              targetReps: totalTargetReps(plan),
+              completedReps: totalTargetReps(currentPlan),
+              targetReps: totalTargetReps(currentPlan),
             });
-            if (settings.hapticsEnabled) {
+            if (currentSettings.hapticsEnabled) {
               void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
             }
-            if (settings.soundEnabled) {
-              void playCue(settings.soundPack, 'complete');
+            if (currentSettings.soundEnabled) {
+              void playCue(currentSettings.soundPack, 'complete');
             }
             return 0;
           }
           setIndex(next);
-          return steps[next].seconds;
+          return nextSteps[next].seconds;
         }
         return current - 1;
       });
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [
-    index,
-    step,
-    finished,
-    paused,
-    steps,
-    addSession,
-    plan,
-    settings.hapticsEnabled,
-    settings.soundEnabled,
-    settings.soundPack,
-  ]);
+  }, [index, finished, paused]);
 
   const activeBlock = plan.blocks.find((block) => block.id === step?.blockId);
 
