@@ -1,8 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Animated, {
+  cancelAnimation,
   Easing,
   interpolate,
+  type SharedValue,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
@@ -14,9 +16,13 @@ import { ExercisePhase } from '@/constants/plans';
 
 type Props = {
   phase: ExercisePhase;
+  /** Unique per session step so the continuous sweep restarts cleanly. */
+  phaseKey: string;
+  /** Full length of the current phase in seconds. */
+  durationSeconds: number;
   secondsLeft: number;
   cue: string;
-  progress: number; // 0..1 within current phase
+  paused?: boolean;
   repIndex?: number;
   repTotal?: number;
   /** When both are set, show a squeeze|rest cycle strip for this block. */
@@ -45,33 +51,19 @@ function RingProgress({
   progress,
   color,
   trackColor,
-  phaseKey,
 }: {
-  progress: number;
+  progress: SharedValue<number>;
   color: string;
   trackColor: string;
-  phaseKey: string;
 }) {
-  const animated = useSharedValue(0);
   const half = RING_SIZE / 2;
 
-  useEffect(() => {
-    // Snap back at the start of each phase so the wheel restarts cleanly.
-    if (progress <= 0.02) {
-      animated.value = 0;
-    }
-    animated.value = withTiming(Math.min(1, Math.max(0, progress)), {
-      duration: 900,
-      easing: Easing.linear,
-    });
-  }, [progress, phaseKey, animated]);
-
   const rightStyle = useAnimatedStyle(() => ({
-    transform: [{ rotate: `${Math.min(animated.value * 2, 1) * 180 - 180}deg` }],
+    transform: [{ rotate: `${Math.min(progress.value * 2, 1) * 180 - 180}deg` }],
   }));
 
   const leftStyle = useAnimatedStyle(() => ({
-    transform: [{ rotate: `${Math.max(animated.value * 2 - 1, 0) * 180 - 180}deg` }],
+    transform: [{ rotate: `${Math.max(progress.value * 2 - 1, 0) * 180 - 180}deg` }],
   }));
 
   return (
@@ -97,33 +89,26 @@ function CycleStrip({
   restSeconds,
 }: {
   phase: ExercisePhase;
-  phaseProgress: number;
+  phaseProgress: SharedValue<number>;
   squeezeSeconds: number;
   restSeconds: number;
 }) {
   const { t } = useTranslation();
   const total = Math.max(1, squeezeSeconds + restSeconds);
   const squeezeShare = squeezeSeconds / total;
-  const cycleProgress =
-    phase === 'squeeze'
-      ? phaseProgress * squeezeShare
-      : phase === 'rest'
-        ? squeezeShare + phaseProgress * (1 - squeezeShare)
-        : 0;
-
-  const marker = useSharedValue(cycleProgress);
   const trackWidth = useSharedValue(280);
 
-  useEffect(() => {
-    if (phase === 'squeeze' && phaseProgress <= 0.02) {
-      marker.value = 0;
-    }
-    marker.value = withTiming(cycleProgress, { duration: 900, easing: Easing.linear });
-  }, [cycleProgress, phase, phaseProgress, marker]);
-
-  const markerStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: marker.value * trackWidth.value - 2 }],
-  }));
+  const markerStyle = useAnimatedStyle(() => {
+    const cycleProgress =
+      phase === 'squeeze'
+        ? phaseProgress.value * squeezeShare
+        : phase === 'rest'
+          ? squeezeShare + phaseProgress.value * (1 - squeezeShare)
+          : 0;
+    return {
+      transform: [{ translateX: cycleProgress * trackWidth.value - 2 }],
+    };
+  });
 
   if (phase !== 'squeeze' && phase !== 'rest') {
     return null;
@@ -149,11 +134,32 @@ function CycleStrip({
   );
 }
 
+function runPhaseSweep(
+  progress: SharedValue<number>,
+  from: number,
+  durationSeconds: number,
+) {
+  const clamped = Math.min(1, Math.max(0, from));
+  const remaining = Math.max(0, 1 - clamped);
+  const durationMs = Math.max(0, remaining * Math.max(durationSeconds, 0) * 1000);
+  progress.value = clamped;
+  if (durationMs <= 0) {
+    progress.value = 1;
+    return;
+  }
+  progress.value = withTiming(1, {
+    duration: durationMs,
+    easing: Easing.linear,
+  });
+}
+
 export function SqueezeVisual({
   phase,
+  phaseKey,
+  durationSeconds,
   secondsLeft,
   cue,
-  progress,
+  paused = false,
   repIndex = 0,
   repTotal = 0,
   squeezeSeconds,
@@ -162,44 +168,57 @@ export function SqueezeVisual({
   const { t } = useTranslation();
   const accent = phaseAccent(phase);
   const soft = phaseSoft(phase);
-  const fill = useSharedValue(phase === 'rest' ? 1 : 0);
+  const progress = useSharedValue(0);
   const pulse = useSharedValue(1);
+  const wasPaused = useRef(paused);
+  const pausedRef = useRef(paused);
+  pausedRef.current = paused;
 
+  // One continuous 0→1 sweep for the whole phase (not per-second steps).
   useEffect(() => {
+    cancelAnimation(progress);
+    progress.value = 0;
+    wasPaused.current = pausedRef.current;
+
+    if (phase === 'prepare') {
+      progress.value = withTiming(0.22, { duration: 500 });
+    } else if (phase === 'done') {
+      progress.value = withTiming(1, { duration: 500 });
+    } else if (!pausedRef.current) {
+      runPhaseSweep(progress, 0, durationSeconds);
+    }
+
     if (phase === 'squeeze') {
-      fill.value = withTiming(Math.min(1, Math.max(0, progress)), {
-        duration: 900,
-        easing: Easing.linear,
-      });
       pulse.value = withTiming(1.04, { duration: 450, easing: Easing.out(Easing.cubic) });
     } else if (phase === 'rest') {
-      // Drain as rest progresses — release is as important as the squeeze.
-      fill.value = withTiming(1 - Math.min(1, Math.max(0, progress)), {
-        duration: 900,
-        easing: Easing.linear,
-      });
       pulse.value = withTiming(0.96, { duration: 450, easing: Easing.out(Easing.cubic) });
-    } else if (phase === 'prepare') {
-      fill.value = withTiming(0.22, { duration: 500 });
-      pulse.value = withTiming(1, { duration: 400 });
     } else {
-      fill.value = withTiming(1, { duration: 500 });
       pulse.value = withTiming(1, { duration: 400 });
     }
-  }, [phase, progress, fill, pulse]);
+  }, [phaseKey, durationSeconds, phase, progress, pulse]);
 
+  // Pause freezes the wheel; resume continues the remaining sweep smoothly.
   useEffect(() => {
-    if (phase === 'squeeze' && progress <= 0.02) {
-      fill.value = 0;
+    if (phase !== 'squeeze' && phase !== 'rest') {
+      wasPaused.current = paused;
+      return;
     }
-    if (phase === 'rest' && progress <= 0.02) {
-      fill.value = 1;
-    }
-  }, [phase, progress, fill]);
 
-  const fillStyle = useAnimatedStyle(() => ({
-    height: interpolate(fill.value, [0, 1], [0, INNER_SIZE]),
-  }));
+    if (paused) {
+      cancelAnimation(progress);
+    } else if (wasPaused.current) {
+      runPhaseSweep(progress, progress.value, durationSeconds);
+    }
+
+    wasPaused.current = paused;
+  }, [paused, phase, durationSeconds, progress]);
+
+  const fillStyle = useAnimatedStyle(() => {
+    const fillAmount = phase === 'rest' ? 1 - progress.value : progress.value;
+    return {
+      height: interpolate(fillAmount, [0, 1], [0, INNER_SIZE]),
+    };
+  });
 
   const coreStyle = useAnimatedStyle(() => ({
     transform: [{ scale: pulse.value }],
@@ -224,12 +243,7 @@ export function SqueezeVisual({
   return (
     <View style={styles.wrap}>
       <Animated.View style={[styles.ringShell, coreStyle]}>
-        <RingProgress
-          progress={progress}
-          color={accent}
-          trackColor={colors.border}
-          phaseKey={phase}
-        />
+        <RingProgress progress={progress} color={accent} trackColor={colors.border} />
         <View style={[styles.inner, { backgroundColor: colors.surface }]}>
           <Animated.View style={[styles.fill, { backgroundColor: soft }, fillStyle]} />
           <View style={styles.innerContent}>
