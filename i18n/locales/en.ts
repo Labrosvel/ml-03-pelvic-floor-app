@@ -202,6 +202,7 @@ const en = {
     cueSlowSqueeze: 'Lift and close gently upward. Keep breathing.',
     cueQuickSqueeze: 'Quick lift and close — then let go fully.',
     cueRest: 'Fully release. Soften the pelvic floor and wait for the next cue.',
+    repOf: '{{current}} of {{total}}',
   },
   phase: {
     squeeze: 'Squeeze',

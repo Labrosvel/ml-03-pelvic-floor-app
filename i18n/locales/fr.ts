@@ -205,6 +205,7 @@ const fr = {
     cueSlowSqueeze: 'Soulevez et fermez doucement vers le haut. Continuez à respirer.',
     cueQuickSqueeze: 'Soulever et fermer rapidement — puis relâchez complètement.',
     cueRest: 'Relâchez complètement. Assouplissez le plancher pelvien et attendez le prochain signal.',
+    repOf: '{{current}} sur {{total}}',
   },
   phase: {
     squeeze: 'Contraction',

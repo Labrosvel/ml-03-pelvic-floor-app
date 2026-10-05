@@ -203,6 +203,7 @@ const it = {
     cueSlowSqueeze: 'Solleva e chiudi delicatamente verso l’alto. Continua a respirare.',
     cueQuickSqueeze: 'Sollevamento e chiusura rapidi — poi lascia andare del tutto.',
     cueRest: 'Rilascia del tutto. Ammorbidisci il pavimento pelvico e attendi il prossimo segnale.',
+    repOf: '{{current}} di {{total}}',
   },
   phase: {
     squeeze: 'Contrazione',

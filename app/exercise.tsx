@@ -96,6 +96,7 @@ export default function ExerciseScreen() {
   ]);
 
   const progress = step ? 1 - secondsLeft / Math.max(step.seconds, 1) : 1;
+  const activeBlock = plan.blocks.find((block) => block.id === step?.blockId);
 
   if (finished) {
     return (
@@ -138,6 +139,10 @@ export default function ExerciseScreen() {
             secondsLeft={secondsLeft}
             cue={step.cue}
             progress={progress}
+            repIndex={step.repIndex}
+            repTotal={step.repTotal}
+            squeezeSeconds={activeBlock?.squeezeSeconds}
+            restSeconds={activeBlock?.restSeconds}
           />
         </View>
       </SafeAreaView>
