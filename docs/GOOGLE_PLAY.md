@@ -70,6 +70,12 @@ When the build finishes, EAS prints a link like:
 
 `https://expo.dev/accounts/<you>/projects/pelvipilot/builds/<build-id>`
 
+All builds for this app are listed at:
+
+https://expo.dev/accounts/lamprosv/projects/pelvipilot/builds
+
+**From a tablet / cloud agent:** do not download the file onto the tablet. Run `npm run build:android:preview:cloud` (APK) or `npm run build:android:production:cloud` (AAB). Those commands need `EXPO_TOKEN` in the environment and print the build link without waiting. Open the APK link in Chrome on the phone. The AAB stays on that Expo page for Play Console. Full notes: [README — Working from a tablet](../README.md#working-from-a-tablet).
+
 1. Open that link **on the Android phone** (Chrome), or scan the QR from another device.  
 2. Download / install the APK.  
 3. If Android blocks it: **Settings → security / install unknown apps** → allow the browser.  

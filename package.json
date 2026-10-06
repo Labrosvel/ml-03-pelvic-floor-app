@@ -60,6 +60,8 @@
     "build:android:development": "eas build -p android --profile development",
     "build:android:preview": "eas build -p android --profile preview",
     "build:android:production": "eas build -p android --profile production",
+    "build:android:preview:cloud": "eas build -p android --profile preview --non-interactive --no-wait",
+    "build:android:production:cloud": "eas build -p android --profile production --non-interactive --no-wait",
     "submit:android": "eas submit -p android --profile production"
   },
   "private": true
