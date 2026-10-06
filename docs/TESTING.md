@@ -17,6 +17,16 @@ How to validate changes quickly, when you need a real phone install, and why Exp
 
 ---
 
+## From a tablet
+
+Cursor on a tablet does not open the terminal keyboard, and there is no Cursor Android app. The agent shows a **QR code on the virtual desktop** (the desktop on the right). Scan it with the phone camera.
+
+That opens the **live** app in the phone browser. It updates as the code changes. It is not the GitHub Pages link below, which updates only after a merge.
+
+Check the bottom of **Settings**. The version name there is the one in `app.json`.
+
+---
+
 ## 1. Web preview (fastest)
 
 | URL | Updates when |

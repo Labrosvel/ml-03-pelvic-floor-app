@@ -197,6 +197,8 @@ For a quick browser check: `npm run web` or use the hosted preview above (no Met
 
 For **phone testing** (dev client, preview APK vs Play, why not Expo Go): **[docs/TESTING.md](docs/TESTING.md)**.
 
+**From a tablet:** the terminal on the tablet cannot be typed in. The live app is opened by scanning a QR code on the virtual desktop. That page updates with the code. The GitHub Pages preview updates only after a merge. Details are in [docs/TESTING.md](docs/TESTING.md) under “From a tablet”. The version to confirm is at the bottom of **Settings**.
+
 ## Scripts
 
 | Command | Purpose |
