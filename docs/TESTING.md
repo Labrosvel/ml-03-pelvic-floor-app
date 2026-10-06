@@ -19,11 +19,28 @@ How to validate changes quickly, when you need a real phone install, and why Exp
 
 ## From a tablet
 
-Cursor on a tablet does not open the terminal keyboard, and there is no Cursor Android app. The agent shows a **QR code on the virtual desktop** (the desktop on the right). Scan it with the phone camera.
+Cursor on a tablet does not open the terminal keyboard, and there is no Cursor Android app. You do not download the APK or AAB onto the tablet or drag files between windows. Ask in the chat. The agent runs the command and pastes the link.
+
+### Live app on the phone (browser)
+
+The agent shows a **QR code on the virtual desktop** (the desktop on the right). Scan it with the phone camera.
 
 That opens the **live** app in the phone browser. It updates as the code changes. It is not the GitHub Pages link below, which updates only after a merge.
 
 Check the bottom of **Settings**. The version name there is the one in `app.json`.
+
+### APK and AAB (real installs)
+
+These are Expo cloud builds. The file lives on the build page, not in the git repo:
+
+https://expo.dev/accounts/lamprosv/projects/pelvipilot/builds
+
+| Ask for | Command | You open |
+| --- | --- | --- |
+| APK | `npm run build:android:preview:cloud` | The build link in **Chrome on the phone**, then install the `.apk` |
+| AAB | `npm run build:android:production:cloud` | The same style of link. The `.aab` goes to Play internal testing, not a direct install |
+
+Both need `EXPO_TOKEN` on the cloud agent (token from https://expo.dev/settings/access-tokens, account `lamprosv`). Without it the command cannot start. See [README — Working from a tablet](../README.md#working-from-a-tablet).
 
 ---
 
@@ -248,6 +265,8 @@ npm run typecheck            # TypeScript
 npm run build:android:development  # Dev client APK (Metro daily workflow)
 npm run build:android:preview     # Standalone APK for direct install
 npm run build:android:production  # AAB for Google Play
+npm run build:android:preview:cloud      # APK from a tablet/cloud agent (needs EXPO_TOKEN)
+npm run build:android:production:cloud   # AAB from a tablet/cloud agent (needs EXPO_TOKEN)
 ```
 
 EAS profiles live in `eas.json`: `development`, `preview`, `production`.

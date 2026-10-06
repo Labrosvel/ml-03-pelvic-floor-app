@@ -197,7 +197,38 @@ For a quick browser check: `npm run web` or use the hosted preview above (no Met
 
 For **phone testing** (dev client, preview APK vs Play, why not Expo Go): **[docs/TESTING.md](docs/TESTING.md)**.
 
-**From a tablet:** the terminal on the tablet cannot be typed in. The live app is opened by scanning a QR code on the virtual desktop. That page updates with the code. The GitHub Pages preview updates only after a merge. Details are in [docs/TESTING.md](docs/TESTING.md) under “From a tablet”. The version to confirm is at the bottom of **Settings**.
+**From a tablet:** ask in the chat. The agent runs the build and pastes the install link. Open that link on the phone. The live browser check is a QR code on the virtual desktop. Details: [Working from a tablet](#working-from-a-tablet) and [docs/TESTING.md](docs/TESTING.md).
+
+---
+
+## Working from a tablet
+
+Use this when you are away from the desk. The tablet keyboard does not open in the terminal, so the agent runs the commands. Expo keeps the APK and the AAB on a web page. The tablet does not need its own copy of the file.
+
+### Where the APK and the AAB are
+
+Every build is a page under:
+
+https://expo.dev/accounts/lamprosv/projects/pelvipilot/builds
+
+The agent pastes the specific build link in the chat as soon as Expo accepts the job. Open that link in **Chrome on the phone**. When the build finishes, the same page has the download.
+
+| What you asked for | Command the agent runs | File | What you do |
+| --- | --- | --- | --- |
+| **APK** (install on your phone, skip Play) | `npm run build:android:preview:cloud` | `.apk` | Open the Expo link on the phone and install. Allow Chrome to install unknown apps if Android asks. |
+| **AAB** (Google Play internal testing) | `npm run build:android:production:cloud` | `.aab` | This is the Play Store bundle. It is not a direct phone install. Upload happens with `npm run submit:android`, or you download the `.aab` from the same Expo page on a machine that can open Play Console. |
+
+Both commands need `EXPO_TOKEN` in the cloud agent environment (an access token from https://expo.dev/settings/access-tokens for the `lamprosv` account). They do not ask questions, and they print the build link without waiting the ~15–20 minutes for the binary.
+
+The desktop commands `npm run build:android:preview` and `npm run build:android:production` are the same builds. They wait and may ask about an emulator. On a tablet, use the `:cloud` commands.
+
+**Checked on 2026-10-06:** Expo is reachable from this cloud environment, and `npm run build:android:preview:cloud` stops immediately with “An Expo user account is required”. There is no `EXPO_TOKEN` and no saved `eas login`. Add the token as a secret named `EXPO_TOKEN` on the [cloud environment](https://cursor.com/dashboard/cloud-agents/environments) (create the token at https://expo.dev/settings/access-tokens for account `lamprosv`). GitHub Actions skips mobile EAS until the same token exists there too. This machine also has no Android SDK, so the Expo cloud build is the path that produces the APK and the AAB. After the secret is saved, ask again in chat.
+
+### Check the current app on your phone (no APK)
+
+The agent puts a large QR code on the **virtual desktop** (the desktop on the right). The window title is “Scan with your phone”. The phone camera opens the **live** app in the browser. It updates as the code changes. GitHub Pages updates only after a merge. Reminders run on the APK and the Play install, which need the Expo build above.
+
+Confirm you are on that session at the bottom of **Settings** (version name from `app.json`).
 
 ## Scripts
 
@@ -211,6 +242,8 @@ For **phone testing** (dev client, preview APK vs Play, why not Expo Go): **[doc
 | `npm run build:android:development` | Dev client APK (connects to Metro) |
 | `npm run build:android:preview` | Standalone APK for direct phone install |
 | `npm run build:android:production` | AAB for Google Play |
+| `npm run build:android:preview:cloud` | Same APK, no prompts; prints the Expo link and exits (`EXPO_TOKEN`) |
+| `npm run build:android:production:cloud` | Same AAB, no prompts; prints the Expo link and exits (`EXPO_TOKEN`) |
 | `npm run submit:android` | Upload latest AAB to internal testing (draft) |
 | `npm run export:web` | Static web export to `dist/` |
 

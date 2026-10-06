@@ -92,3 +92,4 @@ Before proposing solutions or editing code:
 | 2026-08-30 | Initial vision captured from product discussion. |
 | 2026-10-04 | Patient-facing languages expanded to include Italian, Spanish, and French. |
 | 2026-10-06 | Tablet checks use a live QR on the virtual desktop (see `docs/TESTING.md`). |
+| 2026-10-06 | Tablet APK/AAB requests use Expo build links, not files moved onto the tablet (see `README.md`). |
