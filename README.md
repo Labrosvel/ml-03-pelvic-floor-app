@@ -197,7 +197,7 @@ For a quick browser check: `npm run web` or use the hosted preview above (no Met
 
 For **phone testing** (dev client, preview APK vs Play, why not Expo Go): **[docs/TESTING.md](docs/TESTING.md)**.
 
-**From a tablet:** ask in the chat. The agent runs the build and pastes the install link. Open that link on the phone. The live browser check is a QR code on the virtual desktop. Details: [Working from a tablet](#working-from-a-tablet) and [docs/TESTING.md](docs/TESTING.md).
+**From a tablet:** ask in the chat for an APK or AAB. The agent runs the build and pastes the install link. Open that link on the phone. To check the app in the browser, open the pull request web preview. Details: [Working from a tablet](#working-from-a-tablet) and [docs/TESTING.md](docs/TESTING.md).
 
 ---
 
@@ -224,11 +224,13 @@ The desktop commands `npm run build:android:preview` and `npm run build:android:
 
 **Checked on 2026-10-06:** Expo is reachable from this cloud environment, and `npm run build:android:preview:cloud` stops immediately with “An Expo user account is required”. There is no `EXPO_TOKEN` and no saved `eas login`. Add the token as a secret named `EXPO_TOKEN` on the [cloud environment](https://cursor.com/dashboard/cloud-agents/environments) (create the token at https://expo.dev/settings/access-tokens for account `lamprosv`). GitHub Actions skips mobile EAS until the same token exists there too. This machine also has no Android SDK, so the Expo cloud build is the path that produces the APK and the AAB. After the secret is saved, ask again in chat.
 
-### Check the current app on your phone (no APK)
+### Check the app in the phone browser
 
-The agent puts a large QR code on the **virtual desktop** (the desktop on the right). The window title is “Scan with your phone”. The phone camera opens the **live** app in the browser. It updates as the code changes. GitHub Pages updates only after a merge. Reminders run on the APK and the Play install, which need the Expo build above.
+Open the pull request web preview (`…/pr-preview/pr-<N>/`) on the phone. It updates after each push, once the preview deploy finishes. The stable site updates when the change is merged to `main`.
 
-Confirm you are on that session at the bottom of **Settings** (version name from `app.json`).
+Reminders run on the APK and the Play install, which need the Expo build above.
+
+Confirm the preview at the bottom of **Settings** (`Web build pr-<N>-<sha>`).
 
 ## Scripts
 
