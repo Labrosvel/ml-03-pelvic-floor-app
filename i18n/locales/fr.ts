@@ -176,6 +176,10 @@ const fr = {
     squeezeSec: 'Contraction (s)',
     restSec: 'Repos (s)',
     repetitions: 'Répétitions',
+    breakBetween: 'Transition entre lentes et rapides',
+    breakSec: 'Transition (s)',
+    breakHint:
+      'Repos après les contractions lentes, avant les rapides. 0 pour aucune transition. Jusqu’à {{max}} secondes.',
     savePlan: 'Enregistrer le programme',
     restoreStarter: 'Restaurer le programme de départ',
     savedTitle: 'Enregistré',
@@ -184,6 +188,7 @@ const fr = {
     missingBody: 'Veuillez saisir un nombre pour {{label}}.',
     invalidTitle: 'Valeur non valide',
     invalidBody: '{{label}} doit être un nombre entier supérieur à 0.',
+    breakInvalidBody: '{{label}} doit être un nombre entier de 0 à {{max}}.',
     defaultName: 'Programme de départ',
     defaultNotes:
       'Une routine de départ douce. Votre kinésithérapeute peut ajuster le temps de contraction, le repos et les répétitions.',
@@ -194,6 +199,7 @@ const fr = {
     fieldQuickSqueeze: 'Contraction rapide (s)',
     fieldQuickRest: 'Repos rapide (s)',
     fieldQuickReps: 'Répétitions rapides',
+    fieldBreak: 'Transition (s)',
   },
   exercise: {
     niceWork: 'Bravo',

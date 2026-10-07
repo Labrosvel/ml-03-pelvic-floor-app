@@ -173,6 +173,9 @@ const en = {
     squeezeSec: 'Squeeze (sec)',
     restSec: 'Rest (sec)',
     repetitions: 'Repetitions',
+    breakBetween: 'Break between slow and quick',
+    breakSec: 'Break (sec)',
+    breakHint: 'Rest after the slow squeezes, before the quick ones. 0 skips the break. Up to {{max}} seconds.',
     savePlan: 'Save plan',
     restoreStarter: 'Restore starter plan',
     savedTitle: 'Saved',
@@ -181,6 +184,7 @@ const en = {
     missingBody: 'Please enter a number for {{label}}.',
     invalidTitle: 'Invalid value',
     invalidBody: '{{label}} must be a whole number greater than 0.',
+    breakInvalidBody: '{{label}} must be a whole number from 0 to {{max}}.',
     defaultName: 'Starter plan',
     defaultNotes:
       'A gentle starter routine. Your physiotherapist can adjust squeeze time, rest, and repetitions.',
@@ -191,6 +195,7 @@ const en = {
     fieldQuickSqueeze: 'Quick squeeze (sec)',
     fieldQuickRest: 'Quick rest (sec)',
     fieldQuickReps: 'Quick repetitions',
+    fieldBreak: 'Break (sec)',
   },
   exercise: {
     niceWork: 'Nice work',

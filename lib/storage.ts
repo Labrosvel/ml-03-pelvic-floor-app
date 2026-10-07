@@ -3,9 +3,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   AppSettings,
   CompletedSession,
-  DEFAULT_PLAN,
   DEFAULT_SETTINGS,
   ExercisePlan,
+  normalizePlan,
   normalizeSettings,
 } from '@/constants/plans';
 
@@ -44,7 +44,8 @@ export async function saveSettings(settings: AppSettings): Promise<void> {
 }
 
 export async function loadPlan(): Promise<ExercisePlan> {
-  return readJson(KEYS.plan, DEFAULT_PLAN);
+  const raw = await readJson<ExercisePlan | null>(KEYS.plan, null);
+  return normalizePlan(raw);
 }
 
 export async function savePlan(plan: ExercisePlan): Promise<void> {
