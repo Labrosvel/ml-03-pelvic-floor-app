@@ -108,7 +108,8 @@ const es = {
     reminderMinute: 'Minuto',
     haptics: 'Vibración',
     sound: 'Señales sonoras',
-    soundHint: 'Preparación, contracción/descanso lento, ticks rápidos y fin de sesión',
+    soundHint:
+      'Preparación, contracción/descanso lento, cambio antes de las rápidas, ticks rápidos y fin de sesión',
     soundPack: 'Estilo de sonido',
     soundPackHint: 'Toca un estilo para previsualizar',
     soundPackGentle: 'Suave',
@@ -203,12 +204,16 @@ const es = {
     cueSlowSqueeze: 'Eleva y cierra con suavidad hacia arriba. Sigue respirando.',
     cueQuickSqueeze: 'Elevación y cierre rápidos — luego suelta por completo.',
     cueRest: 'Suelta por completo. Suaviza el suelo pélvico y espera la siguiente señal.',
+    bridge: 'Cambio',
+    cueBridge:
+      'Las contracciones lentas han terminado. Descansa un momento — siguen las rápidas. Pulsa Pausar si necesitas más tiempo.',
     repOf: '{{current}} de {{total}}',
   },
   phase: {
     squeeze: 'Contracción',
     rest: 'Descanso',
     prepare: 'Prepárate',
+    break: 'Cambio',
     done: 'Listo',
   },
   reminders: {

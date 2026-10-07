@@ -107,7 +107,8 @@ const en = {
     reminderMinute: 'Minute',
     haptics: 'Haptics',
     sound: 'Sound cues',
-    soundHint: 'Prepare, slow squeeze/rest, quick squeeze ticks, and session complete',
+    soundHint:
+      'Prepare, slow squeeze/rest, a break before quick squeezes, quick ticks, and session complete',
     soundPack: 'Sound style',
     soundPackHint: 'Tap a style to preview',
     soundPackGentle: 'Gentle',
@@ -202,12 +203,16 @@ const en = {
     cueSlowSqueeze: 'Lift and close gently upward. Keep breathing.',
     cueQuickSqueeze: 'Quick lift and close — then let go fully.',
     cueRest: 'Fully release. Soften the pelvic floor and wait for the next cue.',
+    bridge: 'Break',
+    cueBridge:
+      'Slow squeezes are done. Rest a moment — quick squeezes are next. Pause if you need longer.',
     repOf: '{{current}} of {{total}}',
   },
   phase: {
     squeeze: 'Squeeze',
     rest: 'Rest',
     prepare: 'Get ready',
+    break: 'Break',
     done: 'Done',
   },
   reminders: {

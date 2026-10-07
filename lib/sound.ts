@@ -86,9 +86,11 @@ export async function playCue(pack: SoundPackId, role: CueRole) {
  * Pick the cue role for a session step.
  * Slow holds: squeeze + rest tones. Quick reps: squeeze tick only (no rest),
  * so rapid cycles stay easy to follow without constant chirping.
+ * The slow→quick break reuses the prepare tone: distinct from the rest cue
+ * just heard, and already means “settle, the next part is about to start”.
  */
 export function cueRoleForStep(step: Pick<SessionStep, 'phase' | 'kind'>): CueRole | null {
-  if (step.phase === 'prepare') return 'prepare';
+  if (step.phase === 'prepare' || step.phase === 'bridge') return 'prepare';
 
   if (step.kind === 'quick') {
     return step.phase === 'squeeze' ? 'quickSqueeze' : null;
