@@ -68,10 +68,21 @@ const es = {
   learn: {
     eyebrow: 'Educación',
     title: 'Aprender',
-    subtitle: 'Guías breves para apoyar la técnica y la confianza.',
+    subtitle:
+      'Guías breves para la práctica en casa, agrupadas como las explica la clínica. Tu fisioterapeuta decide qué te corresponde.',
     minutes: '{{count}} min',
     minutesRead: '{{count}} min de lectura',
     missing: 'Artículo no encontrado.',
+    clinicBasis:
+      'Versión breve de la orientación sobre el suelo pélvico publicada en physiospecialists.gr. Tu fisioterapeuta decide qué te corresponde.',
+    sections: {
+      practice: 'Práctica',
+      bladder: 'Vejiga',
+      bowel: 'Intestino',
+      support: 'Soporte',
+      pain: 'Dolor',
+      'life-stages': 'Etapas de la vida',
+    },
   },
   settings: {
     title: 'Ajustes',
@@ -264,6 +275,104 @@ const es = {
         'Contacta con tu fisioterapeuta o médico si los síntomas empeoran, si tienes dolor durante los ejercicios o si no estás segura/o de la técnica.',
         'Busca consejo médico urgente ante dolor repentino inexplicable, sangrado, fiebre o nuevos síntomas neurológicos.',
         'PelviPilot es un compañero de ejercicios para tu plan de cuidados. No es una herramienta de diagnóstico de dispositivo médico.',
+      ],
+    },
+    'leakage-is-a-symptom': {
+      title: 'Las pérdidas son frecuentes y se pueden ayudar',
+      summary: 'Una pérdida pequeña sigue siendo un síntoma, también después del parto o con la edad.',
+      body: [
+        'Muchas mujeres pierden orina en algún momento, también después del parto o al hacerse mayores. Es frecuente, y sigue siendo un síntoma que merece atención.',
+        'Incluso una pérdida pequeña es una señal de que el cuerpo necesita el apoyo adecuado. Muchas personas esperan, porque da vergüenza decirlo o porque les han dicho que es normal.',
+        'La fisioterapia del suelo pélvico puede fortalecer los músculos, mejorar el control de la vejiga y cambiar hábitos diarios que añaden presión. Lo que ayuda depende de una valoración y de cómo aparece la pérdida.',
+        'Sigue solo el plan definido para ti en esta app. Si la pérdida es nueva o empeora, díselo a tu fisioterapeuta en lugar de añadir ejercicios por tu cuenta.',
+      ],
+    },
+    'kinds-of-leakage': {
+      title: 'Formas en que puede haber pérdidas',
+      summary: 'Una tos, una urgencia repentina, o ambas, son patrones distintos.',
+      body: [
+        'La pérdida de esfuerzo ocurre cuando sube la presión sobre la vejiga — tos, estornudo, risa o una carga — y se escapa un poco de orina. El suelo pélvico a menudo no sostiene la vejiga lo suficiente en ese momento.',
+        'La pérdida de urgencia es una necesidad repentina e intensa de orinar, difícil de aguantar hasta el baño. Algunas personas tienen las dos. Eso se llama pérdida mixta.',
+        'Hay otros patrones, como una vejiga que no se vacía del todo, o dificultad para llegar al baño por otros motivos físicos. Los músculos débiles no son la única causa. Una infección, los medicamentos y otras enfermedades pueden intervenir.',
+        'Cómo aparece la pérdida importa, porque el plan es distinto. Tu fisioterapeuta decide si las contracciones de esta app son adecuadas para ti.',
+      ],
+    },
+    'urgency-and-frequency': {
+      title: 'Ir a menudo, o tener que ir ahora',
+      summary: 'La frecuencia y la urgencia suelen ir juntas. No son lo mismo.',
+      body: [
+        'Frecuencia significa que orinas más a menudo de lo habitual, de día o de noche. La cafeína y otras bebidas, cómo funciona la vejiga y otros factores de salud pueden cambiar el ritmo. Una frecuencia que se mantiene merece valoración, sobre todo si hay otros síntomas.',
+        'La urgencia es una necesidad repentina e intensa, difícil de aplazar. Algunas personas describen el miedo de no llegar al baño. Ese deseo puede llevar a una pérdida antes de llegar.',
+        'Puedes tener una sin la otra, o las dos. Una pérdida al toser es otro patrón. Notar cuál es la tuya ayuda a tu fisioterapeuta a elegir el enfoque.',
+        'El entrenamiento de la vejiga, cambios en bebidas y hábitos, y la fisioterapia del suelo pélvico pueden ayudar cuando encajan con la causa. Usa el plan de esta app solo si se definió para ti.',
+      ],
+    },
+    'constipation-and-pelvic-floor': {
+      title: 'Estreñimiento y suelo pélvico',
+      summary: 'Empujar carga el suelo pélvico. Soltar importa tanto como contraer.',
+      body: [
+        'El estreñimiento no es solo un problema del intestino. Empujar fuerte y de forma repetida aumenta la presión sobre el suelo pélvico y sobre los tejidos que sostienen los órganos. Con el tiempo puede sumar una sensación de peso en la parte baja de la pelvis.',
+        'Estos músculos tienen que relajarse en el momento justo, no solo contraerse. Durante la evacuación, el suelo pélvico debe soltar y trabajar con la respiración y los abdominales. Si se queda tenso, vaciar cuesta más, crece la necesidad de empujar y el ciclo sigue.',
+        'Un pequeño taburete bajo los pies, para que las rodillas queden un poco más altas que las caderas, y una ligera inclinación del tronco hacia delante pueden facilitar la evacuación. Respira. Evita contener la respiración y los empujones largos y fuertes. Ve cuando haya ganas, y no te quedes mucho tiempo si no las hay. La fibra en la comida y caminar con regularidad ayudan al intestino.',
+        'La fisioterapia del suelo pélvico no es siempre fortalecimiento. Si los músculos están tensos o no sueltan, las contracciones solas pueden ser la opción equivocada. Pregunta a tu fisioterapeuta antes de añadirlas. Esta app sigue el plan ya elegido para ti.',
+      ],
+    },
+    prolapse: {
+      title: 'Cuando los órganos pélvicos se sienten menos sostenidos',
+      summary: 'Pesadez, o la sensación de que algo baja.',
+      body: [
+        'Un prolapso de órganos pélvicos es cuando los músculos y los ligamentos ya no sostienen bien la vejiga, el útero o el intestino, y esos órganos quedan más bajos. A menudo se describe pesadez o presión en la vagina, la sensación de que algo baja, dificultad para vaciar la vejiga o el intestino, dolor lumbar o pélvico, o molestia en las relaciones.',
+        'Para muchas mujeres con un prolapso leve o moderado, la fisioterapia del suelo pélvico es el punto de partida: un programa personal, aprender cómo deben trabajar los músculos y consejos para la vida diaria. El objetivo es aliviar síntomas, mejorar el soporte y frenar el empeoramiento.',
+        'Esta app no valora un prolapso. Practica solo el plan que te ha dado tu fisioterapeuta, y dile si la pesadez aumenta.',
+      ],
+    },
+    'abdominal-separation': {
+      title: 'Una separación entre los músculos abdominales',
+      summary: 'Una separación en la línea media puede afectar al tronco y al suelo pélvico.',
+      body: [
+        'La separación abdominal, a veces llamada diástasis, es un ensanchamiento entre los dos músculos rectos del abdomen a lo largo de la línea media. Es frecuente en el embarazo y después del parto. También puede aparecer cuando la presión dentro del abdomen se mantiene alta, también en hombres, por ejemplo con un gran cambio de peso o esfuerzos repetidos.',
+        'No es una hernia. Puede afectar a lo estable que se siente el tronco, a cómo trabaja el suelo pélvico y al movimiento diario. Algunas personas notan un bulto o un abombamiento en el centro del abdomen, una sensación de debilidad, dolor lumbar, o pérdidas o prolapso al mismo tiempo.',
+        'La anchura de la separación es solo una parte. También importa cómo se acercan los músculos y cómo trabaja el tronco. Un programa puede incluir activar los abdominales profundos, el suelo pélvico, el control del tronco, la respiración y cómo manejar la presión en el abdomen.',
+        'Vuelve al ejercicio como lo marque tu fisioterapeuta. Si ves un abombamiento, o tienes síntomas del suelo pélvico, pregunta antes de añadir trabajo abdominal intenso por tu cuenta.',
+      ],
+    },
+    'pelvic-pain': {
+      title: 'Dolor pélvico y músculos que no sueltan',
+      summary: 'El dolor puede venir de músculos tensos, no solo de músculos débiles.',
+      body: [
+        'El dolor pélvico puede estar en la pelvis, el periné, los genitales o la parte baja del abdomen. Puede estar siempre o ir y venir, y afectar a estar sentada/o, a las relaciones, a la vejiga o al intestino.',
+        'Los músculos pueden estar trabajando demasiado y costarles relajarse. El dolor también puede seguir a una lesión, una cirugía, cicatrices o un parto, o acompañar otras enfermedades. En los hombres puede formar parte de un dolor pélvico crónico. La causa a menudo no es evidente y necesita una valoración.',
+        'El cuidado de este dolor suele empezar por la relajación, la respiración y aprender cómo debe trabajar el suelo pélvico. El fortalecimiento se añade solo cuando hace falta. Las contracciones no son el primer paso adecuado para todo el mundo.',
+        'Si tienes dolor durante los ejercicios de esta app, para y contacta con tu fisioterapeuta. Un dolor que dura meses, o un dolor con síntomas de vejiga, intestino o sexuales, necesita una valoración y no un plan más duro.',
+      ],
+    },
+    'pregnancy-and-after-birth': {
+      title: 'Embarazo y después del parto',
+      summary: 'El suelo pélvico lleva una carga extra. Las pérdidas después pueden mejorar.',
+      body: [
+        'En el embarazo el suelo pélvico lleva una carga añadida. La fisioterapia en ese momento puede ayudar con problemas como el dolor de espalda y con la preparación para el parto. Después del nacimiento forma parte de la recuperación.',
+        'Perder orina después del parto es frecuente. No es algo que tengas que aceptar como la nueva normalidad. Una valoración y un programa ajustado a ti pueden mejorar el control de la vejiga y el soporte.',
+        'Una separación de los abdominales, o una sensación de pesadez, pueden aparecer en el mismo periodo. Menciónalos para que el plan cubra el tronco además del suelo pélvico.',
+        'Usa esta app para el plan en casa que tu fisioterapeuta ya ha elegido. Si estás embarazada o has dado a luz hace poco y este plan se definió para otra etapa, pregunta antes de seguirlo.',
+      ],
+    },
+    'women-and-men': {
+      title: 'Mujeres y hombres',
+      summary: 'Se habla más de esto en las mujeres. Los hombres también necesitan estos cuidados.',
+      body: [
+        'Los problemas del suelo pélvico se asocian más a menudo con las mujeres: pérdidas, prolapso, dolor en las relaciones, embarazo y recuperación después de una cirugía ginecológica.',
+        'Los hombres también necesitan estos cuidados, incluido el dolor pélvico crónico y la recuperación antes o después de una cirugía de próstata. El objetivo es un plan ajustado a esa persona, para apoyar la recuperación y el control de la vejiga.',
+        'El trabajo no es el mismo para todo el mundo. Algunas personas necesitan fortalecer. Otras necesitan relajar y coordinar. Tu fisioterapeuta define qué hace esta app para ti.',
+      ],
+    },
+    'teenage-leakage': {
+      title: 'Pérdidas en la adolescencia',
+      summary: 'Para las familias. Un adolescente necesita una valoración médica antes de cualquier programa de ejercicios.',
+      body: [
+        'Las pérdidas de orina pueden afectar a chicas y chicos adolescentes. Pueden estar desde la infancia y afectar a la escuela, el deporte y la confianza. No son una elección, pereza o falta de esfuerzo.',
+        'Hábitos que a veces se construyen alrededor — retrasar el baño durante horas, beber muy poco o contraer todo el día para evitar una pérdida — pueden dificultar la función de la vejiga y del suelo pélvico. El estreñimiento también importa: un intestino lleno puede presionar la vejiga.',
+        'Un médico debe valorarlo antes de cualquier programa de rehabilitación, sobre todo si las pérdidas empiezan de pronto después de un periodo seco. La fisioterapia del suelo pélvico, cuando corresponde, viene después y se adapta a la edad. No todos los adolescentes necesitan fortalecimiento. Algunos necesitan aprender a relajar.',
+        'PelviPilot es un compañero para un plan de adulto que un fisioterapeuta ya ha definido. No es un programa para que un adolescente lo empiece solo. No empieces contracciones del suelo pélvico en una persona joven sin esa valoración.',
       ],
     },
   },

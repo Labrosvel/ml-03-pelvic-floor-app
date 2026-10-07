@@ -1,11 +1,11 @@
 import { router } from 'expo-router';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { BrandHeader } from '@/components/BrandHeader';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
-import { ARTICLE_METAS } from '@/constants/education';
+import { ARTICLE_METAS, ARTICLE_SECTION_ORDER } from '@/constants/education';
 import { colors, fonts, radii, spacing } from '@/constants/theme';
 
 export default function LearnScreen() {
@@ -20,22 +20,45 @@ export default function LearnScreen() {
         subtitle={t('learn.subtitle')}
       />
 
-      {ARTICLE_METAS.map((article) => (
-        <Pressable
-          key={article.id}
-          onPress={() => router.push(`/article/${article.id}`)}
-          style={({ pressed }) => [styles.item, pressed && styles.pressed]}
-        >
-          <Text style={styles.minutes}>{t('learn.minutes', { count: article.minutes })}</Text>
-          <Text style={styles.title}>{t(`articles.${article.id}.title`)}</Text>
-          <Text style={styles.summary}>{t(`articles.${article.id}.summary`)}</Text>
-        </Pressable>
-      ))}
+      {ARTICLE_SECTION_ORDER.map((sectionId) => {
+        const articles = ARTICLE_METAS.filter((article) => article.section === sectionId);
+        if (articles.length === 0) {
+          return null;
+        }
+
+        return (
+          <View key={sectionId} style={styles.section}>
+            <Text style={styles.sectionTitle}>{t(`learn.sections.${sectionId}`)}</Text>
+            {articles.map((article) => (
+              <Pressable
+                key={article.id}
+                onPress={() => router.push(`/article/${article.id}`)}
+                style={({ pressed }) => [styles.item, pressed && styles.pressed]}
+              >
+                <Text style={styles.minutes}>{t('learn.minutes', { count: article.minutes })}</Text>
+                <Text style={styles.title}>{t(`articles.${article.id}.title`)}</Text>
+                <Text style={styles.summary}>{t(`articles.${article.id}.summary`)}</Text>
+              </Pressable>
+            ))}
+          </View>
+        );
+      })}
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
+  section: {
+    marginBottom: spacing.md,
+  },
+  sectionTitle: {
+    fontFamily: fonts.display,
+    fontSize: 22,
+    lineHeight: 28,
+    color: colors.tealDeep,
+    marginBottom: spacing.sm,
+    marginTop: spacing.sm,
+  },
   item: {
     backgroundColor: colors.surface,
     borderRadius: radii.lg,

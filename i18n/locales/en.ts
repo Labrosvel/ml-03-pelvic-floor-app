@@ -68,10 +68,21 @@ const en = {
   learn: {
     eyebrow: 'Education',
     title: 'Learn',
-    subtitle: 'Short guides to support technique and confidence.',
+    subtitle:
+      'Short guides for home practice, grouped the way the clinic explains them. Your physiotherapist decides what applies to you.',
     minutes: '{{count}} min',
     minutesRead: '{{count}} min read',
     missing: 'Article not found.',
+    clinicBasis:
+      'Shortened from the pelvic floor guidance on physiospecialists.gr. Your physiotherapist decides what applies to you.',
+    sections: {
+      practice: 'Practice',
+      bladder: 'Bladder',
+      bowel: 'Bowel',
+      support: 'Support',
+      pain: 'Pain',
+      'life-stages': 'Life stages',
+    },
   },
   settings: {
     title: 'Settings',
@@ -263,6 +274,104 @@ const en = {
         'Contact your physiotherapist or GP if symptoms worsen, if you have pain during exercises, or if you are unsure about technique.',
         'Seek urgent medical advice for sudden unexplained pain, bleeding, fever, or new neurological symptoms.',
         'PelviPilot is an exercise companion for your care plan. It is not a medical device diagnosis tool.',
+      ],
+    },
+    'leakage-is-a-symptom': {
+      title: 'Leakage is common, and it can be helped',
+      summary: 'A small leak is still a symptom, including after birth or with age.',
+      body: [
+        'Many women leak urine at some point, including after childbirth or as they get older. It is common, and it is still a symptom worth taking seriously.',
+        'Even a small leak is a sign that the body needs the right support. Many people wait, because it feels awkward to mention or because they have been told it is normal.',
+        'Pelvic floor physiotherapy can strengthen the muscles, improve bladder control, and change everyday habits that add pressure. What helps depends on an assessment and on how the leak happens.',
+        'Follow only the plan set for you in this app. If leaking is new or getting worse, tell your physiotherapist rather than adding extra exercises on your own.',
+      ],
+    },
+    'kinds-of-leakage': {
+      title: 'Ways urine can leak',
+      summary: 'A cough, a sudden urge, or both are different patterns.',
+      body: [
+        'Stress leakage happens when pressure on the bladder rises — a cough, sneeze, laugh, or lift — and a small amount of urine escapes. The pelvic floor is often not supporting the bladder well enough in that moment.',
+        'Urge leakage is a sudden, strong need to pass urine that is hard to hold until you reach the toilet. Some people have both. That is called mixed leakage.',
+        'Other patterns exist, including a bladder that does not empty fully, or trouble reaching the toilet for other physical reasons. Weak muscles are not the only cause. Infection, medicines, and other conditions can play a part.',
+        'How the leak happens matters, because the plan is different. Your physiotherapist decides whether the squeezes in this app are right for you.',
+      ],
+    },
+    'urgency-and-frequency': {
+      title: 'Going often, or needing to go now',
+      summary: 'Frequency and urgency often appear together. They are not the same.',
+      body: [
+        'Frequency means you pass urine more often than usual, by day or at night. Caffeine and other drinks, how the bladder is working, and other health factors can all change how often you go. Frequency that carries on is worth assessing, especially with other symptoms.',
+        'Urgency is a sudden, strong need that is hard to postpone. Some people describe a fear they will not reach the toilet. That urge can lead to a leak before they get there.',
+        'You can have one without the other, or both. A leak when you cough is a different pattern again. Noticing which one you have helps your physiotherapist choose the approach.',
+        'Bladder training, changes to drinks and habits, and pelvic floor physiotherapy can help when they fit the cause. Use the plan in this app only if it was set for you.',
+      ],
+    },
+    'constipation-and-pelvic-floor': {
+      title: 'Constipation and the pelvic floor',
+      summary: 'Straining loads the pelvic floor. Letting go matters as much as squeezing.',
+      body: [
+        'Constipation is not only a bowel problem. Repeated, hard straining raises the pressure on the pelvic floor and on the tissues that support the pelvic organs. Over time that can add to a feeling of heaviness low in the pelvis.',
+        'These muscles need to relax at the right moment, not only to tighten. During a bowel movement the pelvic floor should let go and work with the breath and the abdominal muscles. If it stays tight, emptying gets harder, the urge to strain grows, and the cycle continues.',
+        'A small stool under the feet, so the knees sit a little higher than the hips, and a slight lean forward can make emptying easier. Breathe. Avoid holding the breath and avoid long, hard pushing. Go when you feel the urge, and do not sit for a long time when there is no urge. Food with fibre, and regular walking, support the bowel.',
+        'Pelvic floor physiotherapy is not always strengthening. If the muscles are tense or do not let go, squeezes alone may be the wrong choice. Ask your physiotherapist before you add them. This app follows the plan already chosen for you.',
+      ],
+    },
+    prolapse: {
+      title: 'When the pelvic organs feel less supported',
+      summary: 'Heaviness, or a feeling that something is coming down.',
+      body: [
+        'A pelvic organ prolapse is when the muscles and ligaments no longer support the bladder, womb, or bowel well enough, and those organs sit lower. People often describe heaviness or pressure in the vagina, a feeling that something is coming down, difficulty emptying the bladder or bowel, low-back or pelvic pain, or discomfort during sex.',
+        'For many women with mild to moderate prolapse, pelvic floor physiotherapy is where care starts: a personal exercise programme, learning how the muscles should work, and advice for daily life. The aim is to ease symptoms, improve support, and slow worsening.',
+        'This app does not assess a prolapse. Practise only the plan your physiotherapist has given you, and tell them if the heaviness increases.',
+      ],
+    },
+    'abdominal-separation': {
+      title: 'A gap between the abdominal muscles',
+      summary: 'Separation along the midline can affect the trunk and the pelvic floor.',
+      body: [
+        'Abdominal separation, sometimes called diastasis, is a widening between the two straight abdominal muscles along the midline. It is common in pregnancy and after birth. It can also appear when pressure inside the abdomen stays high, including in men, for example with a large change in weight or repeated strain.',
+        'It is not a hernia. It can affect how steady the trunk feels, how the pelvic floor works, and everyday movement. Some people notice a bulge or doming in the middle of the abdomen, a weak feeling, low-back pain, or leakage or prolapse alongside it.',
+        'The width of the gap is only part of the picture. How the muscles draw together, and how the trunk works, matter too. A programme may include deep abdominal activation, pelvic floor training, trunk control, breathing, and how to manage pressure in the abdomen.',
+        'Return to exercise in the way your physiotherapist sets. If you see doming, or you have pelvic floor symptoms, ask before you add intense abdominal work on your own.',
+      ],
+    },
+    'pelvic-pain': {
+      title: 'Pelvic pain, and muscles that will not let go',
+      summary: 'Pain can come from muscles that are tight, not only from muscles that are weak.',
+      body: [
+        'Pelvic pain may sit in the pelvis, perineum, genitals, or low abdomen. It can be there all the time or come and go, and it can affect sitting, sex, the bladder, or the bowel.',
+        'The muscles may be working too hard and struggling to relax. Pain can also follow injury, surgery, scars, or birth, or sit alongside other conditions. In men it can be part of chronic pelvic pain. The cause is often not obvious and needs an assessment.',
+        'Care for this kind of pain often starts with relaxation, breathing, and learning how the pelvic floor should work. Strengthening is added only when it is needed. Squeezes are not the right first step for everyone.',
+        'If you have pain during the exercises in this app, stop and contact your physiotherapist. Pain that lasts for months, or pain with bladder, bowel, or sexual symptoms, needs an assessment rather than a harder exercise plan.',
+      ],
+    },
+    'pregnancy-and-after-birth': {
+      title: 'Pregnancy and after birth',
+      summary: 'The pelvic floor is under extra demand. Leakage afterwards can improve.',
+      body: [
+        'In pregnancy the pelvic floor carries extra load. Physiotherapy at that time can help with problems such as back pain and with getting ready for birth. After birth it is part of recovery.',
+        'Leaking after birth is common. It is not something you have to accept as the new normal. An assessment and a programme matched to you can improve bladder control and support.',
+        'A gap in the abdominal muscles, or a feeling of heaviness, can appear in the same period. Mention them so the plan covers the trunk as well as the pelvic floor.',
+        'Use this app for the home plan your physiotherapist has already chosen. If you are pregnant or recently gave birth and this plan was set for a different stage, ask before you follow it.',
+      ],
+    },
+    'women-and-men': {
+      title: 'Women and men',
+      summary: 'These problems are talked about more often in women. Men need this care too.',
+      body: [
+        'Pelvic floor problems are more often linked with women: leakage, prolapse, pain with sex, pregnancy, and recovery after gynaecological surgery.',
+        'Men need this care as well, including for chronic pelvic pain and for recovery before or after prostate surgery. The aim is a plan matched to that person, to support healing and bladder control.',
+        'The work is not the same for everyone. Some people need to strengthen. Some need to relax and coordinate. Your physiotherapist sets which one this app is doing for you.',
+      ],
+    },
+    'teenage-leakage': {
+      title: 'Leakage in the teenage years',
+      summary: 'For families. A teenager needs a medical assessment before any exercise programme.',
+      body: [
+        'Urinary leakage can affect teenage girls and boys. It may have been there since childhood, and it can affect school, sport, and confidence. It is not a choice, laziness, or a failure to try.',
+        'Habits that sometimes grow around it — delaying the toilet for hours, drinking very little, or clenching all day to avoid a leak — can make bladder and pelvic floor function harder. Constipation matters too: a full bowel can press on the bladder.',
+        'A doctor should assess this before any rehabilitation programme, especially if leakage starts suddenly after a period of being dry. Pelvic floor physiotherapy, when it is appropriate, comes after that and is adapted to age. Not every teenager needs strengthening. Some need to learn to relax.',
+        'PelviPilot is a home companion for an adult plan a physiotherapist has already set. It is not a programme for a teenager to start alone. Do not begin pelvic floor squeezes for a young person without that assessment.',
       ],
     },
   },
