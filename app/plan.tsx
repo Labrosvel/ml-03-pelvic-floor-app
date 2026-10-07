@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button } from '@/components/ui/Button';
 import { Panel } from '@/components/ui/Panel';
 import { Screen, useScreenFieldFocus } from '@/components/ui/Screen';
-import { createDefaultPlan, ExercisePlan } from '@/constants/plans';
+import { createDefaultPlan, ExercisePlan, MAX_BREAK_SECONDS, planBreakSeconds } from '@/constants/plans';
 import { colors, fonts, spacing } from '@/constants/theme';
 import { useAppState } from '@/context/AppState';
 
@@ -18,6 +18,7 @@ type NumberFields = {
   quickSqueeze: string;
   quickRest: string;
   quickReps: string;
+  breakSeconds: string;
 };
 
 function planToFields(plan: ExercisePlan): NumberFields {
@@ -32,6 +33,7 @@ function planToFields(plan: ExercisePlan): NumberFields {
     quickSqueeze: String(quick?.squeezeSeconds ?? 1),
     quickRest: String(quick?.restSeconds ?? 1),
     quickReps: String(quick?.repetitions ?? 10),
+    breakSeconds: String(planBreakSeconds(plan)),
   };
 }
 
@@ -63,6 +65,24 @@ export default function PlanScreen() {
     const parsed = Number(trimmed);
     if (!Number.isFinite(parsed) || !Number.isInteger(parsed) || parsed <= 0) {
       Alert.alert(t('plan.invalidTitle'), t('plan.invalidBody', { label }));
+      return null;
+    }
+    return parsed;
+  };
+
+  const parseBreakSeconds = (value: string): number | null => {
+    const label = t('plan.fieldBreak');
+    const trimmed = value.trim();
+    if (!trimmed) {
+      Alert.alert(t('plan.missingTitle'), t('plan.missingBody', { label }));
+      return null;
+    }
+    const parsed = Number(trimmed);
+    if (!Number.isInteger(parsed) || parsed < 0 || parsed > MAX_BREAK_SECONDS) {
+      Alert.alert(
+        t('plan.invalidTitle'),
+        t('plan.breakInvalidBody', { label, max: MAX_BREAK_SECONDS }),
+      );
       return null;
     }
     return parsed;
@@ -103,6 +123,16 @@ export default function PlanScreen() {
       </Panel>
 
       <Panel style={styles.block}>
+        <Text style={styles.sectionTitle}>{t('plan.breakBetween')}</Text>
+        <Field
+          label={t('plan.breakSec')}
+          value={fields.breakSeconds}
+          onChange={(value) => setField('breakSeconds', value)}
+        />
+        <Text style={styles.hint}>{t('plan.breakHint', { max: MAX_BREAK_SECONDS })}</Text>
+      </Panel>
+
+      <Panel style={styles.block}>
         <Text style={styles.sectionTitle}>{t('plan.quickSqueezes')}</Text>
         <Field
           label={t('plan.squeezeSec')}
@@ -136,6 +166,7 @@ export default function PlanScreen() {
           const quickSqueeze = parsePositiveInt(fields.quickSqueeze, t('plan.fieldQuickSqueeze'));
           const quickRest = parsePositiveInt(fields.quickRest, t('plan.fieldQuickRest'));
           const quickReps = parsePositiveInt(fields.quickReps, t('plan.fieldQuickReps'));
+          const breakSeconds = parseBreakSeconds(fields.breakSeconds);
 
           if (
             sessionsPerDay == null ||
@@ -144,7 +175,8 @@ export default function PlanScreen() {
             slowReps == null ||
             quickSqueeze == null ||
             quickRest == null ||
-            quickReps == null
+            quickReps == null ||
+            breakSeconds == null
           ) {
             return;
           }
@@ -153,6 +185,7 @@ export default function PlanScreen() {
             ...plan,
             name: name.trim() || plan.name,
             sessionsPerDay,
+            breakSeconds,
             blocks: [
               {
                 id: 'slow',
@@ -243,6 +276,13 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: colors.inkMuted,
     marginBottom: spacing.xs,
+    marginTop: spacing.sm,
+  },
+  hint: {
+    fontFamily: fonts.body,
+    fontSize: 14,
+    lineHeight: 20,
+    color: colors.inkMuted,
     marginTop: spacing.sm,
   },
   input: {
