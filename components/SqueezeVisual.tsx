@@ -43,7 +43,7 @@ function phaseAccent(phase: ExercisePhase) {
 
 function phaseSoft(phase: ExercisePhase) {
   if (phase === 'squeeze') return colors.orangeSoft;
-  if (phase === 'rest') return colors.tealSoft;
+  if (phase === 'rest' || phase === 'bridge') return colors.tealSoft;
   return colors.bgDeep;
 }
 
@@ -225,7 +225,9 @@ export function SqueezeVisual({
         ? t('phase.rest')
         : phase === 'prepare'
           ? t('phase.prepare')
-          : t('phase.done');
+          : phase === 'bridge'
+            ? t('phase.break')
+            : t('phase.done');
 
   const showReps = repTotal > 0 && (phase === 'squeeze' || phase === 'rest');
   const showCycle =

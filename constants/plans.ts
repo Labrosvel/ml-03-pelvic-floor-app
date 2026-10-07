@@ -4,7 +4,10 @@ import { DEFAULT_PHYSIO_NOTIFY_EMAIL } from '@/constants/notifications';
 import { AppLanguage, isAppLanguage } from '@/i18n/types';
 import { isSoundPackId, type SoundPackId } from '@/constants/sounds';
 
-export type ExercisePhase = 'prepare' | 'squeeze' | 'rest' | 'done';
+export type ExercisePhase = 'prepare' | 'squeeze' | 'rest' | 'bridge' | 'done';
+
+/** Calm pause after slow squeezes, before quick squeezes start. */
+export const SLOW_TO_QUICK_BRIDGE_SECONDS = 15;
 
 export type ExerciseBlock = {
   id: string;
@@ -168,10 +171,32 @@ export function totalTargetReps(plan: ExercisePlan): number {
   return plan.blocks.reduce((sum, block) => sum + block.repetitions, 0);
 }
 
+/**
+ * How many slow→quick changeovers a plan actually plays.
+ * Skipped when a side has no repetitions, so a slow-only or quick-only plan stays one block.
+ */
+export function slowToQuickBridgeCount(blocks: ExerciseBlock[]): number {
+  let slowDone = false;
+  let count = 0;
+
+  for (const block of blocks) {
+    if (block.repetitions <= 0) continue;
+    if (block.kind === 'quick' && slowDone) {
+      count += 1;
+      slowDone = false;
+    } else if (block.kind === 'slow') {
+      slowDone = true;
+    }
+  }
+
+  return count;
+}
+
 export function estimateSessionSeconds(plan: ExercisePlan): number {
   const prepare = 3;
-  return plan.blocks.reduce((sum, block) => {
+  const practice = plan.blocks.reduce((sum, block) => {
     const cycle = block.squeezeSeconds + block.restSeconds;
     return sum + block.repetitions * cycle;
   }, prepare);
+  return practice + slowToQuickBridgeCount(plan.blocks) * SLOW_TO_QUICK_BRIDGE_SECONDS;
 }

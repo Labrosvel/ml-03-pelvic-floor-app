@@ -109,7 +109,8 @@ const fr = {
     reminderMinute: 'Minute',
     haptics: 'Vibrations',
     sound: 'Signaux sonores',
-    soundHint: 'Préparation, contraction/repos lent, tics rapides et fin de séance',
+    soundHint:
+      'Préparation, contraction/repos lent, transition avant les rapides, tics rapides et fin de séance',
     soundPack: 'Style sonore',
     soundPackHint: 'Touchez un style pour l’aperçu',
     soundPackGentle: 'Doux',
@@ -205,12 +206,16 @@ const fr = {
     cueSlowSqueeze: 'Soulevez et fermez doucement vers le haut. Continuez à respirer.',
     cueQuickSqueeze: 'Soulever et fermer rapidement — puis relâchez complètement.',
     cueRest: 'Relâchez complètement. Assouplissez le plancher pelvien et attendez le prochain signal.',
+    bridge: 'Transition',
+    cueBridge:
+      'Les contractions lentes sont terminées. Reposez-vous un instant — les contractions rapides suivent. Appuyez sur Pause si vous avez besoin de plus de temps.',
     repOf: '{{current}} sur {{total}}',
   },
   phase: {
     squeeze: 'Contraction',
     rest: 'Repos',
     prepare: 'Préparez-vous',
+    break: 'Transition',
     done: 'Terminé',
   },
   reminders: {

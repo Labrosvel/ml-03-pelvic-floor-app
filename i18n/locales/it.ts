@@ -108,7 +108,8 @@ const it = {
     reminderMinute: 'Minuto',
     haptics: 'Vibrazione',
     sound: 'Segnali sonori',
-    soundHint: 'Preparazione, contrazione/riposo lento, tick rapidi e fine sessione',
+    soundHint:
+      'Preparazione, contrazione/riposo lento, intervallo prima delle rapide, tick rapidi e fine sessione',
     soundPack: 'Stile sonoro',
     soundPackHint: 'Tocca uno stile per l’anteprima',
     soundPackGentle: 'Delicato',
@@ -203,12 +204,16 @@ const it = {
     cueSlowSqueeze: 'Solleva e chiudi delicatamente verso l’alto. Continua a respirare.',
     cueQuickSqueeze: 'Sollevamento e chiusura rapidi — poi lascia andare del tutto.',
     cueRest: 'Rilascia del tutto. Ammorbidisci il pavimento pelvico e attendi il prossimo segnale.',
+    bridge: 'Intervallo',
+    cueBridge:
+      'Le contrazioni lente sono finite. Riposa un momento — seguono quelle rapide. Tocca Pausa se ti serve più tempo.',
     repOf: '{{current}} di {{total}}',
   },
   phase: {
     squeeze: 'Contrazione',
     rest: 'Riposo',
     prepare: 'Preparati',
+    break: 'Intervallo',
     done: 'Fatto',
   },
   reminders: {
