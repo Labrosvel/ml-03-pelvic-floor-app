@@ -174,6 +174,10 @@ const it = {
     squeezeSec: 'Contrazione (sec)',
     restSec: 'Riposo (sec)',
     repetitions: 'Ripetizioni',
+    breakBetween: 'Intervallo tra lente e rapide',
+    breakSec: 'Intervallo (sec)',
+    breakHint:
+      'Riposo dopo le contrazioni lente, prima di quelle rapide. 0 per saltarlo. Fino a {{max}} secondi.',
     savePlan: 'Salva piano',
     restoreStarter: 'Ripristina piano iniziale',
     savedTitle: 'Salvato',
@@ -182,6 +186,7 @@ const it = {
     missingBody: 'Inserisci un numero per {{label}}.',
     invalidTitle: 'Valore non valido',
     invalidBody: '{{label}} deve essere un numero intero maggiore di 0.',
+    breakInvalidBody: '{{label}} deve essere un numero intero da 0 a {{max}}.',
     defaultName: 'Piano iniziale',
     defaultNotes:
       'Una routine iniziale delicata. Il fisioterapista può regolare tempo di contrazione, riposo e ripetizioni.',
@@ -192,6 +197,7 @@ const it = {
     fieldQuickSqueeze: 'Contrazione rapida (sec)',
     fieldQuickRest: 'Riposo rapido (sec)',
     fieldQuickReps: 'Ripetizioni rapide',
+    fieldBreak: 'Intervallo (sec)',
   },
   exercise: {
     niceWork: 'Ottimo lavoro',

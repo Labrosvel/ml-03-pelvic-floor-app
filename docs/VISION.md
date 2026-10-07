@@ -27,7 +27,7 @@ PelviPilot is a calm home-practice companion: the **physiotherapist sets the pla
 ### In scope today
 
 - Patient uses the app **according to instructions the physiotherapist decides**.
-  - Today this maps to **Settings** (clinic name, patient name, language, reminders, sounds) and **Exercise plan** (sessions per day, slow/quick squeeze timings and reps).
+  - Today this maps to **Settings** (clinic name, patient name, language, reminders, sounds) and **Exercise plan** (sessions per day, slow/quick squeeze timings and reps, and the break between slow and quick).
 - Patient receives **local notifications** to complete their exercises / daily plan (where the platform supports it — native builds, not web preview).
 - **Guided sessions** with visual and optional audio/haptic cues.
 - **Local progress history** on device (no cloud sync yet).
@@ -93,3 +93,4 @@ Before proposing solutions or editing code:
 | 2026-10-04 | Patient-facing languages expanded to include Italian, Spanish, and French. |
 | 2026-10-06 | Tablet checks use a live QR on the virtual desktop (see `docs/TESTING.md`). |
 | 2026-10-06 | Tablet APK/AAB requests use Expo build links, not files moved onto the tablet (see `README.md`). |
+| 2026-10-07 | The break between slow and quick squeezes is set on the exercise plan (default 15 seconds; 0 skips it). |
