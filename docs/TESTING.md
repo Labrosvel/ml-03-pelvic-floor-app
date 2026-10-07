@@ -21,13 +21,17 @@ How to validate changes quickly, when you need a real phone install, and why Exp
 
 Cursor on a tablet does not open the terminal keyboard, and there is no Cursor Android app. You do not download the APK or AAB onto the tablet or drag files between windows. Ask in the chat. The agent runs the command and pastes the link.
 
-### Live app on the phone (browser)
+### Browser check on the phone
 
-The agent shows a **QR code on the virtual desktop** (the desktop on the right). Scan it with the phone camera.
+Open the pull request web preview on the phone:
 
-That opens the **live** app in the phone browser. It updates as the code changes. It is not the GitHub Pages link below, which updates only after a merge.
+`https://labrosvel.github.io/ml-03-pelvic-floor-app/pr-preview/pr-<N>/`
 
-Check the bottom of **Settings**. The version name there is the one in `app.json`.
+It updates after each push, once the preview deploy finishes (about 1–2 minutes). Hard-refresh if the phone still shows the previous build. The stable site updates when the change is merged to `main`.
+
+Check the bottom of **Settings**. The footer shows `Web build pr-<N>-<sha>` for that preview.
+
+The agent does not start a live Metro session or put a QR code on the virtual desktop for this check. Reminders still need the APK or Play install below.
 
 ### APK and AAB (real installs)
 
