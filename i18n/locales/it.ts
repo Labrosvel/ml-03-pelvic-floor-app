@@ -119,7 +119,8 @@ const it = {
     reminderMinute: 'Minuto',
     haptics: 'Vibrazione',
     sound: 'Segnali sonori',
-    soundHint: 'Preparazione, contrazione/riposo lento, tick rapidi e fine sessione',
+    soundHint:
+      'Preparazione, contrazione/riposo lento, intervallo prima delle rapide, tick rapidi e fine sessione',
     soundPack: 'Stile sonoro',
     soundPackHint: 'Tocca uno stile per l’anteprima',
     soundPackGentle: 'Delicato',
@@ -184,6 +185,10 @@ const it = {
     squeezeSec: 'Contrazione (sec)',
     restSec: 'Riposo (sec)',
     repetitions: 'Ripetizioni',
+    breakBetween: 'Intervallo tra lente e rapide',
+    breakSec: 'Intervallo (sec)',
+    breakHint:
+      'Riposo dopo le contrazioni lente, prima di quelle rapide. 0 per saltarlo. Fino a {{max}} secondi.',
     savePlan: 'Salva piano',
     restoreStarter: 'Ripristina piano iniziale',
     savedTitle: 'Salvato',
@@ -192,6 +197,7 @@ const it = {
     missingBody: 'Inserisci un numero per {{label}}.',
     invalidTitle: 'Valore non valido',
     invalidBody: '{{label}} deve essere un numero intero maggiore di 0.',
+    breakInvalidBody: '{{label}} deve essere un numero intero da 0 a {{max}}.',
     defaultName: 'Piano iniziale',
     defaultNotes:
       'Una routine iniziale delicata. Il fisioterapista può regolare tempo di contrazione, riposo e ripetizioni.',
@@ -202,6 +208,7 @@ const it = {
     fieldQuickSqueeze: 'Contrazione rapida (sec)',
     fieldQuickRest: 'Riposo rapido (sec)',
     fieldQuickReps: 'Ripetizioni rapide',
+    fieldBreak: 'Intervallo (sec)',
   },
   exercise: {
     niceWork: 'Ottimo lavoro',
@@ -214,12 +221,16 @@ const it = {
     cueSlowSqueeze: 'Solleva e chiudi delicatamente verso l’alto. Continua a respirare.',
     cueQuickSqueeze: 'Sollevamento e chiusura rapidi — poi lascia andare del tutto.',
     cueRest: 'Rilascia del tutto. Ammorbidisci il pavimento pelvico e attendi il prossimo segnale.',
+    bridge: 'Intervallo',
+    cueBridge:
+      'Le contrazioni lente sono finite. Riposa un momento — seguono quelle rapide. Tocca Pausa se ti serve più tempo.',
     repOf: '{{current}} di {{total}}',
   },
   phase: {
     squeeze: 'Contrazione',
     rest: 'Riposo',
     prepare: 'Preparati',
+    break: 'Intervallo',
     done: 'Fatto',
   },
   reminders: {

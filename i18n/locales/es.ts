@@ -119,7 +119,8 @@ const es = {
     reminderMinute: 'Minuto',
     haptics: 'Vibración',
     sound: 'Señales sonoras',
-    soundHint: 'Preparación, contracción/descanso lento, ticks rápidos y fin de sesión',
+    soundHint:
+      'Preparación, contracción/descanso lento, cambio antes de las rápidas, ticks rápidos y fin de sesión',
     soundPack: 'Estilo de sonido',
     soundPackHint: 'Toca un estilo para previsualizar',
     soundPackGentle: 'Suave',
@@ -184,6 +185,10 @@ const es = {
     squeezeSec: 'Contracción (seg)',
     restSec: 'Descanso (seg)',
     repetitions: 'Repeticiones',
+    breakBetween: 'Cambio entre lentas y rápidas',
+    breakSec: 'Cambio (seg)',
+    breakHint:
+      'Descanso después de las lentas, antes de las rápidas. 0 para omitirlo. Hasta {{max}} segundos.',
     savePlan: 'Guardar plan',
     restoreStarter: 'Restaurar plan inicial',
     savedTitle: 'Guardado',
@@ -192,6 +197,7 @@ const es = {
     missingBody: 'Introduce un número para {{label}}.',
     invalidTitle: 'Valor no válido',
     invalidBody: '{{label}} debe ser un número entero mayor que 0.',
+    breakInvalidBody: '{{label}} debe ser un número entero de 0 a {{max}}.',
     defaultName: 'Plan inicial',
     defaultNotes:
       'Una rutina inicial suave. Tu fisioterapeuta puede ajustar el tiempo de contracción, el descanso y las repeticiones.',
@@ -202,6 +208,7 @@ const es = {
     fieldQuickSqueeze: 'Contracción rápida (seg)',
     fieldQuickRest: 'Descanso rápido (seg)',
     fieldQuickReps: 'Repeticiones rápidas',
+    fieldBreak: 'Cambio (seg)',
   },
   exercise: {
     niceWork: 'Buen trabajo',
@@ -214,12 +221,16 @@ const es = {
     cueSlowSqueeze: 'Eleva y cierra con suavidad hacia arriba. Sigue respirando.',
     cueQuickSqueeze: 'Elevación y cierre rápidos — luego suelta por completo.',
     cueRest: 'Suelta por completo. Suaviza el suelo pélvico y espera la siguiente señal.',
+    bridge: 'Cambio',
+    cueBridge:
+      'Las contracciones lentas han terminado. Descansa un momento — siguen las rápidas. Pulsa Pausar si necesitas más tiempo.',
     repOf: '{{current}} de {{total}}',
   },
   phase: {
     squeeze: 'Contracción',
     rest: 'Descanso',
     prepare: 'Prepárate',
+    break: 'Cambio',
     done: 'Listo',
   },
   reminders: {

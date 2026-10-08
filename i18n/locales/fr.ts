@@ -120,7 +120,8 @@ const fr = {
     reminderMinute: 'Minute',
     haptics: 'Vibrations',
     sound: 'Signaux sonores',
-    soundHint: 'Préparation, contraction/repos lent, tics rapides et fin de séance',
+    soundHint:
+      'Préparation, contraction/repos lent, transition avant les rapides, tics rapides et fin de séance',
     soundPack: 'Style sonore',
     soundPackHint: 'Touchez un style pour l’aperçu',
     soundPackGentle: 'Doux',
@@ -186,6 +187,10 @@ const fr = {
     squeezeSec: 'Contraction (s)',
     restSec: 'Repos (s)',
     repetitions: 'Répétitions',
+    breakBetween: 'Transition entre lentes et rapides',
+    breakSec: 'Transition (s)',
+    breakHint:
+      'Repos après les contractions lentes, avant les rapides. 0 pour aucune transition. Jusqu’à {{max}} secondes.',
     savePlan: 'Enregistrer le programme',
     restoreStarter: 'Restaurer le programme de départ',
     savedTitle: 'Enregistré',
@@ -194,6 +199,7 @@ const fr = {
     missingBody: 'Veuillez saisir un nombre pour {{label}}.',
     invalidTitle: 'Valeur non valide',
     invalidBody: '{{label}} doit être un nombre entier supérieur à 0.',
+    breakInvalidBody: '{{label}} doit être un nombre entier de 0 à {{max}}.',
     defaultName: 'Programme de départ',
     defaultNotes:
       'Une routine de départ douce. Votre kinésithérapeute peut ajuster le temps de contraction, le repos et les répétitions.',
@@ -204,6 +210,7 @@ const fr = {
     fieldQuickSqueeze: 'Contraction rapide (s)',
     fieldQuickRest: 'Repos rapide (s)',
     fieldQuickReps: 'Répétitions rapides',
+    fieldBreak: 'Transition (s)',
   },
   exercise: {
     niceWork: 'Bravo',
@@ -216,12 +223,16 @@ const fr = {
     cueSlowSqueeze: 'Soulevez et fermez doucement vers le haut. Continuez à respirer.',
     cueQuickSqueeze: 'Soulever et fermer rapidement — puis relâchez complètement.',
     cueRest: 'Relâchez complètement. Assouplissez le plancher pelvien et attendez le prochain signal.',
+    bridge: 'Transition',
+    cueBridge:
+      'Les contractions lentes sont terminées. Reposez-vous un instant — les contractions rapides suivent. Appuyez sur Pause si vous avez besoin de plus de temps.',
     repOf: '{{current}} sur {{total}}',
   },
   phase: {
     squeeze: 'Contraction',
     rest: 'Repos',
     prepare: 'Préparez-vous',
+    break: 'Transition',
     done: 'Terminé',
   },
   reminders: {

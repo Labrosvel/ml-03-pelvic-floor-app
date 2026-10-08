@@ -1,6 +1,12 @@
 import type { TFunction } from 'i18next';
 
-import { displayBlockLabel, ExerciseBlock, ExercisePhase, ExercisePlan } from '@/constants/plans';
+import {
+  displayBlockLabel,
+  ExerciseBlock,
+  ExercisePhase,
+  ExercisePlan,
+  planBreakSeconds,
+} from '@/constants/plans';
 
 export type SessionStep = {
   blockId: string;
@@ -27,7 +33,28 @@ export function buildSessionSteps(plan: ExercisePlan, t: TFunction): SessionStep
     },
   ];
 
+  let slowDone = false;
+  const breakSeconds = planBreakSeconds(plan);
+
   for (const block of plan.blocks) {
+    if (block.repetitions <= 0) continue;
+
+    if (block.kind === 'quick' && slowDone) {
+      if (breakSeconds > 0) {
+        steps.push({
+          blockId: 'bridge',
+          blockLabel: t('exercise.bridge'),
+          kind: 'slow',
+          phase: 'bridge',
+          seconds: breakSeconds,
+          repIndex: 0,
+          repTotal: 0,
+          cue: t('exercise.cueBridge'),
+        });
+      }
+      slowDone = false;
+    }
+
     const blockLabel = displayBlockLabel(block, t);
     for (let rep = 1; rep <= block.repetitions; rep += 1) {
       steps.push({
@@ -52,6 +79,8 @@ export function buildSessionSteps(plan: ExercisePlan, t: TFunction): SessionStep
         cue: t('exercise.cueRest'),
       });
     }
+
+    if (block.kind === 'slow') slowDone = true;
   }
 
   return steps;

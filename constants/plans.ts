@@ -4,7 +4,13 @@ import { DEFAULT_PHYSIO_NOTIFY_EMAIL } from '@/constants/notifications';
 import { AppLanguage, isAppLanguage } from '@/i18n/types';
 import { isSoundPackId, type SoundPackId } from '@/constants/sounds';
 
-export type ExercisePhase = 'prepare' | 'squeeze' | 'rest' | 'done';
+export type ExercisePhase = 'prepare' | 'squeeze' | 'rest' | 'bridge' | 'done';
+
+/** Calm pause after slow squeezes, before quick squeezes start. */
+export const SLOW_TO_QUICK_BRIDGE_SECONDS = 15;
+
+/** Longest break the plan screen will save. Longer than this is a typo, not a rest. */
+export const MAX_BREAK_SECONDS = 120;
 
 export type ExerciseBlock = {
   id: string;
@@ -20,6 +26,8 @@ export type ExercisePlan = {
   name: string;
   sessionsPerDay: number;
   blocks: ExerciseBlock[];
+  /** Seconds between slow and quick squeezes. 0 skips the break. Missing values use the default. */
+  breakSeconds?: number;
   notes?: string;
 };
 
@@ -59,6 +67,7 @@ export const DEFAULT_PLAN: ExercisePlan = {
   id: DEFAULT_PLAN_ID,
   name: 'Starter plan',
   sessionsPerDay: 3,
+  breakSeconds: SLOW_TO_QUICK_BRIDGE_SECONDS,
   notes:
     'A gentle starter routine. Your physiotherapist can adjust squeeze time, rest, and repetitions.',
   blocks: [
@@ -86,6 +95,7 @@ export function createDefaultPlan(t: TFunction): ExercisePlan {
     id: DEFAULT_PLAN_ID,
     name: t('plan.defaultName'),
     sessionsPerDay: 3,
+    breakSeconds: SLOW_TO_QUICK_BRIDGE_SECONDS,
     notes: t('plan.defaultNotes'),
     blocks: [
       {
@@ -168,10 +178,52 @@ export function totalTargetReps(plan: ExercisePlan): number {
   return plan.blocks.reduce((sum, block) => sum + block.repetitions, 0);
 }
 
+/** Break length the session will actually play. Old plans without the field stay at 15 seconds. */
+export function planBreakSeconds(plan: Pick<ExercisePlan, 'breakSeconds'>): number {
+  const value = plan.breakSeconds;
+  if (typeof value !== 'number' || !Number.isInteger(value)) {
+    return SLOW_TO_QUICK_BRIDGE_SECONDS;
+  }
+  if (value <= 0) return 0;
+  return Math.min(value, MAX_BREAK_SECONDS);
+}
+
+export function normalizePlan(raw: ExercisePlan | null | undefined): ExercisePlan {
+  if (!raw || !Array.isArray(raw.blocks) || raw.blocks.length === 0) {
+    return DEFAULT_PLAN;
+  }
+  return {
+    ...raw,
+    breakSeconds: planBreakSeconds(raw),
+  };
+}
+
+/**
+ * How many slow→quick changeovers a plan actually plays.
+ * Skipped when a side has no repetitions, so a slow-only or quick-only plan stays one block.
+ */
+export function slowToQuickBridgeCount(blocks: ExerciseBlock[]): number {
+  let slowDone = false;
+  let count = 0;
+
+  for (const block of blocks) {
+    if (block.repetitions <= 0) continue;
+    if (block.kind === 'quick' && slowDone) {
+      count += 1;
+      slowDone = false;
+    } else if (block.kind === 'slow') {
+      slowDone = true;
+    }
+  }
+
+  return count;
+}
+
 export function estimateSessionSeconds(plan: ExercisePlan): number {
   const prepare = 3;
-  return plan.blocks.reduce((sum, block) => {
+  const practice = plan.blocks.reduce((sum, block) => {
     const cycle = block.squeezeSeconds + block.restSeconds;
     return sum + block.repetitions * cycle;
   }, prepare);
+  return practice + slowToQuickBridgeCount(plan.blocks) * planBreakSeconds(plan);
 }
