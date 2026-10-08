@@ -26,11 +26,11 @@ const SOURCES: Record<CueKey, AudioSource> = {
   'chime:rest': require('../assets/sounds/chime/rest.mp3'),
   'chime:quickSqueeze': require('../assets/sounds/chime/quickSqueeze.mp3'),
   'chime:complete': require('../assets/sounds/chime/complete.mp3'),
-  'click:prepare': require('../assets/sounds/click/prepare.mp3'),
-  'click:squeeze': require('../assets/sounds/click/squeeze.mp3'),
-  'click:rest': require('../assets/sounds/click/rest.mp3'),
-  'click:quickSqueeze': require('../assets/sounds/click/quickSqueeze.mp3'),
-  'click:complete': require('../assets/sounds/click/complete.mp3'),
+  'interface:prepare': require('../assets/sounds/interface/prepare.mp3'),
+  'interface:squeeze': require('../assets/sounds/interface/squeeze.mp3'),
+  'interface:rest': require('../assets/sounds/interface/rest.mp3'),
+  'interface:quickSqueeze': require('../assets/sounds/interface/quickSqueeze.mp3'),
+  'interface:complete': require('../assets/sounds/interface/complete.mp3'),
 };
 
 const ROLE_VOLUME: Record<CueRole, number> = {

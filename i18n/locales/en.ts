@@ -124,7 +124,7 @@ const en = {
     soundPackHint: 'Tap a style to preview',
     soundPackGentle: 'Gentle',
     soundPackChime: 'Chime',
-    soundPackClick: 'Click',
+    soundPackInterface: 'Interface',
     language: 'Language',
     languageSystem: 'Device default',
     languageEn: 'English',

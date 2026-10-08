@@ -125,7 +125,7 @@ const it = {
     soundPackHint: 'Tocca uno stile per l’anteprima',
     soundPackGentle: 'Delicato',
     soundPackChime: 'Campanella',
-    soundPackClick: 'Click',
+    soundPackInterface: 'Interfaccia',
     language: 'Lingua',
     languageSystem: 'Predefinita del dispositivo',
     languageEn: 'Inglese',
