@@ -126,6 +126,7 @@ const es = {
     soundPackGentle: 'Suave',
     soundPackChime: 'Campana',
     soundPackClick: 'Clic',
+    soundPackInterface: 'Interfaz',
     language: 'Idioma',
     languageSystem: 'Predeterminado del dispositivo',
     languageEn: 'Inglés',

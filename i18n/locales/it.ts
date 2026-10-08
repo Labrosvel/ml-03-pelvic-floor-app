@@ -126,6 +126,7 @@ const it = {
     soundPackGentle: 'Delicato',
     soundPackChime: 'Campanella',
     soundPackClick: 'Click',
+    soundPackInterface: 'Interfaccia',
     language: 'Lingua',
     languageSystem: 'Predefinita del dispositivo',
     languageEn: 'Inglese',

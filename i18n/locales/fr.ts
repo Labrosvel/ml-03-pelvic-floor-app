@@ -127,6 +127,7 @@ const fr = {
     soundPackGentle: 'Doux',
     soundPackChime: 'Carillon',
     soundPackClick: 'Clic',
+    soundPackInterface: 'Interface',
     language: 'Langue',
     languageSystem: 'Langue de l’appareil',
     languageEn: 'Anglais',

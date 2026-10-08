@@ -125,6 +125,7 @@ const en = {
     soundPackGentle: 'Gentle',
     soundPackChime: 'Chime',
     soundPackClick: 'Click',
+    soundPackInterface: 'Interface',
     language: 'Language',
     languageSystem: 'Device default',
     languageEn: 'English',

@@ -50,12 +50,15 @@ const LANGUAGE_OPTIONS: {
   { value: 'fr', labelKey: 'languageFr' },
 ];
 
-const SOUND_PACK_LABEL_KEYS: Record<SoundPackId, 'soundPackGentle' | 'soundPackChime' | 'soundPackClick'> =
-  {
-    gentle: 'soundPackGentle',
-    chime: 'soundPackChime',
-    click: 'soundPackClick',
-  };
+const SOUND_PACK_LABEL_KEYS: Record<
+  SoundPackId,
+  'soundPackGentle' | 'soundPackChime' | 'soundPackClick' | 'soundPackInterface'
+> = {
+  gentle: 'soundPackGentle',
+  chime: 'soundPackChime',
+  click: 'soundPackClick',
+  interface: 'soundPackInterface',
+};
 
 const HOUR_OPTIONS = Array.from({ length: 24 }, (_, hour) => hour);
 const MINUTE_OPTIONS = Array.from({ length: 12 }, (_, index) => index * 5);
