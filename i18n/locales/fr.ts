@@ -126,7 +126,6 @@ const fr = {
     soundPackHint: 'Touchez un style pour l’aperçu',
     soundPackGentle: 'Doux',
     soundPackChime: 'Carillon',
-    soundPackClick: 'Clic',
     soundPackInterface: 'Interface',
     language: 'Langue',
     languageSystem: 'Langue de l’appareil',

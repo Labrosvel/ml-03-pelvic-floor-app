@@ -125,7 +125,6 @@ const el = {
     soundPackHint: 'Πατήστε ένα στιλ για προεπισκόπηση',
     soundPackGentle: 'Απαλό',
     soundPackChime: 'Καμπανάκι',
-    soundPackClick: 'Κλικ',
     soundPackInterface: 'Διεπαφή',
     language: 'Γλώσσα',
     languageSystem: 'Γλώσσα συσκευής',

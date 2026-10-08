@@ -52,11 +52,10 @@ const LANGUAGE_OPTIONS: {
 
 const SOUND_PACK_LABEL_KEYS: Record<
   SoundPackId,
-  'soundPackGentle' | 'soundPackChime' | 'soundPackClick' | 'soundPackInterface'
+  'soundPackGentle' | 'soundPackChime' | 'soundPackInterface'
 > = {
   gentle: 'soundPackGentle',
   chime: 'soundPackChime',
-  click: 'soundPackClick',
   interface: 'soundPackInterface',
 };
 

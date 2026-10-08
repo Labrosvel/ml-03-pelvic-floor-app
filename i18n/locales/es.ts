@@ -125,7 +125,6 @@ const es = {
     soundPackHint: 'Toca un estilo para previsualizar',
     soundPackGentle: 'Suave',
     soundPackChime: 'Campana',
-    soundPackClick: 'Clic',
     soundPackInterface: 'Interfaz',
     language: 'Idioma',
     languageSystem: 'Predeterminado del dispositivo',
