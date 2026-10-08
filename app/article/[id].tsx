@@ -59,6 +59,7 @@ export default function ArticleScreen() {
           {String(paragraph)}
         </Text>
       ))}
+      {article.fromClinic ? <Text style={styles.basis}>{t('learn.clinicBasis')}</Text> : null}
     </Screen>
   );
 }
@@ -108,6 +109,13 @@ const styles = StyleSheet.create({
     lineHeight: 26,
     color: colors.inkMuted,
     marginBottom: spacing.md,
+  },
+  basis: {
+    fontFamily: fonts.body,
+    fontSize: 13,
+    lineHeight: 20,
+    color: colors.inkSoft,
+    marginTop: spacing.sm,
   },
   missing: {
     fontFamily: fonts.body,

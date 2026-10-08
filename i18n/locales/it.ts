@@ -68,10 +68,21 @@ const it = {
   learn: {
     eyebrow: 'Formazione',
     title: 'Impara',
-    subtitle: 'Brevi guide per tecnica e sicurezza.',
+    subtitle:
+      'Brevi guide per la pratica a casa, raggruppate come le spiega la clinica. Il fisioterapista decide che cosa vale per te.',
     minutes: '{{count}} min',
     minutesRead: '{{count}} min di lettura',
     missing: 'Articolo non trovato.',
+    clinicBasis:
+      'Versione breve delle indicazioni sul pavimento pelvico pubblicate su physiospecialists.gr. Il fisioterapista decide che cosa vale per te.',
+    sections: {
+      practice: 'Pratica',
+      bladder: 'Vescica',
+      bowel: 'Intestino',
+      support: 'Sostegno',
+      pain: 'Dolore',
+      'life-stages': 'Fasi della vita',
+    },
   },
   settings: {
     title: 'Impostazioni',
@@ -275,6 +286,104 @@ const it = {
         'Contatta il fisioterapista o il medico se i sintomi peggiorano, se hai dolore durante gli esercizi o se non sei sicura/o della tecnica.',
         'Chiedi consiglio medico urgente per dolore improvviso inspiegabile, sanguinamento, febbre o nuovi sintomi neurologici.',
         'PelviPilot è un companion di esercizi per il tuo piano di cura. Non è uno strumento diagnostico di dispositivo medico.',
+      ],
+    },
+    'leakage-is-a-symptom': {
+      title: 'Le perdite sono frequenti, e si possono aiutare',
+      summary: 'Una piccola perdita resta un sintomo, anche dopo il parto o con l’età.',
+      body: [
+        'Molte donne perdono urina a un certo punto, anche dopo il parto o invecchiando. È frequente, e resta un sintomo da prendere sul serio.',
+        'Anche una piccola perdita è un segno che il corpo ha bisogno del sostegno giusto. Molte persone aspettano, perché è imbarazzante dirlo o perché hanno sentito che è normale.',
+        'La fisioterapia del pavimento pelvico può rinforzare i muscoli, migliorare il controllo della vescica e cambiare abitudini quotidiane che aggiungono pressione. Ciò che aiuta dipende da una valutazione e da come compare la perdita.',
+        'Segui solo il piano definito per te in questa app. Se la perdita è nuova o peggiora, dillo al fisioterapista invece di aggiungere esercizi da sola/o.',
+      ],
+    },
+    'kinds-of-leakage': {
+      title: 'Modi in cui l’urina può fuoriuscire',
+      summary: 'Un colpo di tosse, un bisogno improvviso, o entrambi, sono schemi diversi.',
+      body: [
+        'La perdita da sforzo avviene quando sale la pressione sulla vescica — tosse, starnuto, risata o un carico — e sfugge un po’ di urina. Il pavimento pelvico spesso non sostiene abbastanza la vescica in quel momento.',
+        'La perdita da urgenza è un bisogno improvviso e forte, difficile da trattenere fino al bagno. Alcune persone hanno entrambi. Si chiama perdita mista.',
+        'Esistono altri schemi, tra cui una vescica che non si svuota del tutto, o la difficoltà di arrivare in bagno per altri motivi fisici. I muscoli deboli non sono l’unica causa. Un’infezione, i farmaci e altre condizioni possono avere un ruolo.',
+        'Come compare la perdita conta, perché il piano è diverso. Il fisioterapista decide se le contrazioni di questa app sono adatte a te.',
+      ],
+    },
+    'urgency-and-frequency': {
+      title: 'Andare spesso, o dover andare subito',
+      summary: 'Frequenza e urgenza spesso stanno insieme. Non sono la stessa cosa.',
+      body: [
+        'Frequenza significa che urini più spesso del solito, di giorno o di notte. Caffeina e altre bevande, come funziona la vescica e altri fattori di salute possono cambiare il ritmo. Una frequenza che continua merita una valutazione, soprattutto con altri sintomi.',
+        'L’urgenza è un bisogno improvviso e forte, difficile da rimandare. Alcune persone descrivono la paura di non arrivare in bagno. Quel bisogno può portare a una perdita prima di arrivarci.',
+        'Puoi averne uno senza l’altro, o entrambi. Una perdita quando tossisci è un altro schema. Notare quale è il tuo aiuta il fisioterapista a scegliere l’approccio.',
+        'L’allenamento della vescica, cambiamenti di bevande e abitudini, e la fisioterapia del pavimento pelvico possono aiutare quando corrispondono alla causa. Usa il piano di questa app solo se è stato definito per te.',
+      ],
+    },
+    'constipation-and-pelvic-floor': {
+      title: 'Stitichezza e pavimento pelvico',
+      summary: 'Spingere carica il pavimento pelvico. Lasciare conta quanto contrarre.',
+      body: [
+        'La stitichezza non è solo un problema dell’intestino. Spinte forti e ripetute aumentano la pressione sul pavimento pelvico e sui tessuti che sostengono gli organi. Nel tempo può aggiungere una sensazione di peso in basso nel bacino.',
+        'Questi muscoli devono rilassarsi al momento giusto, non solo contrarsi. Durante l’evacuazione il pavimento pelvico deve lasciare e lavorare con il respiro e gli addominali. Se resta teso, svuotare diventa più difficile, cresce il bisogno di spingere e il ciclo continua.',
+        'Un piccolo sgabello sotto i piedi, così le ginocchia stanno un po’ più in alto delle anche, e una lieve inclinazione del tronco in avanti possono rendere più facile l’evacuazione. Respira. Evita di trattenere il respiro e le spinte lunghe e forti. Vai quando c’è lo stimolo, e non restare a lungo se non c’è. Le fibre nel cibo, e camminare con regolarità, sostengono l’intestino.',
+        'La fisioterapia del pavimento pelvico non è sempre rinforzo. Se i muscoli sono tesi o non lasciano, le contrazioni da sole possono essere la scelta sbagliata. Chiedi al fisioterapista prima di aggiungerle. Questa app segue il piano già scelto per te.',
+      ],
+    },
+    prolapse: {
+      title: 'Quando gli organi pelvici si sentono meno sostenuti',
+      summary: 'Peso, o la sensazione che qualcosa scenda.',
+      body: [
+        'Un prolasso degli organi pelvici è quando muscoli e legamenti non sostengono più abbastanza vescica, utero o intestino, e quegli organi stanno più in basso. Spesso si descrive peso o pressione in vagina, la sensazione che qualcosa scenda, difficoltà a svuotare vescica o intestino, dolore lombare o pelvico, o fastidio nei rapporti.',
+        'Per molte donne con un prolasso lieve o moderato, la fisioterapia del pavimento pelvico è il punto di partenza: un programma personale, imparare come devono lavorare i muscoli e consigli per la vita quotidiana. Lo scopo è alleggerire i sintomi, migliorare il sostegno e rallentare il peggioramento.',
+        'Questa app non valuta un prolasso. Pratica solo il piano che ti ha dato il fisioterapista, e diglielo se il peso aumenta.',
+      ],
+    },
+    'abdominal-separation': {
+      title: 'Uno spazio tra i muscoli addominali',
+      summary: 'Una separazione sulla linea mediana può riguardare il tronco e il pavimento pelvico.',
+      body: [
+        'La separazione degli addominali, a volte chiamata diastasi, è un allargamento tra i due muscoli retti dell’addome lungo la linea mediana. È frequente in gravidanza e dopo il parto. Può comparire anche quando la pressione dentro l’addome resta alta, anche negli uomini, per esempio con un grande cambiamento di peso o sforzi ripetuti.',
+        'Non è un’ernia. Può cambiare quanto il tronco si sente stabile, come lavora il pavimento pelvico e il movimento di tutti i giorni. Alcune persone notano un rigonfiamento al centro dell’addome, una sensazione di debolezza, mal di schiena, o perdite o prolasso insieme.',
+        'La larghezza dello spazio è solo una parte. Conta anche come i muscoli si avvicinano e come lavora il tronco. Un programma può includere l’attivazione degli addominali profondi, il pavimento pelvico, il controllo del tronco, il respiro e come gestire la pressione nell’addome.',
+        'Torna all’esercizio come stabilisce il fisioterapista. Se vedi un rigonfiamento, o hai sintomi del pavimento pelvico, chiedi prima di aggiungere lavoro addominale intenso da sola/o.',
+      ],
+    },
+    'pelvic-pain': {
+      title: 'Dolore pelvico e muscoli che non lasciano',
+      summary: 'Il dolore può venire da muscoli tesi, non solo da muscoli deboli.',
+      body: [
+        'Il dolore pelvico può stare nel bacino, nel perineo, nei genitali o in basso nell’addome. Può esserci sempre o andare e venire, e riguardare lo stare seduti, i rapporti, la vescica o l’intestino.',
+        'I muscoli possono lavorare troppo e fare fatica a rilassarsi. Il dolore può anche seguire un infortunio, un intervento, cicatrici o un parto, o accompagnare altre condizioni. Negli uomini può far parte di un dolore pelvico cronico. La causa spesso non è evidente e serve una valutazione.',
+        'La cura di questo dolore spesso inizia da rilassamento, respiro e imparare come deve lavorare il pavimento pelvico. Il rinforzo si aggiunge solo quando serve. Le contrazioni non sono il primo passo giusto per tutti.',
+        'Se hai dolore durante gli esercizi di questa app, fermati e contatta il fisioterapista. Un dolore che dura mesi, o un dolore con sintomi di vescica, intestino o sessuali, ha bisogno di una valutazione e non di un piano più duro.',
+      ],
+    },
+    'pregnancy-and-after-birth': {
+      title: 'Gravidanza e dopo il parto',
+      summary: 'Il pavimento pelvico porta un carico in più. Le perdite dopo possono migliorare.',
+      body: [
+        'In gravidanza il pavimento pelvico porta un carico aggiunto. La fisioterapia in quel periodo può aiutare con problemi come il mal di schiena e con la preparazione al parto. Dopo la nascita fa parte del recupero.',
+        'Perdere urina dopo il parto è frequente. Non è qualcosa da accettare come la nuova normalità. Una valutazione e un programma su misura possono migliorare il controllo della vescica e il sostegno.',
+        'Uno spazio tra gli addominali, o una sensazione di peso, possono comparire nello stesso periodo. Dillo, così il piano copre il tronco oltre al pavimento pelvico.',
+        'Usa questa app per il piano a casa che il fisioterapista ha già scelto. Se sei in gravidanza o hai partorito da poco e questo piano è stato definito per un’altra fase, chiedi prima di seguirlo.',
+      ],
+    },
+    'women-and-men': {
+      title: 'Donne e uomini',
+      summary: 'Se ne parla più spesso per le donne. Anche gli uomini hanno bisogno di queste cure.',
+      body: [
+        'I problemi del pavimento pelvico sono più spesso collegati alle donne: perdite, prolasso, dolore nei rapporti, gravidanza e recupero dopo chirurgia ginecologica.',
+        'Anche gli uomini hanno bisogno di queste cure, compreso il dolore pelvico cronico e il recupero prima o dopo un intervento alla prostata. Lo scopo è un piano su misura per quella persona, per sostenere la guarigione e il controllo della vescica.',
+        'Il lavoro non è uguale per tutti. Alcune persone devono rinforzare. Altre devono rilassare e coordinare. Il fisioterapista definisce che cosa fa questa app per te.',
+      ],
+    },
+    'teenage-leakage': {
+      title: 'Perdite negli anni dell’adolescenza',
+      summary: 'Per le famiglie. Un adolescente ha bisogno di una valutazione medica prima di qualsiasi programma di esercizi.',
+      body: [
+        'Le perdite di urina possono riguardare ragazze e ragazzi adolescenti. Possono esserci dall’infanzia e influire su scuola, sport e fiducia. Non sono una scelta, pigrizia o mancanza di impegno.',
+        'Abitudini che a volte si costruiscono intorno — rimandare il bagno per ore, bere pochissimo o contrarre tutto il giorno per evitare una perdita — possono rendere più difficile il lavoro di vescica e pavimento pelvico. Conta anche la stitichezza: un intestino pieno può premere sulla vescica.',
+        'Un medico deve valutarlo prima di qualsiasi programma di riabilitazione, soprattutto se le perdite iniziano all’improvviso dopo un periodo asciutto. La fisioterapia del pavimento pelvico, quando è indicata, viene dopo ed è adattata all’età. Non tutti gli adolescenti hanno bisogno di rinforzo. Alcuni devono imparare a rilassare.',
+        'PelviPilot è un companion per un piano da adulto già definito da un fisioterapista. Non è un programma che un adolescente inizia da solo. Non iniziare contrazioni del pavimento pelvico per una persona giovane senza quella valutazione.',
       ],
     },
   },

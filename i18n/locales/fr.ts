@@ -69,10 +69,21 @@ const fr = {
   learn: {
     eyebrow: 'Éducation',
     title: 'Apprendre',
-    subtitle: 'Courts guides pour soutenir la technique et la confiance.',
+    subtitle:
+      'Courts guides pour la pratique à la maison, regroupés comme la clinique les explique. Votre kinésithérapeute décide de ce qui vous concerne.',
     minutes: '{{count}} min',
     minutesRead: '{{count}} min de lecture',
     missing: 'Article introuvable.',
+    clinicBasis:
+      'Version courte des conseils sur le plancher pelvien publiés sur physiospecialists.gr. Votre kinésithérapeute décide de ce qui vous concerne.',
+    sections: {
+      practice: 'Pratique',
+      bladder: 'Vessie',
+      bowel: 'Intestin',
+      support: 'Soutien',
+      pain: 'Douleur',
+      'life-stages': 'Étapes de la vie',
+    },
   },
   settings: {
     title: 'Réglages',
@@ -277,6 +288,104 @@ const fr = {
         'Contactez votre kinésithérapeute ou médecin si les symptômes s’aggravent, si vous avez mal pendant les exercices, ou si vous n’êtes pas sûr(e) de la technique.',
         'Demandez un avis médical urgent en cas de douleur soudaine inexpliquée, de saignement, de fièvre ou de nouveaux symptômes neurologiques.',
         'PelviPilot est un compagnon d’exercices pour votre plan de soins. Ce n’est pas un outil de diagnostic de dispositif médical.',
+      ],
+    },
+    'leakage-is-a-symptom': {
+      title: 'Les fuites sont fréquentes, et on peut les aider',
+      summary: 'Une petite fuite reste un symptôme, y compris après un accouchement ou avec l’âge.',
+      body: [
+        'Beaucoup de femmes ont des fuites d’urine à un moment de leur vie, y compris après un accouchement ou en vieillissant. C’est fréquent, et cela reste un symptôme à prendre au sérieux.',
+        'Même une petite fuite est un signe que le corps a besoin du bon soutien. Beaucoup de personnes attendent, parce que c’est gênant d’en parler ou parce qu’on leur a dit que c’était normal.',
+        'La kinésithérapie du plancher pelvien peut renforcer les muscles, améliorer le contrôle de la vessie et changer des habitudes qui ajoutent de la pression. Ce qui aide dépend d’une évaluation et de la façon dont la fuite se produit.',
+        'Suivez seulement le programme défini pour vous dans cette application. Si les fuites sont nouvelles ou s’aggravent, dites-le à votre kinésithérapeute plutôt que d’ajouter des exercices par vous-même.',
+      ],
+    },
+    'kinds-of-leakage': {
+      title: 'Les façons dont l’urine peut fuir',
+      summary: 'Une toux, une envie soudaine, ou les deux, sont des schémas différents.',
+      body: [
+        'La fuite à l’effort arrive quand la pression sur la vessie augmente — toux, éternuement, rire ou port de charge — et qu’un peu d’urine s’échappe. Le plancher pelvien ne soutient souvent pas assez la vessie à ce moment-là.',
+        'La fuite par urgenturie est un besoin soudain et fort, difficile à retenir jusqu’aux toilettes. Certaines personnes ont les deux. On parle alors de fuites mixtes.',
+        'D’autres schémas existent, dont une vessie qui ne se vide pas complètement, ou la difficulté d’atteindre les toilettes pour d’autres raisons physiques. Des muscles faibles ne sont pas la seule cause. Une infection, des médicaments et d’autres maladies peuvent jouer un rôle.',
+        'La façon dont la fuite se produit compte, parce que le programme est différent. Votre kinésithérapeute décide si les contractions de cette application vous conviennent.',
+      ],
+    },
+    'urgency-and-frequency': {
+      title: 'Y aller souvent, ou devoir y aller tout de suite',
+      summary: 'La fréquence et l’urgenturie vont souvent ensemble. Ce n’est pas la même chose.',
+      body: [
+        'La fréquence signifie que vous urinez plus souvent que d’habitude, le jour ou la nuit. La caféine et d’autres boissons, le fonctionnement de la vessie et d’autres facteurs de santé peuvent changer le rythme. Une fréquence qui dure mérite une évaluation, surtout avec d’autres symptômes.',
+        'L’urgenturie est un besoin soudain et fort, difficile à reporter. Certaines personnes décrivent la peur de ne pas arriver aux toilettes. Cette envie peut mener à une fuite avant d’y arriver.',
+        'On peut avoir l’un sans l’autre, ou les deux. Une fuite à la toux est encore un autre schéma. Remarquer lequel est le vôtre aide votre kinésithérapeute à choisir l’approche.',
+        'L’entraînement de la vessie, des changements de boissons et d’habitudes, et la kinésithérapie du plancher pelvien peuvent aider quand ils correspondent à la cause. Utilisez le programme de cette application seulement s’il a été défini pour vous.',
+      ],
+    },
+    'constipation-and-pelvic-floor': {
+      title: 'Constipation et plancher pelvien',
+      summary: 'Pousser charge le plancher pelvien. Relâcher compte autant que contracter.',
+      body: [
+        'La constipation n’est pas seulement un problème d’intestin. Des poussées fortes et répétées augmentent la pression sur le plancher pelvien et sur les tissus qui soutiennent les organes. Avec le temps, cela peut ajouter une sensation de lourdeur en bas du bassin.',
+        'Ces muscles doivent se relâcher au bon moment, pas seulement se contracter. Pendant une selle, le plancher pelvien doit lâcher et travailler avec la respiration et les muscles abdominaux. S’il reste tendu, l’évacuation devient plus difficile, l’envie de pousser augmente, et le cycle continue.',
+        'Un petit marchepied sous les pieds, pour que les genoux soient un peu plus hauts que les hanches, et une légère inclinaison du tronc vers l’avant peuvent faciliter l’évacuation. Respirez. Évitez de bloquer la respiration et les longues poussées fortes. Allez quand l’envie est là, et ne restez pas longtemps s’il n’y a pas d’envie. Les fibres dans l’alimentation, et la marche régulière, soutiennent l’intestin.',
+        'La kinésithérapie du plancher pelvien n’est pas toujours du renforcement. Si les muscles sont tendus ou ne lâchent pas, les contractions seules peuvent être le mauvais choix. Demandez à votre kinésithérapeute avant d’en ajouter. Cette application suit le programme déjà choisi pour vous.',
+      ],
+    },
+    prolapse: {
+      title: 'Quand les organes pelviens se sentent moins soutenus',
+      summary: 'Une lourdeur, ou la sensation que quelque chose descend.',
+      body: [
+        'Un prolapsus des organes pelviens, c’est quand les muscles et les ligaments ne soutiennent plus assez la vessie, l’utérus ou l’intestin, et que ces organes descendent. On décrit souvent une lourdeur ou une pression dans le vagin, la sensation que quelque chose descend, une difficulté à vider la vessie ou l’intestin, une douleur lombaire ou pelvienne, ou une gêne pendant les rapports.',
+        'Pour beaucoup de femmes avec un prolapsus léger à modéré, la kinésithérapie du plancher pelvien est le point de départ : un programme personnel, apprendre comment les muscles doivent travailler, et des conseils pour la vie quotidienne. Le but est d’alléger les symptômes, d’améliorer le soutien et de ralentir l’aggravation.',
+        'Cette application n’évalue pas un prolapsus. Pratiquez seulement le programme donné par votre kinésithérapeute, et dites-le si la lourdeur augmente.',
+      ],
+    },
+    'abdominal-separation': {
+      title: 'Un écart entre les muscles abdominaux',
+      summary: 'Un écart sur la ligne médiane peut toucher le tronc et le plancher pelvien.',
+      body: [
+        'La séparation des abdominaux, parfois appelée diastasis, est un élargissement entre les deux muscles droits de l’abdomen le long de la ligne médiane. Elle est fréquente pendant la grossesse et après l’accouchement. Elle peut aussi apparaître quand la pression dans l’abdomen reste élevée, y compris chez les hommes, par exemple après un grand changement de poids ou des efforts répétés.',
+        'Ce n’est pas une hernie. Cela peut changer la stabilité ressentie du tronc, le travail du plancher pelvien et les mouvements du quotidien. Certaines personnes remarquent une bosse ou un bombement au milieu de l’abdomen, une sensation de faiblesse, un mal de dos, ou des fuites ou un prolapsus en même temps.',
+        'La largeur de l’écart n’est qu’une partie du tableau. La façon dont les muscles se rapprochent, et comment le tronc travaille, compte aussi. Un programme peut inclure l’activation des abdominaux profonds, le plancher pelvien, le contrôle du tronc, la respiration et la gestion de la pression dans l’abdomen.',
+        'Reprenez l’exercice comme votre kinésithérapeute le définit. Si vous voyez un bombement, ou si vous avez des symptômes du plancher pelvien, demandez avant d’ajouter un travail abdominal intense par vous-même.',
+      ],
+    },
+    'pelvic-pain': {
+      title: 'Douleur pelvienne, et muscles qui ne lâchent pas',
+      summary: 'La douleur peut venir de muscles tendus, pas seulement de muscles faibles.',
+      body: [
+        'La douleur pelvienne peut siéger dans le bassin, le périnée, les organes génitaux ou le bas de l’abdomen. Elle peut être là tout le temps ou aller et venir, et toucher la position assise, les rapports, la vessie ou l’intestin.',
+        'Les muscles peuvent travailler trop fort et avoir du mal à se relâcher. La douleur peut aussi suivre une blessure, une opération, des cicatrices ou un accouchement, ou accompagner d’autres maladies. Chez les hommes, elle peut faire partie d’une douleur pelvienne chronique. La cause n’est souvent pas évidente et demande une évaluation.',
+        'Les soins pour cette douleur commencent souvent par le relâchement, la respiration et l’apprentissage du fonctionnement du plancher pelvien. Le renforcement s’ajoute seulement quand il est nécessaire. Les contractions ne sont pas le bon premier pas pour tout le monde.',
+        'Si vous avez mal pendant les exercices de cette application, arrêtez et contactez votre kinésithérapeute. Une douleur qui dure des mois, ou une douleur avec des symptômes de vessie, d’intestin ou sexuels, demande une évaluation plutôt qu’un programme plus dur.',
+      ],
+    },
+    'pregnancy-and-after-birth': {
+      title: 'Grossesse et après l’accouchement',
+      summary: 'Le plancher pelvien porte une charge en plus. Les fuites ensuite peuvent s’améliorer.',
+      body: [
+        'Pendant la grossesse, le plancher pelvien porte une charge supplémentaire. La kinésithérapie à ce moment peut aider pour des problèmes comme le mal de dos et pour la préparation à l’accouchement. Après la naissance, elle fait partie de la récupération.',
+        'Les fuites après l’accouchement sont fréquentes. Ce n’est pas quelque chose à accepter comme la nouvelle normalité. Une évaluation et un programme adapté peuvent améliorer le contrôle de la vessie et le soutien.',
+        'Un écart des abdominaux, ou une sensation de lourdeur, peut apparaître à la même période. Mentionnez-les pour que le programme couvre le tronc autant que le plancher pelvien.',
+        'Utilisez cette application pour le programme à la maison déjà choisi par votre kinésithérapeute. Si vous êtes enceinte ou venez d’accoucher et que ce programme a été défini pour une autre étape, demandez avant de le suivre.',
+      ],
+    },
+    'women-and-men': {
+      title: 'Femmes et hommes',
+      summary: 'On en parle plus souvent pour les femmes. Les hommes ont aussi besoin de ces soins.',
+      body: [
+        'Les problèmes de plancher pelvien sont plus souvent associés aux femmes : fuites, prolapsus, douleur pendant les rapports, grossesse, et récupération après une chirurgie gynécologique.',
+        'Les hommes ont aussi besoin de ces soins, y compris pour une douleur pelvienne chronique et pour la récupération avant ou après une chirurgie de la prostate. Le but est un programme adapté à cette personne, pour soutenir la guérison et le contrôle de la vessie.',
+        'Le travail n’est pas le même pour tout le monde. Certaines personnes doivent renforcer. D’autres doivent relâcher et coordonner. Votre kinésithérapeute définit ce que cette application fait pour vous.',
+      ],
+    },
+    'teenage-leakage': {
+      title: 'Fuites à l’adolescence',
+      summary: 'Pour les familles. Un adolescent a besoin d’une évaluation médicale avant tout programme d’exercices.',
+      body: [
+        'Les fuites urinaires peuvent toucher les adolescentes et les adolescents. Elles peuvent être là depuis l’enfance, et affecter l’école, le sport et la confiance. Ce n’est pas un choix, de la paresse, ou un manque d’effort.',
+        'Des habitudes qui se construisent parfois autour — retarder les toilettes pendant des heures, boire très peu, ou contracter toute la journée pour éviter une fuite — peuvent rendre plus difficile le travail de la vessie et du plancher pelvien. La constipation compte aussi : un intestin plein peut appuyer sur la vessie.',
+        'Un médecin doit évaluer cela avant tout programme de rééducation, surtout si les fuites commencent soudainement après une période sans fuite. La kinésithérapie du plancher pelvien, quand elle est indiquée, vient ensuite et s’adapte à l’âge. Tous les adolescents n’ont pas besoin de renforcement. Certains doivent apprendre à relâcher.',
+        'PelviPilot est un compagnon pour un programme d’adulte déjà défini par un kinésithérapeute. Ce n’est pas un programme qu’un adolescent démarre seul. Ne commencez pas des contractions du plancher pelvien pour un jeune sans cette évaluation.',
       ],
     },
   },
