@@ -3,7 +3,7 @@
     "name": "PelviPilot",
     "slug": "pelvipilot",
     "owner": "lamprosv",
-    "version": "1.7.0",
+    "version": "1.7.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "pelvipilot",
@@ -56,7 +56,8 @@
         {
           "image": "./assets/images/splash-icon.png",
           "resizeMode": "contain",
-          "backgroundColor": "#F5FBFA"
+          "backgroundColor": "#F5FBFA",
+          "imageWidth": 200
         }
       ],
       [
