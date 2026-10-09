@@ -121,10 +121,46 @@ Also tap **Test It** inside the EmailJS template editor once — that proves Gma
 | Email goes to wrong person | Change **Settings → Physiotherapist alert email** on that phone |
 | No email after completing sessions | Ensure **Patient name** is filled; complete all sessions for the day (e.g. 3/3) |
 | Only one email per day | By design — duplicate protection for the same calendar day |
+| EmailJS refuses the send / quota exceeded | Free plan is 200 requests a month. See **Capacity** below. Play's pre-launch crawler can use them up without any patient finishing a day |
 | Push to GitHub fails locally | Run `git pull origin main` first; check GitHub login/token; see note below |
 
 ---
 
-## Optional: Vercel + Resend (advanced)
+## Capacity — revisit before real patients
 
-The `api/notify-daily-complete.js` file is an alternative server-side sender. The app now uses **EmailJS by default** so you do not need Vercel or Resend unless you prefer that architecture later.
+Noted **2026-10-09**, during Google Play closed testing with four people: Lampros, his mother, her colleague, and his stepfather. Recheck the vendor pricing pages before paying. This is the bottleneck to look at as genuine daily alerts grow. Decide before patients are blocked, not the week the inbox goes quiet.
+
+### What one request is
+
+EmailJS is the broker. The phone asks EmailJS to send, and EmailJS delivers through the connected Gmail account. One finished day on one phone is one request: the email goes out only after every session required that day, and at most once per calendar day. The Settings **Send test alert email** button is extra and can send on every tap.
+
+Four people finishing every day is about 120 requests a month. That fits the free allowance. About seven people finishing every day reaches 200.
+
+### What happens at the limit
+
+On the free plan, the next request is refused until the monthly allowance resets. EmailJS does not queue it and does not charge overage. The physiotherapist does not get that alert.
+
+### Prices (checked 2026-10-09)
+
+[EmailJS pricing](https://www.emailjs.com/pricing/). Figures are US dollars per month.
+
+| Plan | Price | Monthly requests |
+| --- | --- | --- |
+| Free | $0 | 200 |
+| Personal | $9 | 2,000 |
+| Professional | $15 | 5,000 |
+| Business | $40 | 25,000 |
+
+### Decision for now
+
+Stay on the free plan for this closed test. Do not buy a plan because the allowance ran out in testing.
+
+Google Play's pre-launch crawler can spend the 200 by itself. In EmailJS history those rows use the address `crawlerrobo@gmail.com` and the browser `okhttp`, with random patient and clinic names. They are lab phones, not patients. Match the time to Play Console → **Test and release → Testing → Pre-launch report**.
+
+Pay for EmailJS **Personal** ($9, 2,000 a month) when real patients are approaching 200 genuine alerts a month. That is the small step. 2,000 a month is about 65 phones finishing every day.
+
+### Later path: Resend
+
+`api/notify-daily-complete.js` is an unused server-side sender (Vercel + Resend). The app does not call it. Consider it when the send secret should live off the phone, not merely to get past 200.
+
+[Resend pricing](https://resend.com/pricing), also checked 2026-10-09: the free plan is 3,000 emails a month with a hard cap of 100 a day. Sending to an arbitrary clinic address needs a domain you verify. The default `onboarding@resend.dev` sender only delivers to the Resend account owner. Resend Pro starts at $20 a month for 50,000. Moving there is an app change plus DNS, so it comes after the $9 EmailJS plan.
