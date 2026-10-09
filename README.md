@@ -258,7 +258,7 @@ Confirm the preview at the bottom of **Settings** (`Web build pr-<N>-<sha>`).
 - `lib/` — storage, reminders, sessions
 - `docs/GOOGLE_PLAY.md` — Play Console checklist
 - `docs/TESTING.md` — web vs dev client vs preview APK vs Play
-- `docs/PHYSIO_NOTIFICATIONS.md` — daily email alerts setup
+- `docs/PHYSIO_NOTIFICATIONS.md` — daily email alerts setup, and when the free EmailJS allowance runs out
 - `.github/workflows/` — web deploy + optional EAS
 
 ## Disclaimer

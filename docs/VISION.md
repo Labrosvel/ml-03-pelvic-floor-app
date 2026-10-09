@@ -41,7 +41,11 @@ PelviPilot is a calm home-practice companion: the **physiotherapist sets the pla
 
 ### Near-term direction (intent, not committed backlog)
 
-- When a patient **completes their plan**, the **physiotherapist should receive a notification** (or equivalent signal). Not built yet — design and channel TBD.
+- When a patient **completes their plan**, the **physiotherapist should receive a notification** (or equivalent signal). Not built yet — design and channel TBD. The smaller daily alert (one email when today's sessions are all done) already exists; its volume limit is a known bottleneck, recorded in `docs/PHYSIO_NOTIFICATIONS.md` under **Capacity**.
+
+### Known constraint — daily email allowance
+
+Closed testing (four people, October 2026) stays on free EmailJS. One finished day on one phone is one request, so this group fits the free 200 a month. Revisit the paid plan or a move off EmailJS when genuine alerts approach that 200, not after patients are already blocked. Google Play's pre-launch crawler can empty the free allowance by itself; that usage is not patient volume.
 
 ### Future ideas — debatable, do not assume
 
@@ -95,3 +99,4 @@ Before proposing solutions or editing code:
 | 2026-10-06 | Tablet APK/AAB requests use Expo build links, not files moved onto the tablet (see `README.md`). |
 | 2026-10-07 | Retired the live desktop QR. Tablet browser checks use the pull-request web preview. |
 | 2026-10-07 | The break between slow and quick squeezes is set on the exercise plan (default 15 seconds; 0 skips it). |
+| 2026-10-09 | Daily completion email stays on free EmailJS for the four-person closed test. Quota, prices, and the later Resend option are in `docs/PHYSIO_NOTIFICATIONS.md`. |
