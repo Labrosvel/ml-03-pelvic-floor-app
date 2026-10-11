@@ -127,6 +127,7 @@ const it = {
     soundPackChime: 'Campanella',
     soundPackInterface: 'Interfaccia',
     language: 'Lingua',
+    languageHint: 'Apre l’elenco delle lingue',
     languageSystem: 'Predefinita del dispositivo',
     languageEn: 'Inglese',
     languageEl: 'Greco',

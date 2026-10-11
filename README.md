@@ -14,7 +14,7 @@ Mobile-first (iOS / Android). The hosted web preview is for quick validation onl
 - Optional daily reminders
 - Short education articles
 - Clinic name + patient name personalisation
-- English, Greek, Italian, Spanish, and French (Settings → Language)
+- English, Greek, Italian, Spanish, and French (header language control next to Physiospecialists)
 
 ---
 

@@ -1,29 +1,33 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { brand, colors, fonts, spacing } from '@/constants/theme';
 
 /**
- * Parent-clinic lockup: Physiospecialists mark + name, top-right on every screen.
+ * Parent-clinic lockup + compact language control, top-right on every screen.
  */
 export function BrandHeader() {
   return (
-    <View
-      style={styles.wrap}
-      accessibilityRole="header"
-      accessibilityLabel={brand.clinicName}
-    >
-      <View style={styles.markWell}>
-        <Image
-          source={require('../assets/images/physiospecialists-mark.png')}
-          style={styles.mark}
-          resizeMode="contain"
-          accessibilityIgnoresInvertColors
-          accessible={false}
-        />
+    <View style={styles.wrap}>
+      <View
+        style={styles.lockup}
+        accessibilityRole="header"
+        accessibilityLabel={brand.clinicName}
+      >
+        <View style={styles.markWell}>
+          <Image
+            source={require('../assets/images/physiospecialists-mark.png')}
+            style={styles.mark}
+            resizeMode="contain"
+            accessibilityIgnoresInvertColors
+            accessible={false}
+          />
+        </View>
+        <Text style={styles.name} numberOfLines={1}>
+          {brand.clinicName}
+        </Text>
       </View>
-      <Text style={styles.name} numberOfLines={1}>
-        {brand.clinicName}
-      </Text>
+      <LanguageSwitcher />
     </View>
   );
 }
@@ -36,6 +40,12 @@ const styles = StyleSheet.create({
     maxWidth: '100%',
     gap: spacing.sm,
     marginBottom: spacing.md,
+  },
+  lockup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexShrink: 1,
+    gap: spacing.sm,
   },
   markWell: {
     width: 36,

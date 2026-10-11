@@ -127,6 +127,7 @@ const el = {
     soundPackChime: 'Καμπανάκι',
     soundPackInterface: 'Διεπαφή',
     language: 'Γλώσσα',
+    languageHint: 'Ανοίγει τη λίστα γλωσσών',
     languageSystem: 'Γλώσσα συσκευής',
     languageEn: 'Αγγλικά',
     languageEl: 'Ελληνικά',

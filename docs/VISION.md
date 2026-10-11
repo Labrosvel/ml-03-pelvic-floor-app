@@ -27,7 +27,7 @@ PelviPilot is a calm home-practice companion: the **physiotherapist sets the pla
 ### In scope today
 
 - Patient uses the app **according to instructions the physiotherapist decides**.
-  - Today this maps to **Settings** (clinic name, patient name, language, reminders, sounds) and **Exercise plan** (sessions per day, slow/quick squeeze timings and reps, and the break between slow and quick).
+  - Today this maps to **Settings** (clinic name, patient name, reminders, sounds), a **header language control** next to the Physiospecialists lockup, and **Exercise plan** (sessions per day, slow/quick squeeze timings and reps, and the break between slow and quick).
 - Patient receives **local notifications** to complete their exercises / daily plan (where the platform supports it — native builds, not web preview).
 - **Guided sessions** with visual and optional audio/haptic cues.
 - **Local progress history** on device (no cloud sync yet).

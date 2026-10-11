@@ -27,28 +27,9 @@ import {
 } from '@/constants/buildInfo';
 import { isEmailJsConfigured } from '@/constants/notifications';
 import { useAppState } from '@/context/AppState';
-import { AppLanguage } from '@/i18n/types';
 import { sendPhysioDailyCompleteEmail } from '@/lib/notifyPhysio';
 import { areRemindersSupported, parseTime } from '@/lib/reminders';
 import { previewSoundPack } from '@/lib/sound';
-
-const LANGUAGE_OPTIONS: {
-  value: AppLanguage;
-  labelKey:
-    | 'languageSystem'
-    | 'languageEn'
-    | 'languageEl'
-    | 'languageIt'
-    | 'languageEs'
-    | 'languageFr';
-}[] = [
-  { value: 'system', labelKey: 'languageSystem' },
-  { value: 'en', labelKey: 'languageEn' },
-  { value: 'el', labelKey: 'languageEl' },
-  { value: 'it', labelKey: 'languageIt' },
-  { value: 'es', labelKey: 'languageEs' },
-  { value: 'fr', labelKey: 'languageFr' },
-];
 
 const SOUND_PACK_LABEL_KEYS: Record<
   SoundPackId,
@@ -315,28 +296,6 @@ export default function SettingsScreen() {
           onPress={() => void sendTestAlert()}
           style={styles.testAlertButton}
         />
-      </Panel>
-
-      <Panel style={styles.block}>
-        <Text style={styles.rowTitle}>{t('settings.language')}</Text>
-        <View style={styles.languageRow}>
-          {LANGUAGE_OPTIONS.map((option) => {
-            const selected = settings.language === option.value;
-            return (
-              <Pressable
-                key={option.value}
-                onPress={() => void updateSettings({ language: option.value })}
-                style={[styles.languageChip, selected && styles.languageChipSelected]}
-              >
-                <Text
-                  style={[styles.languageChipText, selected && styles.languageChipTextSelected]}
-                >
-                  {t(`settings.${option.labelKey}`)}
-                </Text>
-              </Pressable>
-            );
-          })}
-        </View>
       </Panel>
 
       <Panel style={styles.block}>
