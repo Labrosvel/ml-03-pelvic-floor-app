@@ -27,7 +27,7 @@ PelviPilot is a calm home-practice companion: the **physiotherapist sets the pla
 ### In scope today
 
 - Patient uses the app **according to instructions the physiotherapist decides**.
-  - Today this maps to **Settings** (clinic name, patient name, language, reminders, sounds) and **Exercise plan** (sessions per day, slow/quick squeeze timings and reps, and the break between slow and quick).
+  - Today this maps to **Settings** (clinic name, patient name, reminders, sounds), a **header language control** next to the Physiospecialists lockup, and **Exercise plan** (sessions per day, slow/quick squeeze timings and reps, and the break between slow and quick).
 - Patient receives **local notifications** to complete their exercises / daily plan (where the platform supports it — native builds, not web preview).
 - **Guided sessions** with visual and optional audio/haptic cues.
 - **Local progress history** on device (no cloud sync yet).
@@ -100,3 +100,4 @@ Before proposing solutions or editing code:
 | 2026-10-07 | Retired the live desktop QR. Tablet browser checks use the pull-request web preview. |
 | 2026-10-07 | The break between slow and quick squeezes is set on the exercise plan (default 15 seconds; 0 skips it). |
 | 2026-10-09 | Daily completion email stays on free EmailJS for the four-person closed test. Quota, prices, and the later Resend option are in `docs/PHYSIO_NOTIFICATIONS.md`. |
+| 2026-10-11 | Language sits in the header next to Physiospecialists, not as a Settings section. |

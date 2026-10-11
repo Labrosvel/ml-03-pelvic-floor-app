@@ -128,6 +128,7 @@ const fr = {
     soundPackChime: 'Carillon',
     soundPackInterface: 'Interface',
     language: 'Langue',
+    languageHint: 'Ouvre la liste des langues',
     languageSystem: 'Langue de l’appareil',
     languageEn: 'Anglais',
     languageEl: 'Grec',

@@ -127,6 +127,7 @@ const es = {
     soundPackChime: 'Campana',
     soundPackInterface: 'Interfaz',
     language: 'Idioma',
+    languageHint: 'Abre la lista de idiomas',
     languageSystem: 'Predeterminado del dispositivo',
     languageEn: 'Inglés',
     languageEl: 'Griego',

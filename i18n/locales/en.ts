@@ -126,6 +126,7 @@ const en = {
     soundPackChime: 'Chime',
     soundPackInterface: 'Interface',
     language: 'Language',
+    languageHint: 'Opens the language list',
     languageSystem: 'Device default',
     languageEn: 'English',
     languageEl: 'Greek',
