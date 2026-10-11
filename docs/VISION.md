@@ -100,3 +100,4 @@ Before proposing solutions or editing code:
 | 2026-10-07 | Retired the live desktop QR. Tablet browser checks use the pull-request web preview. |
 | 2026-10-07 | The break between slow and quick squeezes is set on the exercise plan (default 15 seconds; 0 skips it). |
 | 2026-10-09 | Daily completion email stays on free EmailJS for the four-person closed test. Quota, prices, and the later Resend option are in `docs/PHYSIO_NOTIFICATIONS.md`. |
+| 2026-10-11 | Language sits in the header next to Physiospecialists, not as a Settings section. |
