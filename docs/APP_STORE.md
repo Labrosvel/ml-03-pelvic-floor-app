@@ -22,12 +22,12 @@ Do **not** upload a Mac desktop capture or a wrong-size browser screenshot. `ass
 
 ## Build / submit (no iPhone needed)
 
-IPA is built in **EAS cloud**. First time needs Apple login **once on a computer** to link credentials to Expo; after that cloud builds can reuse them.
+IPA is built in **EAS cloud**. Signing credentials and the ASC API key are stored on Expo (`lamprosv`); cloud agents use `EXPO_TOKEN` + `EXPO_ASC_*` / `EXPO_APPLE_TEAM_*` secrets for non-interactive build/submit.
 
 ```bash
 npm install
-npx eas-cli build -p ios --profile production   # first run: interactive Apple login
-npx eas-cli submit -p ios --profile production --latest
+npm run build:ios:production:cloud   # or: npx eas-cli build -p ios --profile production
+npm run submit:ios                   # uploads latest IPA; eas.json has ascAppId
 ```
 
 | Command | Purpose |
@@ -38,7 +38,7 @@ npx eas-cli submit -p ios --profile production --latest
 
 Builds: https://expo.dev/accounts/lamprosv/projects/pelvipilot/builds  
 
-**Status:** Expo `lamprosv` works. No iOS builds yet until that first interactive credential step.
+**Status:** Production iOS IPA builds and submits via EAS. ASC App ID `6832199337` is in `eas.json`. Cloud-agent secrets: `EXPO_TOKEN`, `EXPO_ASC_*`, `EXPO_APPLE_TEAM_*`. Distribution cert + App Store profile (with Push Notifications) are stored on EAS for account `lamprosv`. Latest submitted: **1.7.3 (6)** on TestFlight (internal ready). Listing still needs screenshots + **Add for Review**.
 
 TestFlight is only useful if someone else (e.g. a tester with an iPhone) installs it. The owner does not need it.
 
