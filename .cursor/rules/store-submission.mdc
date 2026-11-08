@@ -1,0 +1,20 @@
+---
+description: Store submission context — App Store and Google Play
+alwaysApply: true
+---
+
+# Store submission
+
+When the conversation is about shipping, listing, screenshots, review, TestFlight, Play Console, or store rejection errors, **read the matching guide before answering or changing code**:
+
+| Topic | Doc |
+| --- | --- |
+| **iOS / iPhone / App Store Connect / TestFlight / Apple review** | [`docs/APP_STORE.md`](docs/APP_STORE.md) |
+| **Android / Google Play / Play Console / AAB / internal testing** | [`docs/GOOGLE_PLAY.md`](docs/GOOGLE_PLAY.md) |
+
+## Hard rules agents must remember
+
+1. **App Store Connect accepts PNG** (and JPEG). A failed screenshot upload is almost always **wrong pixel dimensions**, not the file extension. Quote the sizes from `docs/APP_STORE.md` — do not invent “convert to JPG” as the fix.
+2. Play feature graphics in `assets/store/` are **Play-only** (1024 × 500). They are not App Store screenshots.
+3. Do not invent Apple/Google account steps the human must do (payment, enrollment, Console clicks) as if the agent completed them. Point at the checklist in the doc.
+4. Keep health wording aligned with both guides: exercise companion, not diagnose / treat / medical device.
