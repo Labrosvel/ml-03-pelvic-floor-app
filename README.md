@@ -184,6 +184,14 @@ You already completed the first internal release. For listing copy, Data safety,
 
 ---
 
+## Apple App Store
+
+iOS listing, TestFlight, App Store Connect screenshots (exact pixel sizes — PNG is fine), privacy answers, and review tips: **[docs/APP_STORE.md](docs/APP_STORE.md)**.
+
+Same Expo project as Android; needs a separate Apple Developer Program membership.
+
+---
+
 ## Local development
 
 ```bash
@@ -257,6 +265,7 @@ Confirm the preview at the bottom of **Settings** (`Web build pr-<N>-<sha>`).
 - `context/` — local app state
 - `lib/` — storage, reminders, sessions
 - `docs/GOOGLE_PLAY.md` — Play Console checklist
+- `docs/APP_STORE.md` — App Store Connect / TestFlight checklist (incl. screenshot sizes)
 - `docs/TESTING.md` — web vs dev client vs preview APK vs Play
 - `docs/PHYSIO_NOTIFICATIONS.md` — daily email alerts setup, and when the free EmailJS allowance runs out
 - `.github/workflows/` — web deploy + optional EAS

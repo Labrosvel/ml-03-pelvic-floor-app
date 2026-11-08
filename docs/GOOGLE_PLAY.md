@@ -182,6 +182,6 @@ Yes. Keep coding on branches. Users only get new code when you ship a new Play r
 5. `npm run build:android:preview` → mother installs & validates  
 6. `npm run build:android:production` → Internal testing → Production  
 
-## Apple later
+## Apple / App Store
 
-Same Expo project; separate Apple Developer Program (~$99/year), certificates, and App Store Connect listing. Do Android first if that matches your plan.
+Same Expo project; separate Apple Developer Program (~$99/year), certificates, and App Store Connect listing. Full iOS checklist (including screenshot pixel sizes): **[APP_STORE.md](APP_STORE.md)**. Do Android first if that matches your plan.
