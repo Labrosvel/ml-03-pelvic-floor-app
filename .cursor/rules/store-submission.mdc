@@ -5,16 +5,17 @@ alwaysApply: true
 
 # Store submission
 
-When the conversation is about shipping, listing, screenshots, review, TestFlight, Play Console, or store rejection errors, **read the matching guide before answering or changing code**:
+When the conversation is about shipping, listing, screenshots, review, TestFlight, Play Console, or store rejection errors, **read the matching guide before answering**:
 
 | Topic | Doc |
 | --- | --- |
-| **iOS / iPhone / App Store Connect / TestFlight / Apple review** | [`docs/APP_STORE.md`](docs/APP_STORE.md) |
-| **Android / Google Play / Play Console / AAB / internal testing** | [`docs/GOOGLE_PLAY.md`](docs/GOOGLE_PLAY.md) |
+| **iOS / App Store Connect / Apple review** | [`docs/APP_STORE.md`](docs/APP_STORE.md) |
+| **Android / Google Play** | [`docs/GOOGLE_PLAY.md`](docs/GOOGLE_PLAY.md) |
 
-## Hard rules agents must remember
+## Hard rules
 
-1. **App Store Connect accepts PNG** (and JPEG). A failed screenshot upload is almost always **wrong pixel dimensions**, not the file extension. Quote the sizes from `docs/APP_STORE.md` — do not invent “convert to JPG” as the fix.
-2. Play feature graphics in `assets/store/` are **Play-only** (1024 × 500). They are not App Store screenshots.
-3. Do not invent Apple/Google account steps the human must do (payment, enrollment, Console clicks) as if the agent completed them. Point at the checklist in the doc.
-4. Keep health wording aligned with both guides: exercise companion, not diagnose / treat / medical device.
+1. **Owner has no iPhone.** Never assume a personal iPhone, TestFlight-on-their-phone, or “buy an iPhone.” Screenshots = exact pixel sizes (agent-exported from web UI, or Simulator on a Mac if available). See `docs/APP_STORE.md`.
+2. **App Store Connect accepts PNG.** Failed uploads are almost always **wrong dimensions**, not the extension. Do not invent “convert to JPG.”
+3. Play feature graphics in `assets/store/` are **Play-only**.
+4. Do not invent Apple/Google account steps as if the agent completed them.
+5. Health wording: exercise companion — not diagnose / treat / medical device.

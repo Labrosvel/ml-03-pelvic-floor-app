@@ -1,7 +1,7 @@
 {
   "name": "pelvipilot",
   "main": "expo-router/entry",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "dependencies": {
     "@expo-google-fonts/dm-sans": "^0.4.2",
     "@expo-google-fonts/fraunces": "^0.4.1",
@@ -62,7 +62,10 @@
     "build:android:production": "eas build -p android --profile production",
     "build:android:preview:cloud": "eas build -p android --profile preview --non-interactive --no-wait",
     "build:android:production:cloud": "eas build -p android --profile production --non-interactive --no-wait",
-    "submit:android": "eas submit -p android --profile production"
+    "submit:android": "eas submit -p android --profile production",
+    "build:ios:production": "eas build -p ios --profile production",
+    "build:ios:production:cloud": "eas build -p ios --profile production --non-interactive --no-wait",
+    "submit:ios": "eas submit -p ios --profile production --latest"
   },
   "private": true
 }

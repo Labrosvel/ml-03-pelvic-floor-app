@@ -3,7 +3,7 @@
     "name": "PelviPilot",
     "slug": "pelvipilot",
     "owner": "lamprosv",
-    "version": "1.7.1",
+    "version": "1.7.2",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "pelvipilot",
@@ -14,7 +14,10 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.pelvipilot.app"
+      "bundleIdentifier": "com.pelvipilot.app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "softwareKeyboardLayoutMode": "resize",
