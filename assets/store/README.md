@@ -15,4 +15,8 @@ Full Play checklist: [`docs/GOOGLE_PLAY.md`](../../docs/GOOGLE_PLAY.md).
 
 ## App Store (iOS)
 
-These Play feature graphics are **not** App Store screenshots. App Store Connect needs device screenshots at **exact** pixel sizes (PNG is fine). See [`docs/APP_STORE.md`](../../docs/APP_STORE.md) — section **App Store Connect screenshots**.
+Play feature graphics are **not** App Store screenshots.
+
+Ready-to-upload iPhone screenshots (1179 × 2556 PNG, no personal iPhone needed): **[`ios-screenshots/`](ios-screenshots/)**.
+
+Drag them into App Store Connect → **iPhone with Dynamic Island (medium display)**. Details: [`docs/APP_STORE.md`](../../docs/APP_STORE.md).

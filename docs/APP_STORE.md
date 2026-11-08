@@ -14,13 +14,11 @@ App Store Connect **accepts PNG**. “File dimensions are invalid” = wrong **s
 
 For **iPhone with Dynamic Island (medium display)** use portrait **`1179×2556`** or **`1206×2622`** (at least one image).
 
-**How we get them without an iPhone:**
+**Ready files (upload these):** [`assets/store/ios-screenshots/`](../assets/store/ios-screenshots/) — five PNGs at **1179 × 2556**.
 
-1. Prefer: ask the agent to **export PNGs at those exact sizes** from the web app UI (`https://labrosvel.github.io/ml-03-pelvic-floor-app/` or a PR preview), then upload those files in App Store Connect.
-2. If a Mac with Xcode is available: iOS Simulator → Save Screen (also fine). Not required.
-3. Do **not** upload a random Mac desktop capture or a wrong-size browser screenshot.
+In App Store Connect → Product Page → **iPhone with Dynamic Island (medium display)** → drag those files in. PNG is fine.
 
-`assets/store/feature-graphic*.png` are **Play only** — not App Store screenshots.
+Do **not** upload a Mac desktop capture or a wrong-size browser screenshot. `assets/store/feature-graphic*.png` are **Play only**.
 
 ## Build / submit (no iPhone needed)
 
